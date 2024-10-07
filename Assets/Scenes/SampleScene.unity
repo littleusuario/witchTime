@@ -213,6 +213,25 @@ MonoBehaviour:
   _returnSpeed: 5
   attackObject: {fileID: 1980803497}
   _isPulsing: 0
+--- !u!4 &297698591 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 666938358783209836, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
+  m_PrefabInstance: {fileID: 1624252256}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &297698592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297698588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b41e6c9e558fa045aa5de553155c633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotacionObjetivo: {x: 0, y: 0, z: 0, w: 0}
+  objetoAGirar: {fileID: 297698591}
 --- !u!1 &463831923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,6 +1452,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1980803498}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7260582698484598038, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 297698592}
     - targetCorrespondingSourceObject: {fileID: 7260582698484598038, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 297698590}
