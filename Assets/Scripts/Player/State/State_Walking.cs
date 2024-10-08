@@ -31,23 +31,38 @@ public class State_Walking : IState
         {
             ICommand moveForward = new CommandMoveForward(randomMovement);
             moveForward.Execute();
+            var particleSystemMain = randomMovement.SlashParticle;
+
+            particleSystemMain.transform.eulerAngles = randomMovement.ParticleRotations[0];
             eventForward.Invoke();
         }
         if (Input.GetKey(KeyCode.S))
         {
             ICommand moveBack = new CommandMoveBackward(randomMovement);
             moveBack.Execute();
+
+            var particleSystemMain = randomMovement.SlashParticle;
+
+            particleSystemMain.transform.eulerAngles = randomMovement.ParticleRotations[1];
             eventBackward.Invoke();
         }
         if (Input.GetKey(KeyCode.A))
         {
             ICommand moveLeft = new CommandMoveLeft(randomMovement);
             moveLeft.Execute();
+
+            var particleSystemMain = randomMovement.SlashParticle;
+
+            particleSystemMain.transform.eulerAngles = randomMovement.ParticleRotations[2];
         }
         if (Input.GetKey(KeyCode.D))
         {
             ICommand moveRight = new CommandMoveRight(randomMovement);
             moveRight.Execute();
+
+            var particleSystemMain = randomMovement.SlashParticle;
+
+            particleSystemMain.transform.eulerAngles = randomMovement.ParticleRotations[3];
         }
     }
 
