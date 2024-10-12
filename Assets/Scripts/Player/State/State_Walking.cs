@@ -7,13 +7,15 @@ using UnityEngine.UIElements;
 public class State_Walking : IState
 {
     RandomMovement randomMovement;
+    StateManager stateManager;
     public event Action eventForward;
     public event Action eventBackward;
     private bool moving;
 
-    public State_Walking(RandomMovement randomMovement) 
+    public State_Walking(RandomMovement randomMovement, StateManager stateManager) 
     {
         this.randomMovement = randomMovement;
+        this.stateManager = stateManager;
     }
     public void EnterState() { }
 
@@ -63,6 +65,11 @@ public class State_Walking : IState
             var particleSystemMain = randomMovement.SlashParticle;
 
             particleSystemMain.transform.eulerAngles = randomMovement.ParticleRotations[3];
+        }
+
+        if (Input.GetKey(KeyCode.Space)) 
+        {
+            stateManager.ChangeState(stateManager.state_Jumping);
         }
     }
 
