@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class CollisionManager : MonoBehaviour
     [SerializeField] Vector3[] directions;
     [SerializeField] bool rayHit;
     [SerializeField] string tagCompare = string.Empty;
+    public event Action CollisionTrigger;
 
     public bool RayHit => rayHit;
     void Update()
@@ -33,6 +35,10 @@ public class CollisionManager : MonoBehaviour
                     Debug.DrawRay(ray.origin, rayDir, Color.red);
                     rayHit = true;
                     currentRayHit = true;
+                    if (CollisionTrigger != null) 
+                    {
+                        CollisionTrigger.Invoke();
+                    }
                 }
             }
 
