@@ -285,9 +285,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 3
+  maxJumpHeight: 0.01
   animator: {fileID: 6302453099529613577}
   particleRotations: []
   slashParticle: {fileID: 0}
+  collisionHitbox: {fileID: 0}
+  groundCheck: {fileID: 0}
 --- !u!1 &3640769170493553175
 GameObject:
   m_ObjectHideFlags: 0

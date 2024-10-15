@@ -24,7 +24,7 @@ public class FirstEnemy : Enemy
 
         if (pulseToTheBeat != null) 
         {
-            //pulseToTheBeat.beatPulse += RunBehaviour;
+            pulseToTheBeat.beatPulse += RunBehaviour;
         }
     }
     private void Start()
@@ -38,7 +38,7 @@ public class FirstEnemy : Enemy
         enemy = gameObject.transform.parent.gameObject;
     }
 
-    private void Update()
+    private void RunBehaviour()
     {
         enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, StepDistance);
     }
@@ -55,7 +55,7 @@ public class FirstEnemy : Enemy
             if (animator != null) 
             {
                 animator.SetBool("HitDamage", true);
-                StartCoroutine(HitKnockBack());
+                //StartCoroutine(HitKnockBack());
                 StartCoroutine(InvincibilityFrames());            
             }
         }
@@ -63,7 +63,7 @@ public class FirstEnemy : Enemy
         {
             death = true;
             animator.SetBool("Death", true);
-            StartCoroutine(HitKnockBack());
+            //StartCoroutine(HitKnockBack());
             StartCoroutine(InvincibilityFrames());
         }
     }
@@ -83,18 +83,18 @@ public class FirstEnemy : Enemy
         yield return null;
     }
 
-    IEnumerator HitKnockBack() 
-    {
-        float elapsedTime = 0;
-        Vector3 initialPosition = enemy.transform.position;
-        Vector3 finalPosition = enemy.transform.position - player.transform.position;
+    //IEnumerator HitKnockBack() 
+    //{
+    //    float elapsedTime = 0;
+    //    Vector3 initialPosition = enemy.transform.position;
+    //    Vector3 finalPosition = enemy.transform.position - player.transform.position;
 
-        while (elapsedTime < invincibilityFrames) 
-        {
-            elapsedTime += Time.deltaTime;
-            enemy.transform.position = Vector3.Lerp(initialPosition, finalPosition.normalized, elapsedTime / invincibilityFrames);
-            yield return null;
-        }
-        enemy.transform.position = finalPosition.normalized;
-    }
+    //    while (elapsedTime < invincibilityFrames) 
+    //    {
+    //        elapsedTime += Time.deltaTime;
+    //        enemy.transform.position = Vector3.Lerp(initialPosition, finalPosition.normalized, elapsedTime / invincibilityFrames);
+    //        yield return null;
+    //    }
+    //    enemy.transform.position = finalPosition.normalized;
+    //}
 }

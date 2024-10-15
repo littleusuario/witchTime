@@ -16,7 +16,7 @@ public class PulseToTheBeat : MonoBehaviour
     private bool _hasAttacked;
     private float startY;
 
-    //public event Action beatPulse;
+    public event Action beatPulse; 
 
     private void Start()
     {
@@ -42,7 +42,7 @@ public class PulseToTheBeat : MonoBehaviour
             Vector3 newScale = Vector3.Lerp(transform.localScale, _startSize, Time.deltaTime * _returnSpeed);
             transform.localScale = new Vector3(newScale.x, newScale.y, _startSize.z);
 
-            if (transform.localScale.magnitude < (_startSize * _pulseSize).magnitude && Input.GetMouseButton(0) && !_hasAttacked)
+            if (transform.localScale.magnitude < (_startSize * _pulseSize).magnitude && Input.GetMouseButton(0) && !_hasAttacked && attackObject != null)
             {
                 Attack();
             }
@@ -59,7 +59,10 @@ public class PulseToTheBeat : MonoBehaviour
     {
         _isPulsing = true;
         _hasAttacked = false;
-        //beatPulse.Invoke();
+        if (beatPulse != null) 
+        {
+            beatPulse.Invoke();
+        }
         transform.localScale = _startSize * _pulseSize;
     }
 
