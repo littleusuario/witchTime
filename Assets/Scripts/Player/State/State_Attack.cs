@@ -5,12 +5,12 @@ using UnityEngine;
 public class State_Attack : IState
 {
     RandomMovement randomMovement;
-    StateManager stateManager;
+    PlayerStateManager stateManager;
     private float zRotation = 90;
     bool flipped;
 
     Vector3 currentFlip = new Vector3(1, 0, 0);
-    public State_Attack(RandomMovement randomMovement, StateManager stateManager)
+    public State_Attack(RandomMovement randomMovement, PlayerStateManager stateManager)
     {
         this.randomMovement = randomMovement;
         this.stateManager = stateManager;

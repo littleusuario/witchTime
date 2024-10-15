@@ -5,14 +5,14 @@ using UnityEngine;
 public class State_Jump : IState
 {
     RandomMovement randomMovement;
-    StateManager stateManager;
+    PlayerStateManager stateManager;
     private bool maxHeightReached;
     CollisionManager groundCheck;
     float impulse = 1f;
     float limitHeight = 0.5f;
     float jumpVelocity = 5f;
 
-    public State_Jump(RandomMovement randomMovement, StateManager stateManager)
+    public State_Jump(RandomMovement randomMovement, PlayerStateManager stateManager)
     {
         this.randomMovement = randomMovement;
         groundCheck = randomMovement.GroundCheck;

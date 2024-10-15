@@ -38,6 +38,7 @@ public class CollisionManager : MonoBehaviour
                     if (CollisionTrigger != null) 
                     {
                         CollisionTrigger.Invoke();
+                        break;
                     }
                 }
             }

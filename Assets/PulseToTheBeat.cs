@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class PulseToTheBeat : MonoBehaviour
     private bool _isClick;
     private bool _hasAttacked;
     private float startY;
+
+    //public event Action beatPulse;
 
     private void Start()
     {
@@ -56,6 +59,7 @@ public class PulseToTheBeat : MonoBehaviour
     {
         _isPulsing = true;
         _hasAttacked = false;
+        //beatPulse.Invoke();
         transform.localScale = _startSize * _pulseSize;
     }
 

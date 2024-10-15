@@ -18,10 +18,10 @@ public class RandomMovement : MonoBehaviour
     public CollisionManager CollisionHitbox => collisionHitbox;
     public CollisionManager GroundCheck => groundCheck;
 
-    public StateManager stateManager;
+    public PlayerStateManager stateManager;
     void Awake()
     {
-        stateManager = new StateManager(this);
+        stateManager = new PlayerStateManager(this);
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<Camera>();
     }
 

@@ -7,12 +7,12 @@ using UnityEngine.UIElements;
 public class State_Walking : IState
 {
     RandomMovement randomMovement;
-    StateManager stateManager;
+    PlayerStateManager stateManager;
     public event Action eventForward;
     public event Action eventBackward;
     private bool moving;
 
-    public State_Walking(RandomMovement randomMovement, StateManager stateManager) 
+    public State_Walking(RandomMovement randomMovement, PlayerStateManager stateManager) 
     {
         this.randomMovement = randomMovement;
         this.stateManager = stateManager;

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateManager
+public class PlayerStateManager
 {
     public IState currentState;
     public State_Walking state_Walking;
     public State_Jump state_Jumping;
     public State_Attack state_Attacking;
-    public StateManager(RandomMovement randomMovement) 
+    public PlayerStateManager(RandomMovement randomMovement) 
     {
         state_Walking = new State_Walking(randomMovement, this);
         state_Jumping = new State_Jump(randomMovement, this);
