@@ -5,5 +5,5 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
     public int HealthPoints;
-    public abstract void Attack();
+    public abstract void RunBehaviour();
 }

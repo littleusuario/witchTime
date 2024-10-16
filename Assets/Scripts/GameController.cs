@@ -8,9 +8,9 @@ public class GameController : MonoBehaviour
     {
         EnemyFactory factory = new EnemyFactory();
         Enemy firstenemy = factory.CreateEnemy("first enemy");
-        firstenemy.Attack();
+        firstenemy.RunBehaviour();
 
         Enemy secondenemy = factory.CreateEnemy("second enemy");
-        secondenemy.Attack();
+        secondenemy.RunBehaviour();
     }
 }

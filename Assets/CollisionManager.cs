@@ -7,17 +7,24 @@ public class CollisionManager : MonoBehaviour
 {
     [SerializeField] float rayLimit = 0.2f;
     [SerializeField] List<Ray> storedRays = new List<Ray>();
+    [SerializeField] List<string> tagsToCollide = new List<string>();
     [SerializeField] Vector3[] directions;
     [SerializeField] bool rayHit;
     [SerializeField] string tagCompare = string.Empty;
     public event Action CollisionTrigger;
 
+    public List<Ray>StoredRays => storedRays;
     public bool RayHit => rayHit;
+    public float RayLimit => rayLimit;
     void Update()
     {
         for (int i = 0; i < directions.Length; i++) 
         {
-            storedRays.Add(new Ray(transform.position, directions[i]));
+            if (storedRays.Count < directions.Length) 
+            {
+                storedRays.Add(new Ray(transform.position, directions[i]));
+            }
+            storedRays[i] = new Ray(transform.position, directions[i]);
         }
 
         foreach (Ray ray in storedRays) 
@@ -30,15 +37,18 @@ public class CollisionManager : MonoBehaviour
             {
                 Collider collider = hit.collider;
                 MeshRenderer meshRenderer = null;
-                if (hit.transform.gameObject.CompareTag(tagCompare)) 
+                foreach (string tag in tagsToCollide) 
                 {
-                    Debug.DrawRay(ray.origin, rayDir, Color.red);
-                    rayHit = true;
-                    currentRayHit = true;
-                    if (CollisionTrigger != null) 
+                    if (hit.transform.gameObject.CompareTag(tag)) 
                     {
-                        CollisionTrigger.Invoke();
-                        break;
+                        Debug.DrawRay(ray.origin, rayDir, Color.red);
+                        rayHit = true;
+                        currentRayHit = true;
+                        if (CollisionTrigger != null) 
+                        {
+                            CollisionTrigger.Invoke();
+                            break;
+                        }
                     }
                 }
             }
@@ -49,6 +59,6 @@ public class CollisionManager : MonoBehaviour
             }
         }
 
-        storedRays.Clear();
+        //storedRays.Clear();
     }
 }

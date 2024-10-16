@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SecondEnemy : Enemy
 {
-    public override void Attack()
+    public override void RunBehaviour()
     {
         Debug.Log("El segundo enemigo ataca");
     }

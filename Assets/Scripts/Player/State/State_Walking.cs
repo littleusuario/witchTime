@@ -12,6 +12,11 @@ public class State_Walking : IState
     public event Action eventBackward;
     private bool moving;
 
+    bool blockForward;
+    bool blockBack;
+    bool blockRight;
+    bool blockLeft;
+
     public State_Walking(RandomMovement randomMovement, PlayerStateManager stateManager) 
     {
         this.randomMovement = randomMovement;
@@ -25,30 +30,41 @@ public class State_Walking : IState
         AnimacionMovimiento();
     }
 
+    bool CheckRayHit(int rayIndex) 
+    {
+        return Physics.Raycast(randomMovement.CollisionHitbox.StoredRays[rayIndex], out RaycastHit forwardHit, randomMovement.CollisionHitbox.RayLimit);
+    }
     void ProcesarEntrada()
     {
         moving = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
+        if (randomMovement.CollisionHitbox.StoredRays.Count > 3) 
+        {
+            blockForward = CheckRayHit(0);
+            blockBack = CheckRayHit(1);
+            blockRight = CheckRayHit(2);
+            blockLeft = CheckRayHit(3);
+        }
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && !blockForward)
         {
             ICommand moveForward = new CommandMoveForward(randomMovement);
             moveForward.Execute();
 
             eventForward.Invoke();
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && !blockBack)
         {
             ICommand moveBack = new CommandMoveBackward(randomMovement);
             moveBack.Execute();
 
             eventBackward.Invoke();
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && !blockLeft)
         {
             ICommand moveLeft = new CommandMoveLeft(randomMovement);
             moveLeft.Execute();
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && !blockRight)
         {
             ICommand moveRight = new CommandMoveRight(randomMovement);
             moveRight.Execute();
@@ -78,6 +94,9 @@ public class State_Walking : IState
             randomMovement.animator.SetBool("walking", moving);
         }
     }
-
+    public int awa() 
+    {
+        return 2; 
+    }
     public void ExitState() { }
 }

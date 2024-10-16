@@ -14,7 +14,13 @@ public class FirstEnemy : Enemy
     [SerializeField] Animator animator;
     [SerializeField] PulseToTheBeat pulseToTheBeat;
     bool death;
+    EnemyStateManager stateManager;
 
+    public float _StepDistance => StepDistance;
+    public GameObject Player => player;
+    public Animator Animator => animator;
+    public bool Death { get => death; set => death = value; }
+    public GameObject Enemy => enemy;
     private void Awake()
     {
         if (hitboxEnemy != null)
@@ -36,15 +42,21 @@ public class FirstEnemy : Enemy
         }
 
         enemy = gameObject.transform.parent.gameObject;
+
+        State_SkeletonNormal state_SkeletonNormal = new State_SkeletonNormal(this);
+        State_SkeletonDeath state_SkeletonDeath = new State_SkeletonDeath(this);
+        stateManager = new EnemyStateManager(state_SkeletonNormal, state_SkeletonDeath);
+
     }
 
-    private void RunBehaviour()
+    //private void RunBehaviour()
+    //{
+    //    enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, StepDistance);
+    //}
+    public override void RunBehaviour()
     {
-        enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, StepDistance);
-    }
-    public override void Attack()
-    {
-        Debug.Log("El enemigo 1 ataca");
+        stateManager.UpdateState();
+        //enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, StepDistance);
     }
 
     private void TakeDamage()
@@ -61,8 +73,8 @@ public class FirstEnemy : Enemy
         }
         else 
         {
-            death = true;
-            animator.SetBool("Death", true);
+            //death = true;
+            //animator.SetBool("Death", true);
             //StartCoroutine(HitKnockBack());
             StartCoroutine(InvincibilityFrames());
         }
@@ -97,4 +109,10 @@ public class FirstEnemy : Enemy
     //    }
     //    enemy.transform.position = finalPosition.normalized;
     //}
+
+    private void OnDestroy()
+    {
+        pulseToTheBeat.beatPulse -= RunBehaviour;
+        pulseToTheBeat.enabled = false;
+    }
 }
