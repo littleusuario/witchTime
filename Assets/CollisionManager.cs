@@ -16,6 +16,15 @@ public class CollisionManager : MonoBehaviour
     public List<Ray>StoredRays => storedRays;
     public bool RayHit => rayHit;
     public float RayLimit => rayLimit;
+
+    [SerializeField] private bool[] collisionBools = new bool[4];
+    public bool[] CollisionBools => collisionBools;
+
+    bool blockForward;
+    bool blockBack;
+    bool blockRight;
+    bool blockLeft;
+
     void Update()
     {
         for (int i = 0; i < directions.Length; i++) 
@@ -26,6 +35,15 @@ public class CollisionManager : MonoBehaviour
             }
             storedRays[i] = new Ray(transform.position, directions[i]);
         }
+
+        if (storedRays.Count >= 3) 
+        {
+            collisionBools[0] = blockForward = CheckRayHit(0);
+            collisionBools[1] = blockBack = CheckRayHit(1);
+            collisionBools[2] = blockRight = CheckRayHit(2);
+            collisionBools[3] = blockLeft = CheckRayHit(3);
+        }
+
 
         foreach (Ray ray in storedRays) 
         {
@@ -58,7 +76,25 @@ public class CollisionManager : MonoBehaviour
                 rayHit = false;
             }
         }
+    }
 
-        //storedRays.Clear();
+    bool CheckRayHit(int rayIndex)
+    {
+        if (Physics.Raycast(storedRays[rayIndex], out RaycastHit directionHit, rayLimit)) 
+        {
+            bool rayHit = false;
+            foreach (string tag in tagsToCollide) 
+            {
+                if (directionHit.transform.gameObject.CompareTag(tag)) 
+                {
+                    rayHit = true;
+                }
+            }
+            return rayHit;
+        }
+        else 
+        {
+            return false;
+        }
     }
 }
