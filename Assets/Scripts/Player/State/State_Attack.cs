@@ -96,12 +96,11 @@ public class State_Attack : IState
             float dot = Vector3.Dot(positionAndNewPos, positionColliding);
             if (randomMovement.CollisionHitbox.CollisionBools[i] && dot >= -0.5f)
             {
-                Debug.Log($"{positionAndNewPos} || {positionColliding} || {Vector3.Dot(positionAndNewPos, positionColliding)}");
                 colliding = true;
             }
             else 
             {
-                Debug.Log($"FALSE {positionAndNewPos} || {positionColliding} || {Vector3.Dot(positionAndNewPos, positionColliding)}");
+
             }
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,8 @@ public class PulseToTheBeat : MonoBehaviour
     private bool pulseInput;
     public bool PulseInput => pulseInput;
     [SerializeField] RawImage Image;
-
+    [SerializeField] List<BeatUI> redBeats;
+    [SerializeField] GameObject BeatCanvas;
     private void Start()
     {
         _startSize = transform.localScale;
@@ -42,9 +44,25 @@ public class PulseToTheBeat : MonoBehaviour
 
     private void Update()
     {
+        if (BeatCanvas != null) 
+        {
+            for (int i = 0; i < BeatCanvas.transform.childCount; i++)
+            {
+                List<BeatUI> listBeat = new List<BeatUI>();
+                if (BeatCanvas.transform.GetChild(i).gameObject.name == "BeatUI" && BeatCanvas.transform.GetChild(i).gameObject.activeSelf) 
+                {
+                    listBeat.Add(BeatCanvas.transform.GetChild(i).gameObject.GetComponent<BeatUI>());
+                }
+                redBeats = listBeat;
+            }
+        }
         if (Input.GetMouseButton(0) && attackObject != null && !_isClick) 
         {
             pulseInput = true;
+            foreach (var b in redBeats) 
+            {
+                b.gameObject.GetComponent<RawImage>().color = Color.red;
+            }
         }
 
         if (Image != null) 
@@ -80,6 +98,10 @@ public class PulseToTheBeat : MonoBehaviour
         _hasAttacked = false;
         if (beatPulse != null) 
         {
+            foreach (var b in redBeats)
+            {
+                b.gameObject.GetComponent<RawImage>().color = Color.white;
+            }
             beatPulse.Invoke();
         }
         transform.localScale = _startSize * _pulseSize;

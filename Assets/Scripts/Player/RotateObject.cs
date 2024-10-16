@@ -34,7 +34,7 @@ public class RotateObject : MonoBehaviour
         if (objetoAGirar != null)
         {
             float velocidadGiro = 10f;
-            objetoAGirar.rotation = Quaternion.Lerp(objetoAGirar.rotation, rotacionObjetivo, Time.deltaTime * velocidadGiro);
+            //objetoAGirar.rotation = Quaternion.Lerp(objetoAGirar.rotation, rotacionObjetivo, Time.deltaTime * velocidadGiro);
         }
     }
 }
