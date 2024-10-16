@@ -10,21 +10,20 @@ public class PulseToTheBeat : MonoBehaviour
     [SerializeField] float _pulseSize = 1.15f;
     [SerializeField] float _returnSpeed = 5f;
     [SerializeField] GameObject attackObject;
+    [SerializeField] List<GameObject> redBeats = new List<GameObject>();
+    [SerializeField] GameObject beatCanvas;
 
     private Vector3 _startSize;
     private Vector3 _startPosition;
-    public bool _isPulsing;
+    private bool pulseInput;
     private bool _isClick;
     private bool _hasAttacked;
     private float startY;
 
+    public bool _isPulsing;
     public event Action beatPulse;
-
-    private bool pulseInput;
     public bool PulseInput => pulseInput;
-    [SerializeField] RawImage Image;
-    [SerializeField] List<BeatUI> redBeats;
-    [SerializeField] GameObject BeatCanvas;
+
     private void Start()
     {
         _startSize = transform.localScale;
@@ -44,30 +43,23 @@ public class PulseToTheBeat : MonoBehaviour
 
     private void Update()
     {
-        if (BeatCanvas != null) 
+        if (beatCanvas != null) 
         {
-            for (int i = 0; i < BeatCanvas.transform.childCount; i++)
+            foreach (Transform child in beatCanvas.transform) 
             {
-                List<BeatUI> listBeat = new List<BeatUI>();
-                if (BeatCanvas.transform.GetChild(i).gameObject.name == "BeatUI" && BeatCanvas.transform.GetChild(i).gameObject.activeSelf) 
+                if (!redBeats.Contains(child.gameObject)) 
                 {
-                    listBeat.Add(BeatCanvas.transform.GetChild(i).gameObject.GetComponent<BeatUI>());
+                    redBeats.Add(child.gameObject);
                 }
-                redBeats = listBeat;
             }
         }
         if (Input.GetMouseButton(0) && attackObject != null && !_isClick) 
         {
             pulseInput = true;
-            foreach (var b in redBeats) 
+            foreach (GameObject beat in redBeats) 
             {
-                b.gameObject.GetComponent<RawImage>().color = Color.red;
+                beat.gameObject.GetComponent<RawImage>().color = Color.red;
             }
-        }
-
-        if (Image != null) 
-        {
-            Image.color = pulseInput ? Color.red : Color.white;
         }
 
         if (_isPulsing)
@@ -96,14 +88,20 @@ public class PulseToTheBeat : MonoBehaviour
     {
         _isPulsing = true;
         _hasAttacked = false;
+
         if (beatPulse != null) 
         {
-            foreach (var b in redBeats)
-            {
-                b.gameObject.GetComponent<RawImage>().color = Color.white;
-            }
             beatPulse.Invoke();
         }
+
+        if (beatCanvas != null)
+        {
+            foreach (GameObject beat in redBeats)
+            {
+                beat.gameObject.GetComponent<RawImage>().color = Color.white;
+            }
+        }
+
         transform.localScale = _startSize * _pulseSize;
     }
 

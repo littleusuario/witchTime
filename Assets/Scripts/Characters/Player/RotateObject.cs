@@ -8,7 +8,7 @@ public class RotateObject : MonoBehaviour
     [SerializeField] Quaternion rotacionObjetivo;
     [SerializeField] Transform objetoAGirar;
     RandomMovement RandomMovement;
-    private void Awake()
+    private void Start()
     {
         RandomMovement = GetComponentInParent<RandomMovement>();
         RandomMovement.stateManager.state_Walking.eventForward += FaceForward;

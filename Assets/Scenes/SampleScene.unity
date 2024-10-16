@@ -1002,10 +1002,9 @@ MonoBehaviour:
   _pulseSize: 1.25
   _returnSpeed: 5
   attackObject: {fileID: 1063846326}
-  _isPulsing: 0
-  Image: {fileID: 0}
   redBeats: []
-  BeatCanvas: {fileID: 1164090913}
+  beatCanvas: {fileID: 1164090913}
+  _isPulsing: 0
 --- !u!4 &297698591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 666938358783209836, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
@@ -2166,7 +2165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -275, y: -458.8}
+  m_AnchoredPosition: {x: -325, y: -458.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &537838312
@@ -2185,7 +2184,7 @@ MonoBehaviour:
   beatUIPrefab: {fileID: 869840265968439044, guid: b4b2c8d609abfb74a9373104dc9cb833, type: 3}
   checkCollection: 0
   defaultCapacity: 1
-  maxCapacity: 1
+  maxCapacity: 3
   beatParent: {fileID: 1164090914}
 --- !u!212 &537838313
 SpriteRenderer:
@@ -4506,7 +4505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 275, y: -458.8}
+  m_AnchoredPosition: {x: 325, y: -458.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1274217514
@@ -4577,7 +4576,7 @@ MonoBehaviour:
   beatUIPrefab: {fileID: 869840265968439044, guid: b4b2c8d609abfb74a9373104dc9cb833, type: 3}
   checkCollection: 1
   defaultCapacity: 1
-  maxCapacity: 1
+  maxCapacity: 3
   beatParent: {fileID: 1164090914}
 --- !u!1 &1296470435
 GameObject:
@@ -4837,10 +4836,9 @@ MonoBehaviour:
   _pulseSize: 1.15
   _returnSpeed: 5
   attackObject: {fileID: 0}
-  _isPulsing: 0
-  Image: {fileID: 0}
   redBeats: []
-  BeatCanvas: {fileID: 0}
+  beatCanvas: {fileID: 0}
+  _isPulsing: 0
 --- !u!1 &1397895385
 GameObject:
   m_ObjectHideFlags: 0
@@ -7056,12 +7054,9 @@ MonoBehaviour:
   _pulseSize: 1.25
   _returnSpeed: 5
   attackObject: {fileID: 0}
+  redBeats: []
+  beatCanvas: {fileID: 0}
   _isPulsing: 0
-  Image: {fileID: 0}
-  redBeats:
-  - {fileID: 0}
-  - {fileID: 0}
-  BeatCanvas: {fileID: 56787003}
 --- !u!114 &1762402096
 MonoBehaviour:
   m_ObjectHideFlags: 0
