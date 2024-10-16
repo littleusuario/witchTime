@@ -50,7 +50,7 @@ public class State_Attack : IState
             flipped = false;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (!Input.GetMouseButton(0) && !randomMovement.PulseOfTheBeat.PulseInput)
         {
             if (!stateManager.state_Jumping.Jumping)
             {

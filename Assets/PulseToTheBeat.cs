@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PulseToTheBeat : MonoBehaviour
 {
@@ -16,7 +17,11 @@ public class PulseToTheBeat : MonoBehaviour
     private bool _hasAttacked;
     private float startY;
 
-    public event Action beatPulse; 
+    public event Action beatPulse;
+
+    private bool pulseInput;
+    public bool PulseInput => pulseInput;
+    [SerializeField] RawImage Image;
 
     private void Start()
     {
@@ -37,14 +42,28 @@ public class PulseToTheBeat : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButton(0) && attackObject != null && !_isClick) 
+        {
+            pulseInput = true;
+        }
+
+        if (Image != null) 
+        {
+            Image.color = pulseInput ? Color.red : Color.white;
+        }
+
         if (_isPulsing)
         {
             Vector3 newScale = Vector3.Lerp(transform.localScale, _startSize, Time.deltaTime * _returnSpeed);
             transform.localScale = new Vector3(newScale.x, newScale.y, _startSize.z);
 
-            if (transform.localScale.magnitude < (_startSize * _pulseSize).magnitude && Input.GetMouseButton(0) && !_hasAttacked && attackObject != null)
+            if (transform.localScale.magnitude < (_startSize * _pulseSize).magnitude && !_hasAttacked)
             {
-                Attack();
+                if(attackObject != null && pulseInput)
+                {
+                    Attack();
+                    pulseInput = false;
+                }
             }
 
             if (transform.localScale == _startSize)
@@ -71,6 +90,7 @@ public class PulseToTheBeat : MonoBehaviour
         _isClick = true;
         attackObject.SetActive(true);
         _hasAttacked = true;
+        _isClick = false;
 
         StartCoroutine(DisableAttackObject());
     }
