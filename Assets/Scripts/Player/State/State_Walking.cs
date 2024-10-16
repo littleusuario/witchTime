@@ -70,7 +70,7 @@ public class State_Walking : IState
             moveRight.Execute();
         }
 
-        if (Input.GetKey(KeyCode.Space)) 
+        if (Input.GetKey(KeyCode.Space) || stateManager.state_Jumping.Jumping) 
         {
             stateManager.ChangeState(stateManager.state_Jumping);
         }
@@ -93,10 +93,6 @@ public class State_Walking : IState
         {
             randomMovement.animator.SetBool("walking", moving);
         }
-    }
-    public int awa() 
-    {
-        return 2; 
     }
     public void ExitState() { }
 }

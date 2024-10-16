@@ -6,10 +6,7 @@ public class State_Attack : IState
 {
     RandomMovement randomMovement;
     PlayerStateManager stateManager;
-    private float zRotation = 90;
     bool flipped;
-
-    Vector3 currentFlip = new Vector3(1, 0, 0);
     public State_Attack(RandomMovement randomMovement, PlayerStateManager stateManager)
     {
         this.randomMovement = randomMovement;
@@ -18,7 +15,7 @@ public class State_Attack : IState
 
     public void EnterState()
     {
-        
+
     }
 
     public void UpdateState()
@@ -53,15 +50,23 @@ public class State_Attack : IState
             flipped = false;
         }
 
-        if (Input.GetMouseButtonUp(0)) 
+        if (Input.GetMouseButtonUp(0))
         {
-            stateManager.ChangeState(stateManager.state_Walking);
+            if (!stateManager.state_Jumping.Jumping)
+            {
+                stateManager.ChangeState(stateManager.state_Walking);
+            }
+            else 
+            {
+                stateManager.ChangeState(stateManager.state_Jumping);            
+            }
+
         }
     }
 
     public void ExitState() 
     {
-    
+        
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

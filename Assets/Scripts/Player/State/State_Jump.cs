@@ -11,7 +11,9 @@ public class State_Jump : IState
     float impulse = 1f;
     float limitHeight = 0.5f;
     float jumpVelocity = 5f;
-
+    float gravityScale = 3f;
+    bool jumping;
+    public bool Jumping => jumping;
     public State_Jump(RandomMovement randomMovement, PlayerStateManager stateManager)
     {
         this.randomMovement = randomMovement;
@@ -21,7 +23,11 @@ public class State_Jump : IState
 
     public void EnterState() 
     {
-        jumpVelocity = Mathf.Sqrt(impulse * -2 * Physics.gravity.y);
+        if (!jumping) 
+        {
+            jumping = true;
+            jumpVelocity = Mathf.Sqrt(impulse * -2 * (Physics.gravity.y * gravityScale));
+        }
     }
 
     public void UpdateState() 
@@ -36,9 +42,22 @@ public class State_Jump : IState
             SimulatePhysics();
             if (groundCheck.RayHit) 
             {
+                jumping = false;
                 maxHeightReached = false;
                 stateManager.ChangeState(stateManager.state_Walking);
             }
+        }
+
+        bool moving = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
+
+        if (moving) 
+        {
+            stateManager.ChangeState(stateManager.state_Walking);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            stateManager.ChangeState(stateManager.state_Attacking);
         }
     }
     public void ExitState() 
@@ -59,7 +78,7 @@ public class State_Jump : IState
 
     private void SimulatePhysics() 
     {
-        jumpVelocity += Physics.gravity.y * Time.deltaTime;
+        jumpVelocity += Physics.gravity.y * gravityScale * Time.deltaTime;
 
         randomMovement.transform.Translate(new Vector3(0, jumpVelocity, 0) * Time.deltaTime);
 
