@@ -19,6 +19,9 @@ public class RandomMovement : MonoBehaviour
     public CollisionManager GroundCheck => groundCheck;
 
     public PlayerStateManager stateManager;
+
+    [SerializeField] private PulseToTheBeat pulseOfTheBeat;
+    public PulseToTheBeat PulseOfTheBeat => pulseOfTheBeat;
     void Awake()
     {
         stateManager = new PlayerStateManager(this);
