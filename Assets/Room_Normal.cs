@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Room_Normal : MonoBehaviour
+public class Room_Normal : RoomObject
 {
     [Header("Room Walls")]
-    [SerializeField] List<GameObject> walls = new List<GameObject>();
+    //[SerializeField] List<GameObject> walls = new List<GameObject>();
 
-    [SerializeField] List<GameObject> doors = new List<GameObject>();
+    //[SerializeField] List<GameObject> doors = new List<GameObject>();
 
     [Header("Detection")]
     [SerializeField] private int rayLengthMultiplier = 8;
@@ -28,6 +28,8 @@ public class Room_Normal : MonoBehaviour
         {
             CheckDoors(door);
         }
+
+        cameraPosition = transform.localPosition;
     }
 
     GameObject FindDoorOnObject(GameObject parent) 

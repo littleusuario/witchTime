@@ -33,7 +33,7 @@ public class State_Attack : IState
         if (particleSystemMain.activeSelf)
         {
             Vector3 newPosition = randomMovement.transform.position;
-            newPosition = Vector3.MoveTowards(randomMovement.transform.position, mousePOS, 0.05f);
+            newPosition = Vector3.MoveTowards(randomMovement.transform.position, mousePOS, randomMovement.velocidad * Time.deltaTime);
             newPosition.y = 0;
 
             if (!flipped)

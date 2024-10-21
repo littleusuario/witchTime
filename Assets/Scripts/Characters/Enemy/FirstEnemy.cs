@@ -9,7 +9,7 @@ public class FirstEnemy : Enemy
     private GameObject enemy;
     [SerializeField] private float velocity;
     [SerializeField] private float StepDistance = 0.5f;
-    [SerializeField] CollisionManager hitboxEnemy;
+    [SerializeField] CollisionController hitboxEnemy;
     [SerializeField] float invincibilityFrames = 0.5f;
     [SerializeField] Animator animator;
     [SerializeField] PulseToTheBeat pulseToTheBeat;

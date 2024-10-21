@@ -11,12 +11,12 @@ public class RandomMovement : MonoBehaviour
     private Camera mainCamera;
     [SerializeField] Vector3[] particleRotations;
     [SerializeField] GameObject slashParticle;
-    [SerializeField] CollisionManager collisionHitbox;
-    [SerializeField] CollisionManager groundCheck;
+    [SerializeField] CollisionController collisionHitbox;
+    [SerializeField] CollisionController groundCheck;
     public GameObject SlashParticle => slashParticle;
     public Vector3[] ParticleRotations => particleRotations;
-    public CollisionManager CollisionHitbox => collisionHitbox;
-    public CollisionManager GroundCheck => groundCheck;
+    public CollisionController CollisionHitbox => collisionHitbox;
+    public CollisionController GroundCheck => groundCheck;
 
     public PlayerStateManager stateManager;
 

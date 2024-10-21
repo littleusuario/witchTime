@@ -2757,7 +2757,8 @@ MonoBehaviour:
   - {fileID: 6063877005908788132}
   - {fileID: 3966421920370116356}
   doors: []
-  ConnectedRoom: {fileID: 0}
+  cameraPosition: {x: 0, y: 0, z: 0}
+  rayLengthMultiplier: 8
 --- !u!1 &5000866868321088178
 GameObject:
   m_ObjectHideFlags: 0
@@ -4508,6 +4509,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8822748265647771203}
     m_Modifications:
+    - target: {fileID: 1343673448774920439, guid: 9853b9df91e2d9a49906ce168dfc9408, type: 3}
+      propertyPath: originRoom
+      value: 
+      objectReference: {fileID: 6388770457163974164}
     - target: {fileID: 3577796000424938724, guid: 9853b9df91e2d9a49906ce168dfc9408, type: 3}
       propertyPath: m_Name
       value: Door
@@ -4574,6 +4579,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5918001231069998837}
     m_Modifications:
+    - target: {fileID: 1343673448774920439, guid: 9853b9df91e2d9a49906ce168dfc9408, type: 3}
+      propertyPath: originRoom
+      value: 
+      objectReference: {fileID: 6388770457163974164}
     - target: {fileID: 3577796000424938724, guid: 9853b9df91e2d9a49906ce168dfc9408, type: 3}
       propertyPath: m_Name
       value: Door
@@ -4640,6 +4649,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8854443115700507861}
     m_Modifications:
+    - target: {fileID: 1343673448774920439, guid: 9853b9df91e2d9a49906ce168dfc9408, type: 3}
+      propertyPath: originRoom
+      value: 
+      objectReference: {fileID: 6388770457163974164}
     - target: {fileID: 3577796000424938724, guid: 9853b9df91e2d9a49906ce168dfc9408, type: 3}
       propertyPath: m_Name
       value: Door
@@ -4706,6 +4719,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5133955804362204626}
     m_Modifications:
+    - target: {fileID: 1343673448774920439, guid: 9853b9df91e2d9a49906ce168dfc9408, type: 3}
+      propertyPath: originRoom
+      value: 
+      objectReference: {fileID: 6388770457163974164}
     - target: {fileID: 3577796000424938724, guid: 9853b9df91e2d9a49906ce168dfc9408, type: 3}
       propertyPath: m_Name
       value: Door

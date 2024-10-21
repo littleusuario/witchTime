@@ -7,7 +7,7 @@ public class State_Jump : IState
     RandomMovement randomMovement;
     PlayerStateManager stateManager;
     private bool maxHeightReached;
-    CollisionManager groundCheck;
+    CollisionController groundCheck;
     float impulse = 1f;
     float limitHeight = 0.5f;
     float jumpVelocity = 5f;

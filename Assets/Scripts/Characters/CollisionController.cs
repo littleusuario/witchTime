@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionManager : MonoBehaviour
+public class CollisionController : MonoBehaviour
 {
     [SerializeField] float rayLimit = 0.2f;
     [SerializeField] List<Ray> storedRays = new List<Ray>();
@@ -24,6 +24,8 @@ public class CollisionManager : MonoBehaviour
     bool blockBack;
     bool blockRight;
     bool blockLeft;
+
+
 
     void Update()
     {

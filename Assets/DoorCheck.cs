@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class DoorCheck : MonoBehaviour
 {
-    [SerializeField] GameObject ConnectedRoom;
+    [SerializeField] RoomObject ConnectedRoom;
+    [SerializeField] RoomObject originRoom;
     [SerializeField] List<Collider> colliders;
+    [SerializeField] Vector3 direction;
     public GameObject CheckForDoor(Vector3 direction, float maxDistance) 
     {
+        this.direction = direction; 
         RaycastHit[] hits;
         Debug.DrawRay(transform.position, direction * maxDistance, Color.white, 99f);
 
@@ -25,7 +28,9 @@ public class DoorCheck : MonoBehaviour
                 if (hitGameObject != gameObject) 
                 {
                     Debug.DrawRay(transform.position, direction * maxDistance, Color.magenta, 99f);
-                    ConnectedRoom = hitGameObject.transform.parent.gameObject;
+                    DoorCheck doorCheck = hitGameObject.GetComponent<DoorCheck>();
+
+                    ConnectedRoom = doorCheck.originRoom;
                     return hitGameObject;
                 }
             }
