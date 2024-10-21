@@ -1851,6 +1851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1470183290}
   - component: {fileID: 1470183291}
+  - component: {fileID: 1470183292}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1885,6 +1886,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1deeba055b0dc4b8d8a85956f4e783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomPosition: {x: 17, y: 0, z: 0}
+  roomFactory: {fileID: 1470183292}
+  maxNumberOfRooms: 15
+  currentRooms: 0
+--- !u!114 &1470183292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470183289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9d9cc1e06222c4c8c404f3b59736c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomList:
+  - {fileID: 6388770457163974164, guid: 4b0811a34c09c354989ed5475e09e74c, type: 3}
 --- !u!1 &1539247160
 GameObject:
   m_ObjectHideFlags: 3

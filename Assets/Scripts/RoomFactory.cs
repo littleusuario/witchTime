@@ -6,7 +6,6 @@ public class RoomFactory : MonoBehaviour
 {
     [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
     [SerializeField] Dictionary<string, RoomObject> roomDictionary = new Dictionary<string, RoomObject>();
-    [SerializeField] int maxNumberOfRooms = 15;
 
     private void Awake()
     {
@@ -16,8 +15,13 @@ public class RoomFactory : MonoBehaviour
         }
     }
 
-    public RoomObject RoomCreator() 
+    public RoomObject RoomCreator(string id) 
     {
+        if (roomDictionary.TryGetValue(id, out RoomObject room)) 
+        {
+            return Instantiate(room);
+        }
+
         return null;
     }
 }

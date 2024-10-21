@@ -5,6 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [SerializeField] Vector3 roomPosition;
+    [SerializeField] RoomFactory roomFactory;
+    [SerializeField] int maxNumberOfRooms = 15;
+    [SerializeField] int currentRooms = 0;
     private void Awake()
     {
         if (Instance == null) 
@@ -20,9 +24,14 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+    private void Start()s
     {
-        Destroy(this);
+        while (currentRooms < maxNumberOfRooms) 
+        {
+            GameObject room = roomFactory.RoomCreator("Normal").gameObject;
+            room.transform.position = roomPosition * (currentRooms + 1);
+            currentRooms++;
+        }
     }
 
     private void OnDestroy()
