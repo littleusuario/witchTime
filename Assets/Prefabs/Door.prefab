@@ -119,4 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2273f9bae0f35c4ea0b9ac59b56be86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionMultiplier: 0.5
+  newPositionMultiplier: 1.5
   ConnectedRoom: {fileID: 0}
+  originRoom: {fileID: 0}
+  ConnectedDoor: {fileID: 0}
+  colliders: []
+  direction: {x: 0, y: 0, z: 0}

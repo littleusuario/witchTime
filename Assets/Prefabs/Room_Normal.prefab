@@ -2759,6 +2759,7 @@ MonoBehaviour:
   doors: []
   cameraPosition: {x: 0, y: 0, z: 0}
   rayLengthMultiplier: 8
+  cameraObjectFollow: {fileID: 0}
 --- !u!1 &5000866868321088178
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,7 +3041,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 5.7076488, y: 4.6587725, z: 0.21036148}
-  m_Center: {x: -0.25977087, y: -0.029385887, z: 0.005180702}
+  m_Center: {x: -0.25977087, y: -0.4893859, z: 0.005180702}
 --- !u!1 &6151790869054858827
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class Room_Normal : RoomObject
 {
-    [Header("Room Walls")]
-    //[SerializeField] List<GameObject> walls = new List<GameObject>();
-
-    //[SerializeField] List<GameObject> doors = new List<GameObject>();
-
     [Header("Detection")]
     [SerializeField] private int rayLengthMultiplier = 8;
+    [SerializeField] GameObject cameraObjectFollow;
     void Start()
     {
         foreach (GameObject wall in walls) 
@@ -28,7 +24,7 @@ public class Room_Normal : RoomObject
         {
             CheckDoors(door);
         }
-
+        cameraObjectFollow = GameObject.Find("CameraFollow");
         cameraPosition = transform.localPosition;
     }
 
@@ -65,5 +61,10 @@ public class Room_Normal : RoomObject
         if (door.transform.parent.gameObject.name == "RightWall") { return Vector3.right; }
 
         return Vector3.zero;
+    }
+
+    public override void MoveCameraFollow()
+    {
+        cameraObjectFollow.transform.position = cameraPosition;
     }
 }

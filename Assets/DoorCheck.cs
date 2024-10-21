@@ -8,13 +8,15 @@ public class DoorCheck : MonoBehaviour
 {
     [SerializeField] RoomObject ConnectedRoom;
     [SerializeField] RoomObject originRoom;
+    [SerializeField] DoorCheck ConnectedDoor;
     [SerializeField] List<Collider> colliders;
     [SerializeField] Vector3 direction;
+    
     public GameObject CheckForDoor(Vector3 direction, float maxDistance) 
     {
         this.direction = direction; 
         RaycastHit[] hits;
-        Debug.DrawRay(transform.position, direction * maxDistance, Color.white, 99f);
+        Debug.DrawRay(transform.position, direction * maxDistance, Color.white, 1f);
 
         hits = Physics.RaycastAll(transform.position, direction, maxDistance);
 
@@ -27,14 +29,27 @@ public class DoorCheck : MonoBehaviour
 
                 if (hitGameObject != gameObject) 
                 {
-                    Debug.DrawRay(transform.position, direction * maxDistance, Color.magenta, 99f);
-                    DoorCheck doorCheck = hitGameObject.GetComponent<DoorCheck>();
+                    Debug.DrawRay(transform.position, direction * maxDistance, Color.magenta, 1f);
+                    GameObject otherDoor = hitGameObject;
+                    ConnectedDoor = hitGameObject.GetComponent<DoorCheck>();
 
-                    ConnectedRoom = doorCheck.originRoom;
+                    ConnectedRoom = ConnectedDoor.originRoom;
                     return hitGameObject;
                 }
             }
         }
         return null;
+    }
+
+    public void Update()
+    {
+        if(Physics.Raycast(transform.position, -direction.normalized, out RaycastHit hit, 1f)) 
+        {
+            if (hit.collider.transform.gameObject.CompareTag("Player")) 
+            {
+                ConnectedRoom.MoveCameraFollow();
+                hit.collider.transform.gameObject.transform.position = ConnectedDoor.transform.position + -ConnectedDoor.direction.normalized * 1.5f;
+            }
+        }
     }
 }

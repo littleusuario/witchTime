@@ -35,7 +35,7 @@ public class FirstEnemy : Enemy
     }
     private void Start()
     {
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Noytasar");
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null) 
         {
             player = playerObject;
