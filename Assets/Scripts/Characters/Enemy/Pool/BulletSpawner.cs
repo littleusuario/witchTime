@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BulletSpawner : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class BulletSpawner : MonoBehaviour
     public float Rotation => rotation;
 
 
-    ShootType shoot;
+    ShootType shoot = ShootType.Diagonal;
     private enum ShootType
     {
         Diagonal,
@@ -32,19 +33,17 @@ public class BulletSpawner : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-
-
         if (timer > 5)
         {
             Shooting();
-            timer = 0f;
         }
     }
 
     private void Shooting()
     {
-        if (shoot == ShootType.Diagonal)
+        if (shoot == ShootType.Straight)
         {
+            Debug.Log("1");
             float anglestep = 360 / totalbullets;
             float angle = 0;
             for (int i = 0; i < totalbullets; i++)
@@ -55,11 +54,39 @@ public class BulletSpawner : MonoBehaviour
                 Vector3 proyectileVector = new Vector3(proyectileDirx, 0, proyectileDirZ);
                 Vector3 proyecticleMoveDir = (proyectileVector - spawn.transform.position).normalized * 10;
 
+
                 Bullet tempBullet = bulletpool.BullPool.Get();
+                tempBullet.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                tempBullet.transform.position = proyectileVector;
                 tempBullet.GetComponent<Rigidbody>().velocity = new Vector3(proyecticleMoveDir.x, 0, proyecticleMoveDir.z);
                 angle += anglestep;
             }
+
+           
         }
+        if (shoot == ShootType.Diagonal)
+        {
+            Debug.Log("2");
+            float diagonalAngleStep = 360 / totalbullets;
+            float diagonalAngle = 45;
+            for (int i = 0; i < totalbullets; i++)
+            {
+                float proyectileDirx2 = spawn.transform.position.x + Mathf.Sin(diagonalAngle * MathF.PI / 180) * 0.5f;
+                float proyectileDirZ2 = spawn.transform.position.z + Mathf.Cos(diagonalAngle * MathF.PI / 180) * 0.5f;
+
+                Vector3 proyectileVector2 = new Vector3(proyectileDirx2, 0, proyectileDirZ2);
+                Vector3 proyecticleMoveDir2 = (proyectileVector2 - spawn.transform.position).normalized * 10;
+
+                Bullet tempBullet = bulletpool.BullPool.Get();
+                tempBullet.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                tempBullet.transform.position = proyectileVector2;
+                tempBullet.GetComponent<Rigidbody>().velocity = new Vector3(proyecticleMoveDir2.x, 0, proyecticleMoveDir2.z);
+                diagonalAngle += diagonalAngleStep;
+            }
+       
+        }
+        ChangeDirection();
+        timer = 0;
     }
 
 
