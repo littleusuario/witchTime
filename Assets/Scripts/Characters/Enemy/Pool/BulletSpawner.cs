@@ -39,7 +39,7 @@ public class BulletSpawner : MonoBehaviour
         }
     }
 
-    private void Shooting()
+    public void Shooting()
     {
         if (shoot == ShootType.Straight)
         {
