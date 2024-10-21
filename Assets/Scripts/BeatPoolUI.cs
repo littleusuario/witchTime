@@ -22,7 +22,6 @@ public class BeatPoolUI : MonoBehaviour
     {
         BeatUI beat = beatPool.Get();
         beat.transform.position = transform.position;
-        once = true;
     }
     public BeatUI createItem() 
     {

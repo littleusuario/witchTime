@@ -23,7 +23,7 @@ public class BeatUI : MonoBehaviour
 
     void Update()
     {
-        Vector3 newPos = transform.position + Vector3.right * speed;
+        Vector3 newPos = transform.position + Vector3.right * speed * Time.deltaTime;
         newPos.y = transform.position.y;
         newPos.z = transform.position.z;
         transform.position = Vector3.MoveTowards(transform.position, newPos, stepDistance);
