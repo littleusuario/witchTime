@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<RoomObject> roomList;
     [SerializeField] Transform RoomParent;
     event Action startCheck;
+    [SerializeField] private int PossibilyToContinue = 5;
 
     public int iterations = 0;
     private void Awake()
@@ -39,61 +41,82 @@ public class GameManager : MonoBehaviour
         currentRooms++;
         roomList.Add(rootRoom);
 
+        RoomGenerator();
+    }
+
+    public void RoomGenerator() 
+    {
         while (currentRooms < maxNumberOfRooms)
         {
-            //int possibility = 0;
-            //possibility = Random.Range(0, 2);
-            //if (possibility == 1)
-            //{
-            CheckRoom(rootRoom);
-
-            foreach (RoomObject roomObject in roomList)
+            int possibility = 0;
+            possibility = Random.Range(0, 2);
+            if (possibility == 1)
             {
-                startCheck += roomObject.StartCheckDoors;
+                CheckRoom(rootRoom);
             }
-
-            startCheck.Invoke();
-            //}
         }
 
-        foreach (RoomObject roomObject in roomList)
+        for (int i = 0; i < roomList.Count; i++)
         {
-            startCheck += roomObject.StartCheckDoors;
+            int index = i;
+
+            for (int j = 0; j < roomList.Count; j++)
+            {
+                if (roomList[j] != null) 
+                {
+                    var objI = roomList[i];
+                    var objJ = roomList[j];
+                    if (objI != objJ)
+                    {
+                        if (roomList[i].transform.position == roomList[j].transform.position)
+                        {
+                            Destroy(roomList[j].gameObject);
+                            roomList.RemoveAt(j);
+                            currentRooms--;
+                        }
+                    }
+                }
+            }
         }
 
-        startCheck.Invoke();
-
-        //foreach (RoomObject roomObject in roomList)
-        //{
-        //    roomObject.EraseUncheckDoors();
-        //}
+        if (currentRooms < maxNumberOfRooms) 
+        {
+            RoomGenerator();
+        }
     }
 
     private void CheckRoom(RoomObject roomToCheck)
     {
         int roomToChose = Random.Range(0, 4);
 
-        switch (roomToChose)
+        if (roomToCheck != null) 
         {
-            case 0:
-                CheckDoors(roomToChose, new Vector3(0, 0, 17), roomToCheck);
-                break;
-            case 1:
-                CheckDoors(roomToChose, new Vector3(0, 0, -17), roomToCheck);
-                break;
-            case 2:
-                CheckDoors(roomToChose, new Vector3(-17, 0, 0), roomToCheck);
-                break;
-            case 3:
-                CheckDoors(roomToChose, new Vector3(17, 0, 0), roomToCheck);
-                break;
+            switch (roomToChose)
+            {
+                case 0:
+                    CheckDoors(roomToChose, new Vector3(0, 0, 17), roomToCheck);
+                    break;
+                case 1:
+                    CheckDoors(roomToChose, new Vector3(0, 0, -17), roomToCheck);
+                    break;
+                case 2:
+                    CheckDoors(roomToChose, new Vector3(-17, 0, 0), roomToCheck);
+                    break;
+                case 3:
+                    CheckDoors(roomToChose, new Vector3(17, 0, 0), roomToCheck);
+                    break;
 
-            case 4:
-                Debug.Log("Limit");
+                case 4:
+                    Debug.Log("Limit");
 
-                break;
+                    break;
+
+                default: 
+                
+                    break;
+            }
+            //roomToCheck.StartCheckDoors();
         }
-        //roomToCheck.StartCheckDoors();
     }
 
     private RoomObject roomCreate(Vector3 desiredPosition)
@@ -108,7 +131,7 @@ public class GameManager : MonoBehaviour
         if (roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom == null)
         {
             Debug.Log("ThereIsNothing");
-            Vector3 desiredPosition = roomToCheck.transform.localPosition + direction;
+            Vector3 desiredPosition = roomToCheck.transform.position + direction;
             RoomObject newRoom = roomCreate(desiredPosition);
             newRoom.transform.parent = RoomParent;
             roomList.Add(newRoom);
@@ -119,13 +142,23 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //int possibility = Random.Range(0, 1);
-            //if (possibility == 1)
-            //{
+            int possibility = Random.Range(0, PossibilyToContinue);
+            if (possibility < PossibilyToContinue / 4)
+            {
                 Debug.Log("ThereIsSomething");
                 CheckRoom(roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom);
             return;
-            //}
+            }
+            else 
+            {
+                index--;
+                if (index < 0) 
+                {
+                    index = 3;
+                }
+
+                CheckRoom(roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom);
+            }
         }
     }
 }

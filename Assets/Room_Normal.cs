@@ -8,7 +8,7 @@ public class Room_Normal : RoomObject
     [Header("Detection")]
     [SerializeField] private int rayLengthMultiplier = 8;
     [SerializeField] GameObject cameraObjectFollow;
-    bool once;
+    bool checkForRooms;
     void Awake()
     {
         foreach (GameObject wall in walls) 
@@ -30,9 +30,9 @@ public class Room_Normal : RoomObject
 
     public void Update()
     {
-        if (!once) 
+        if (!checkForRooms) 
         {
-            once = true;
+            checkForRooms = true;
 
             foreach (GameObject door in doors)
             {
