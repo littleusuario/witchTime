@@ -2751,6 +2751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f218282542576e439331ee83d8acbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: Normal
   walls:
   - {fileID: 3608627442976940153}
   - {fileID: 6151790869054858827}
@@ -3041,7 +3042,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 5.7076488, y: 4.6587725, z: 0.21036148}
-  m_Center: {x: -0.25977087, y: -0.4893859, z: 0.005180702}
+  m_Center: {x: -0.25977087, y: -0.6893859, z: 0.005180702}
 --- !u!1 &6151790869054858827
 GameObject:
   m_ObjectHideFlags: 0

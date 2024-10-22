@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class DoorCheck : MonoBehaviour
 {
-    [SerializeField] RoomObject ConnectedRoom;
+    [SerializeField] RoomObject connectedRoom;
     [SerializeField] RoomObject originRoom;
-    [SerializeField] DoorCheck ConnectedDoor;
+    [SerializeField] DoorCheck connectedDoor;
     [SerializeField] List<Collider> colliders;
     [SerializeField] Vector3 direction;
     
+    public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
+
     public GameObject CheckForDoor(Vector3 direction, float maxDistance) 
     {
         this.direction = direction; 
@@ -31,9 +33,9 @@ public class DoorCheck : MonoBehaviour
                 {
                     Debug.DrawRay(transform.position, direction * maxDistance, Color.magenta, 1f);
                     GameObject otherDoor = hitGameObject;
-                    ConnectedDoor = hitGameObject.GetComponent<DoorCheck>();
+                    connectedDoor = hitGameObject.GetComponent<DoorCheck>();
 
-                    ConnectedRoom = ConnectedDoor.originRoom;
+                    connectedRoom = connectedDoor.originRoom;
                     return hitGameObject;
                 }
             }
@@ -47,8 +49,8 @@ public class DoorCheck : MonoBehaviour
         {
             if (hit.collider.transform.gameObject.CompareTag("Player")) 
             {
-                ConnectedRoom.MoveCameraFollow();
-                hit.collider.transform.gameObject.transform.position = ConnectedDoor.transform.position + -ConnectedDoor.direction.normalized * 1.5f;
+                connectedRoom.MoveCameraFollow();
+                hit.collider.transform.gameObject.transform.position = connectedDoor.transform.position + -connectedDoor.direction.normalized * 1.5f;
             }
         }
     }

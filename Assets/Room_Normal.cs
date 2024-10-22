@@ -8,7 +8,8 @@ public class Room_Normal : RoomObject
     [Header("Detection")]
     [SerializeField] private int rayLengthMultiplier = 8;
     [SerializeField] GameObject cameraObjectFollow;
-    void Start()
+    bool once;
+    void Awake()
     {
         foreach (GameObject wall in walls) 
         {
@@ -19,15 +20,27 @@ public class Room_Normal : RoomObject
                 doors.Add(room);
             }
         }
-
-        foreach (GameObject door in doors) 
-        {
-            CheckDoors(door);
-        }
         cameraObjectFollow = GameObject.Find("CameraFollow");
+    }
+
+    private void Start()
+    {
         cameraPosition = transform.localPosition;
     }
 
+    public void Update()
+    {
+        if (!once) 
+        {
+            once = true;
+
+            foreach (GameObject door in doors)
+            {
+                CheckDoors(/*door*/);
+                EraseUncheckDoors();
+            }
+        }
+    }
     GameObject FindDoorOnObject(GameObject parent) 
     {
         foreach (Transform child in parent.transform)
@@ -41,15 +54,32 @@ public class Room_Normal : RoomObject
         return null;
     }
 
-    void CheckDoors(GameObject door) 
+    public override void EraseUncheckDoors()
     {
-        Vector3 direction = ParentDirection(door);
-        DoorCheck doorCheck = door.GetComponent<DoorCheck>();
-        GameObject connectedDoor = doorCheck.CheckForDoor(direction, rayLengthMultiplier);
-
-        if (connectedDoor == null) 
+        foreach (GameObject door in doors)
         {
-            door.SetActive(false);
+            if (door.GetComponent<DoorCheck>().ConnectedRoom == null)
+            {
+                door.SetActive(false);
+            }
+        }
+
+        cameraPosition = transform.localPosition;
+    }
+
+    public void CheckDoors()
+    {
+        foreach (GameObject door in doors)
+        {
+            DoorCheck doorCheck = door.GetComponent<DoorCheck>();
+
+            Vector3 direction = ParentDirection(door);
+            GameObject connectedDoor = doorCheck.CheckForDoor(direction, rayLengthMultiplier);
+
+            //if (connectedDoor == null)
+            //{
+            //    door.gameObject.SetActive(false);
+            //}
         }
     }
 
