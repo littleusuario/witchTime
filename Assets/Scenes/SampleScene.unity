@@ -582,6 +582,7 @@ MonoBehaviour:
   tagsToCollide:
   - Bullet
   - Wall
+  - Door
   directions:
   - {x: 0, y: 0, z: 0.2}
   - {x: 0, y: 0, z: -0.2}
