@@ -1891,6 +1891,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 912750142}
+          m_TargetAssemblyTypeName: BulletSpawner, Assembly-CSharp
+          m_MethodName: Shooting
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   _beatDetected: 0
 --- !u!4 &1422560911
 Transform:
@@ -2699,7 +2711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b905882b043044d921f8c59f99e622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: -3169549933582104613, guid: 10505f44f9ce73746a55e3b33dc90c72, type: 3}
+  prefab: {fileID: -3169549933582104613, guid: ba92177e1f0c4f1408599abc3765521f, type: 3}
   spawn: {fileID: 912750138}
   rotation: {fileID: 912750142}
 --- !u!4 &1751221658
@@ -3264,7 +3276,7 @@ PrefabInstance:
     - target: {fileID: 8731783892062903716, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: -3169549933582104613, guid: 10505f44f9ce73746a55e3b33dc90c72, type: 3}
+      objectReference: {fileID: -3169549933582104613, guid: ba92177e1f0c4f1408599abc3765521f, type: 3}
     - target: {fileID: 8731783892062903716, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
       propertyPath: bulletpool
       value: 

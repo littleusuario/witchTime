@@ -26,19 +26,6 @@ public class BulletSpawner : MonoBehaviour
         Diagonal,
         Straight,
     }
-    private void Awake()
-    {
-
-    }
-    private void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer > 5)
-        {
-            Shooting();
-        }
-    }
-
     public void Shooting()
     {
         if (shoot == ShootType.Straight)

@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - spawnPoint: {fileID: 7105162099119894473, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
   executionOrder: 0
-  icon: {instanceID: 0}
+  icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
