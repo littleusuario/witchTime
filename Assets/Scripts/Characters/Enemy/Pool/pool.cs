@@ -7,12 +7,13 @@ using UnityEngine.Pool;
 
 public class BulletPool : MonoBehaviour
 {
-  public static BulletPool instance;
-  public Bullet prefab;
+
   private ObjectPool<Bullet> bullpool;
-    [SerializeField] private GameObject spawn;
-   [SerializeField] private BulletSpawner rotation;
- public ObjectPool<Bullet> BullPool { get { return bullpool; } set { bullpool = value; } }
+  [SerializeField] private GameObject spawn;
+  [SerializeField] private BulletSpawner rotation;
+    public ObjectPool<Bullet> BullPool { get { return bullpool; } set { bullpool = value; } }
+    public static BulletPool instance;
+    public Bullet prefab;
 
     void Awake()
     {
@@ -37,9 +38,9 @@ public class BulletPool : MonoBehaviour
     private Bullet CreateBullet()
     {
       Bullet tempbull = Instantiate(prefab, spawn.transform.position, Quaternion.Euler(0,rotation.Rotation,0));
-    tempbull.gameObject.SetActive(false);
-    tempbull.Pool = bullpool;
-    return tempbull;
+        tempbull.gameObject.SetActive(false);
+        tempbull.Pool = bullpool;
+      return tempbull;
 
     }
 }

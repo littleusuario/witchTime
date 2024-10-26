@@ -11,16 +11,12 @@ public class BulletSpawner : MonoBehaviour
 {
     [SerializeField] private BulletPool bulletpool;
     [SerializeField] private Bullet bullet;
-
     [SerializeField] private GameObject spawn;
 
     private int totalbullets = 4;
-    private float timer = 0f;
     private float rotation;
+    private ShootType shoot = ShootType.Diagonal;
     public float Rotation => rotation;
-
-
-    ShootType shoot = ShootType.Diagonal;
     private enum ShootType
     {
         Diagonal,
@@ -73,13 +69,7 @@ public class BulletSpawner : MonoBehaviour
        
         }
         ChangeDirection();
-        timer = 0;
     }
-
-
-
-
-
     private void ChangeDirection()
     {
         switch (shoot)

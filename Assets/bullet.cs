@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float sphereRad;
     private Vector3 origin;
     private Vector3 direction;
-    
+    [SerializeField] private BulletScriptable bulletData;
     public LayerMask mask;
     public float maxdist;
    public ObjectPool<Bullet> Pool { get { return pool; } set { pool = value; } }
