@@ -22,47 +22,68 @@ public class State_Walking : IState
     public void UpdateState() 
     {
         ProcesarEntrada();
-        AnimacionMovimiento();
     }
+
     void ProcesarEntrada()
     {
         moving = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
 
-        if (Input.GetKey(KeyCode.W) && !randomMovement.CollisionHitbox.CollisionBools[0])
+        bool isUp = Input.GetKey(KeyCode.W);
+        bool isDown = Input.GetKey(KeyCode.S);
+        bool isLeft = Input.GetKey(KeyCode.A);
+        bool isRight = Input.GetKey(KeyCode.D);
+
+        randomMovement.animator.SetBool("up", isUp);
+        randomMovement.animator.SetBool("down", isDown);
+        randomMovement.animator.SetBool("left", isLeft);
+        randomMovement.animator.SetBool("right", isRight);
+
+        if (isUp && isDown)
+        {
+            isUp = false;
+            isDown = false;
+        }
+
+        if (isLeft && isRight)
+        {
+            isLeft = false;
+            isRight = false;
+        }
+
+        if (isUp && !randomMovement.CollisionHitbox.CollisionBools[0])
         {
             ICommand moveForward = new CommandMoveForward(randomMovement);
             moveForward.Execute();
-
             eventForward.Invoke();
         }
-        if (Input.GetKey(KeyCode.S) && !randomMovement.CollisionHitbox.CollisionBools[1])
+        if (isDown && !randomMovement.CollisionHitbox.CollisionBools[1])
         {
             ICommand moveBack = new CommandMoveBackward(randomMovement);
             moveBack.Execute();
-
             eventBackward.Invoke();
         }
-        if (Input.GetKey(KeyCode.A) && !randomMovement.CollisionHitbox.CollisionBools[3])
+        if (isLeft && !randomMovement.CollisionHitbox.CollisionBools[3])
         {
             ICommand moveLeft = new CommandMoveLeft(randomMovement);
             moveLeft.Execute();
         }
-        if (Input.GetKey(KeyCode.D) && !randomMovement.CollisionHitbox.CollisionBools[2])
+        if (isRight && !randomMovement.CollisionHitbox.CollisionBools[2])
         {
             ICommand moveRight = new CommandMoveRight(randomMovement);
             moveRight.Execute();
         }
 
-        if (Input.GetKey(KeyCode.Space) || stateManager.state_Jumping.Jumping) 
+        if (Input.GetKey(KeyCode.Space) || stateManager.state_Jumping.Jumping)
         {
             stateManager.ChangeState(stateManager.state_Jumping);
         }
 
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0))
         {
             stateManager.ChangeState(stateManager.state_Attacking);
         }
     }
+
 
     public void MoverJugador(Vector3 direccionMovimiento)
     {
@@ -70,12 +91,5 @@ public class State_Walking : IState
         randomMovement.transform.Translate(movimiento, Space.World);
     }
 
-    private void AnimacionMovimiento()
-    {
-        if (randomMovement.animator != null)
-        {
-            randomMovement.animator.SetBool("walking", moving);
-        }
-    }
     public void ExitState() { }
 }
