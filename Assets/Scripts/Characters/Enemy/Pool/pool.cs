@@ -37,7 +37,7 @@ public class BulletPool : MonoBehaviour
 
     private Bullet CreateBullet()
     {
-      Bullet tempbull = Instantiate(prefab, spawn.transform.position, Quaternion.Euler(0,rotation.Rotation,0));
+      Bullet tempbull = Instantiate(prefab, spawn.transform.position, Quaternion.Euler(90, 0, 0));
         tempbull.gameObject.SetActive(false);
         tempbull.Pool = bullpool;
       return tempbull;
