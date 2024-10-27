@@ -30,6 +30,11 @@ public class Bullet : MonoBehaviour
                 Pool.Release(this);
                 Debug.Log("salio");
             }
+            if (hit.collider.CompareTag("Player"))
+            { 
+                Pool.Release(this);
+                Debug.Log("Player");
+            }
         }
     }
 
