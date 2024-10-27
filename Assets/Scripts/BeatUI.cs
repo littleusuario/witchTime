@@ -23,14 +23,32 @@ public class BeatUI : MonoBehaviour
 
     void Update()
     {
-        Vector3 newPos = transform.position + Vector3.right * speed * Time.deltaTime;
-        newPos.y = transform.position.y;
-        newPos.z = transform.position.z;
-        transform.position = Vector3.MoveTowards(transform.position, newPos, stepDistance);
+        //Vector3 newPos = transform.position + Vector3.right * speed * Time.deltaTime;
+        //newPos.y = transform.position.y;
+        //newPos.z = transform.position.z;
+        //transform.position = Vector3.MoveTowards(transform.position, newPos, stepDistance);
 
-        if (rectTransform.anchoredPosition.x > -thresholdDissapear && rectTransform.anchoredPosition.x < thresholdDissapear) 
+        //if (rectTransform.anchoredPosition.x > -thresholdDissapear && rectTransform.anchoredPosition.x < thresholdDissapear) 
+        //{
+        //    beatPool.Release(this);
+        //}
+    }
+
+    public IEnumerator LerpToPosition() 
+    {
+        rectTransform = GetComponent<RectTransform>();
+        float elapsedTime = 0;
+        float endTime = speed;
+        Vector3 initialPosition = rectTransform.anchoredPosition;
+        Vector3 endPosition = new Vector3(0, rectTransform.anchoredPosition.y);
+
+        while (elapsedTime < endTime) 
         {
-            beatPool.Release(this);
+            elapsedTime += Time.deltaTime;
+            rectTransform.anchoredPosition = Vector2.Lerp(initialPosition, endPosition, elapsedTime / speed);
+            yield return null;
         }
+        rectTransform.anchoredPosition = endPosition;
+        beatPool.Release(this);
     }
 }

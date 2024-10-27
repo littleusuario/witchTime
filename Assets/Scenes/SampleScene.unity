@@ -583,6 +583,7 @@ MonoBehaviour:
   - Bullet
   - Wall
   - Door
+  - Exit
   directions:
   - {x: 0, y: 0, z: 0.2}
   - {x: 0, y: 0, z: -0.2}
@@ -764,12 +765,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075049259fc70b241a49ab643e0fc85c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOfBeat: 1
+  speedOfBeat: 0.7
   beatUIPrefab: {fileID: 869840265968439044, guid: b4b2c8d609abfb74a9373104dc9cb833, type: 3}
   checkCollection: 0
   defaultCapacity: 1
   maxCapacity: 3
   beatParent: {fileID: 1164090914}
+  shootingTime: 0.5
 --- !u!212 &537838313
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -822,37 +824,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &563065315
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 563065316}
-  m_Layer: 0
-  m_Name: RoomParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &563065316
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563065315}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &659226020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1600,12 +1571,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075049259fc70b241a49ab643e0fc85c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOfBeat: -1
+  speedOfBeat: 0.7
   beatUIPrefab: {fileID: 869840265968439044, guid: b4b2c8d609abfb74a9373104dc9cb833, type: 3}
   checkCollection: 1
   defaultCapacity: 1
   maxCapacity: 3
   beatParent: {fileID: 1164090914}
+  shootingTime: 0.5
 --- !u!1 &1372231660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,32 +1827,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 537838312}
-          m_TargetAssemblyTypeName: BeatPoolUI, Assembly-CSharp
-          m_MethodName: CallPool
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1274217515}
-          m_TargetAssemblyTypeName: BeatPoolUI, Assembly-CSharp
-          m_MethodName: CallPool
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 1372231664}
-          m_TargetAssemblyTypeName: PulseToTheBeat, Assembly-CSharp
+          m_TargetAssemblyTypeName: BeatPoolUI, Assembly-CSharp
           m_MethodName: Pulse
           m_Mode: 1
           m_Arguments:
@@ -1892,7 +1840,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 912750142}
-          m_TargetAssemblyTypeName: BulletSpawner, Assembly-CSharp
+          m_TargetAssemblyTypeName: BeatPoolUI, Assembly-CSharp
           m_MethodName: Shooting
           m_Mode: 1
           m_Arguments:
@@ -1995,14 +1943,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1deeba055b0dc4b8d8a85956f4e783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPosition: {x: 17, y: 0, z: 0}
+  roomPosition: {x: 0, y: 0, z: 0}
   roomFactory: {fileID: 1470183292}
   maxNumberOfRooms: 10
   currentRooms: 0
   rootRoom: {fileID: 0}
   roomList: []
-  RoomParent: {fileID: 563065316}
+  RoomParent: {fileID: 0}
   PossibilyToContinue: 100
+  exitPrefab: {fileID: 2756423368548845831, guid: a2757e355e7519c4bbbb077873175fe8, type: 3}
   iterations: 0
 --- !u!114 &1470183292
 MonoBehaviour:
@@ -2330,9 +2279,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2324256078085146715, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2936670681510558551, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
       propertyPath: m_Name
       value: Sprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189112656369092819, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3189112656369092819, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
       propertyPath: m_TagString
@@ -2759,7 +2716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1751221657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3379,6 +3336,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 7105162099119894473, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7148723457774239821, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
       propertyPath: m_Layer
       value: 1
@@ -3435,4 +3396,3 @@ SceneRoots:
   - {fileID: 659226020}
   - {fileID: 288925190}
   - {fileID: 1701936002}
-  - {fileID: 563065316}

@@ -13,15 +13,24 @@ public class BeatPoolUI : MonoBehaviour
     [SerializeField] Transform beatParent;
     ObjectPool<BeatUI> beatPool;
     bool once;
+    float elapsedTime;
+    [SerializeField] float shootingTime = 1;
     void Start()
     {
         beatPool = new ObjectPool<BeatUI>(createItem, GetItemFromPool, OnReturnItemFromPool, OnDestroyItemFromPool, checkCollection, defaultCapacity, maxCapacity);
     }
 
-    public void CallPool() 
+    public void Update() 
     {
-        BeatUI beat = beatPool.Get();
-        beat.transform.position = transform.position;
+        elapsedTime += Time.deltaTime;
+
+        if (elapsedTime > shootingTime) 
+        {
+            elapsedTime = 0;
+            BeatUI beat = beatPool.Get();
+            beat.transform.position = transform.position;
+            beat.StartCoroutine(beat.LerpToPosition());
+        }
     }
     public BeatUI createItem() 
     {

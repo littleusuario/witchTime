@@ -91,6 +91,11 @@ public class CollisionController : MonoBehaviour
                 {
                     rayHit = true;
                 }
+
+                if (rayHit && directionHit.transform.gameObject.CompareTag("Exit")) 
+                {
+                    GameManager.Instance.LoadNextLevel();
+                }
             }
             return rayHit;
         }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -17,10 +18,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform RoomParent;
     event Action startCheck;
     [SerializeField] private int PossibilyToContinue = 5;
+    [SerializeField] private GameObject exitPrefab;
 
     public int iterations = 0;
+    private int depth = 0;
     private void Awake()
     {
+        SceneManager.sceneLoaded += CreateLevelProcess;
         if (Instance == null)
         {
             Instance = this;
@@ -33,17 +37,49 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
-
-    private void Start()
+    
+    private void OnLevelWasLoaded(int level)
     {
+
+    }
+    private void CreateLevelProcess(Scene scene, LoadSceneMode loadSceneMode) 
+    {
+        iterations++;
+        roomList.Clear();
+        currentRooms = 0;
+        if (RoomParent == null) 
+        {
+            GameObject roomParent = new GameObject();
+            roomParent.name = "RoomParent";
+            RoomParent = roomParent.transform;
+        }
+
         rootRoom = roomCreate(roomPosition);
         rootRoom.transform.parent = RoomParent;
         currentRooms++;
         roomList.Add(rootRoom);
 
-        RoomGenerator();
-    }
+        if (iterations > 1)
+        {
+            return;
+        }
 
+        RoomGenerator();
+
+        RoomObject depthestRoom = null;
+        int depth = 0;
+
+        foreach (RoomObject roomObject in roomList)
+        {
+            CheckRoomDepth(roomObject, depth);
+            if (roomObject.depth >= depth) 
+            {
+                depthestRoom = roomObject;
+                depth = roomObject.depth;
+            }
+        }
+        Instantiate(exitPrefab, depthestRoom.transform.position + Vector3.up, Quaternion.Euler(90, 0, 0), depthestRoom.transform);
+    }
     public void RoomGenerator() 
     {
         while (currentRooms < maxNumberOfRooms)
@@ -64,15 +100,23 @@ public class GameManager : MonoBehaviour
             {
                 if (roomList[j] != null) 
                 {
+                    if (index > roomList.Count)
+                    {
+                        Destroy(roomList[j].gameObject);
+                        roomList.RemoveAt(j);
+                        currentRooms--;
+                        break;
+                    }
                     var objI = roomList[i];
                     var objJ = roomList[j];
                     if (objI != objJ)
                     {
-                        if (roomList[i].transform.position == roomList[j].transform.position)
+                        if (roomList[i].transform.position == roomList[j].transform.position && roomList[j] != rootRoom)
                         {
                             Destroy(roomList[j].gameObject);
                             roomList.RemoveAt(j);
                             currentRooms--;
+                            break;
                         }
                     }
                 }
@@ -111,8 +155,9 @@ public class GameManager : MonoBehaviour
 
                     break;
 
-                default: 
-                
+                default:
+
+                    Debug.Log("Out");
                     break;
             }
             //roomToCheck.StartCheckDoors();
@@ -142,23 +187,43 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            int possibility = Random.Range(0, PossibilyToContinue);
-            if (possibility < PossibilyToContinue / 4)
-            {
+            //int possibility = Random.Range(0, PossibilyToContinue);
+            //if (possibility > PossibilyToContinue / 5)
+            //{
                 Debug.Log("ThereIsSomething");
                 CheckRoom(roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom);
-            return;
-            }
-            else 
-            {
-                index--;
-                if (index < 0) 
-                {
-                    index = 3;
-                }
+            //}
+            //else 
+            //{
+            //    index--;
+            //    if (index < 0) 
+            //    {
+            //        index = 3;
+            //    }
 
-                CheckRoom(roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom);
-            }
+            //    CheckRoom(roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom);
+            //}
         }
+    }
+
+    private void CheckRoomDepth(RoomObject room, int depth) 
+    {
+        if (room == null) return;
+
+        if (depth > room.depth) 
+        {
+            depth++;
+            room.depth = depth;
+            //depth = room.depth;
+        }
+        CheckRoomDepth(room.doors[0].GetComponent<DoorCheck>().ConnectedRoom, depth);
+        CheckRoomDepth(room.doors[1].GetComponent<DoorCheck>().ConnectedRoom, depth);
+        CheckRoomDepth(room.doors[2].GetComponent<DoorCheck>().ConnectedRoom, depth);
+        CheckRoomDepth(room.doors[3].GetComponent<DoorCheck>().ConnectedRoom, depth);
+    }
+
+    public void LoadNextLevel() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
