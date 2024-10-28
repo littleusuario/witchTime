@@ -23,6 +23,10 @@ public class LevelGenerator : MonoBehaviour
     public void CreateLevelProcess(Scene scene, LoadSceneMode loadSceneMode)
     {
         iterations++;
+        foreach (RoomObject room in roomList) 
+        {
+            Destroy(room);
+        }
         roomList.Clear();
         currentRooms = 0;
         //if (iterations > 1)
