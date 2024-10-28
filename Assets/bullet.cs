@@ -33,7 +33,6 @@ public class Bullet : MonoBehaviour
             { 
                 Pool.Release(this);
                 hit.collider.gameObject.GetComponent<PlayerHealth>().TakeDamage(bulletData.damage);
-                
             }
         }
     }

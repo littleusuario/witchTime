@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FirstEnemy : Enemy
@@ -14,7 +15,9 @@ public class FirstEnemy : Enemy
     [SerializeField] float invincibilityFrames = 0.5f;
     [SerializeField] Animator animator;
     [SerializeField] PulseToTheBeat pulseToTheBeat;
+    [SerializeField] float thresholdAttackDistance;
     bool death;
+    [SerializeField] float distance = 0;
     public override event Action Ondie;
     EnemyStateManager stateManager;
 
@@ -53,9 +56,35 @@ public class FirstEnemy : Enemy
 
     }
 
+    private void Update()
+    {
+        distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance <= thresholdAttackDistance)
+        {
+            DamagaZone();
+        }
+    }
+
     public override void RunBehaviour()
     {
         stateManager.UpdateState();
+    }
+
+    public override void DamagaZone()
+    {
+        RaycastHit[] hits;
+        hits = Physics.SphereCastAll(transform.position, AttackRadius, transform.forward);
+
+        foreach (RaycastHit hit in hits)
+        {
+            GameObject hitObject = hit.collider.transform.gameObject;
+
+            if (hitObject.CompareTag("Player"))
+            {
+                hitObject.GetComponent<PlayerHealth>().TakeDamage(1);
+            }
+        }
     }
 
     private void TakeDamage()

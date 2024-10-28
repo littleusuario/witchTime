@@ -1898,7 +1898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140.25, y: -53.700012}
+  m_AnchoredPosition: {x: 140.25, y: -53.69995}
   m_SizeDelta: {x: 176.30005, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &968360321
@@ -2542,12 +2542,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthPoints: 2
+  AttackRadius: 1
   velocity: 2
   StepDistance: 0.1
   hitboxEnemy: {fileID: 1869867309}
   invincibilityFrames: 0.5
   animator: {fileID: 222164468}
   pulseToTheBeat: {fileID: 675365653}
+  thresholdAttackDistance: 1
+  distance: 0
 --- !u!1 &1329557880
 GameObject:
   m_ObjectHideFlags: 0
@@ -4639,7 +4642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140.25, y: -53.700012}
+  m_AnchoredPosition: {x: 140.25, y: -53.69995}
   m_SizeDelta: {x: 176.30005, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2130667995
@@ -4919,6 +4922,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148723457774239821, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
       propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7539024911212017650, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
+      propertyPath: AttackRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7539024911212017650, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
+      propertyPath: thresholdAttackDistance
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7995826033571754338, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
