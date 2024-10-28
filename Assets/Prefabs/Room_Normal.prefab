@@ -2759,6 +2759,7 @@ MonoBehaviour:
   - {fileID: 3966421920370116356}
   doors: []
   cameraPosition: {x: 0, y: 0, z: 0}
+  depth: 0
   rayLengthMultiplier: 8
   cameraObjectFollow: {fileID: 0}
 --- !u!1 &5000866868321088178

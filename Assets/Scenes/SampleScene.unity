@@ -1401,6 +1401,74 @@ Transform:
   - {fileID: 1428680516}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1031520115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1031520116}
+  - component: {fileID: 1031520118}
+  - component: {fileID: 1031520117}
+  m_Layer: 0
+  m_Name: Facade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1031520116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031520115}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1470183290}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1031520117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031520115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d7670619ec51841b809869e537f7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomFactory: {fileID: 1470183292}
+  maxNumberOfRooms: 10
+  currentRooms: 0
+  roomPosition: {x: 0, y: 0, z: 0}
+  RoomParent: {fileID: 0}
+  exitPrefab: {fileID: 2756423368548845831, guid: a2757e355e7519c4bbbb077873175fe8, type: 3}
+  PossibilyToContinue: 100
+  rootRoom: {fileID: 0}
+  roomList: []
+  iterations: 0
+--- !u!114 &1031520118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031520115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33cd1facc9f5c2b4eb1e06a864f96760, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelGenerator: {fileID: 1031520117}
 --- !u!1 &1063846326 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5503505460791601945, guid: 74c549d1b06b6b140a1fd9536eea637f, type: 3}
@@ -1959,7 +2027,8 @@ Transform:
   m_LocalPosition: {x: 0.8064239, y: -57.96129, z: 62.407085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1031520116}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1470183291
@@ -1974,15 +2043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1deeba055b0dc4b8d8a85956f4e783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPosition: {x: 0, y: 0, z: 0}
-  roomFactory: {fileID: 1470183292}
-  maxNumberOfRooms: 10
-  currentRooms: 0
-  rootRoom: {fileID: 0}
-  roomList: []
-  RoomParent: {fileID: 0}
-  PossibilyToContinue: 100
-  exitPrefab: {fileID: 2756423368548845831, guid: a2757e355e7519c4bbbb077873175fe8, type: 3}
+  facade: {fileID: 1031520118}
   iterations: 0
 --- !u!114 &1470183292
 MonoBehaviour:
@@ -2754,7 +2815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1751221657
 MonoBehaviour:
   m_ObjectHideFlags: 0

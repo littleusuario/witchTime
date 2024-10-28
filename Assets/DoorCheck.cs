@@ -50,7 +50,9 @@ public class DoorCheck : MonoBehaviour
             if (hit.collider.transform.gameObject.CompareTag("Player")) 
             {
                 connectedRoom.MoveCameraFollow();
-                hit.collider.transform.gameObject.transform.position = connectedDoor.transform.position + -connectedDoor.direction.normalized * 1.5f;
+                Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * 1.5f;
+                newPosition.y = 0f;
+                hit.collider.transform.gameObject.transform.position = newPosition;
             }
         }
     }
