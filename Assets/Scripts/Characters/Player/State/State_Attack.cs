@@ -9,6 +9,7 @@ public class State_Attack : IState
     PlayerStateManager stateManager;
     bool flipped;
     float thresholdAngle = 5f;
+    private bool hasAttacked;
 
     public State_Attack(RandomMovement randomMovement, PlayerStateManager stateManager)
     {
@@ -24,6 +25,7 @@ public class State_Attack : IState
         randomMovement.animator.SetBool("right", false);
 
         randomMovement.animator.SetBool("attacking", true);
+        hasAttacked = false;
     }
 
     public void UpdateState()
@@ -36,10 +38,17 @@ public class State_Attack : IState
         {
             UpdateMouseBools(mousePOS);
             MoveTowardsMouse(mousePOS);
+
+            if (!hasAttacked)
+            {
+                randomMovement.PlayRandomSound();
+                hasAttacked = true;
+            }
         }
         else
         {
             flipped = false;
+            hasAttacked = false;
         }
 
         CheckForStateChange();
@@ -162,6 +171,7 @@ public class State_Attack : IState
     {
         ResetAnimationBools();
         randomMovement.animator.SetBool("attacking", false);
+        hasAttacked = false;
     }
 
     private float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

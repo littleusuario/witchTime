@@ -17,6 +17,9 @@ public class DoorCheck : MonoBehaviour
     [SerializeField] AudioClip doorSound;
     private AudioSource audioSource;
 
+    private float minPitch = 0.8f;
+    private float maxPitch = 1.3f;
+
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
 
     private void Start()
@@ -68,6 +71,7 @@ public class DoorCheck : MonoBehaviour
 
             if (audioSource != null && doorSound != null)
             {
+                audioSource.pitch = Random.Range(minPitch, maxPitch);
                 audioSource.PlayOneShot(doorSound);
             }
         }

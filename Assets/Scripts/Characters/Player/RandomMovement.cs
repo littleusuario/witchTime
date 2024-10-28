@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RandomMovement : MonoBehaviour
@@ -22,6 +22,11 @@ public class RandomMovement : MonoBehaviour
 
     [SerializeField] private PulseToTheBeat pulseOfTheBeat;
     public PulseToTheBeat PulseOfTheBeat => pulseOfTheBeat;
+
+    [Header("Sonidos")]
+    [SerializeField] private List<AudioClip> sounds;
+    [SerializeField] AudioSource attackAudioSource;
+
     void Awake()
     {
         stateManager = new PlayerStateManager(this);
@@ -31,5 +36,14 @@ public class RandomMovement : MonoBehaviour
     void Update()
     {
         stateManager.Update();
+    }
+
+    public void PlayRandomSound()
+    {
+        if (sounds.Count > 0)
+        {
+            AudioClip randomSound = sounds[Random.Range(0, sounds.Count)];
+            attackAudioSource.PlayOneShot(randomSound);
+        }
     }
 }
