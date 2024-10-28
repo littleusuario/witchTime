@@ -40,11 +40,8 @@ public class Room_Normal : RoomObject
         {
             checkForRooms = true;
 
-            foreach (GameObject door in doors)
-            {
-                CheckDoors(/*door*/);
-                EraseUncheckDoors();
-            }
+            CheckDoors(/*door*/);
+            EraseUncheckDoors();
         }
     }
     GameObject FindDoorOnObject(GameObject parent) 

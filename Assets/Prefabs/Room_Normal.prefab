@@ -2793,7 +2793,7 @@ MonoBehaviour:
   ground: {fileID: 7975293787889013845}
   cameraPosition: {x: 0, y: 0, z: 0}
   depth: 0
-  rayLengthMultiplier: 8
+  rayLengthMultiplier: 10
   cameraObjectFollow: {fileID: 0}
   RoomScriptable: {fileID: 11400000, guid: b8601a93eadf2494fac3fa5c30a0c369, type: 2}
 --- !u!1 &5000866868321088178

@@ -59,9 +59,10 @@ public class DoorCheck : MonoBehaviour
 
     public void Update()
     {
+
         elapsedTime += Time.deltaTime;
         distance = Vector3.Distance(transform.position, Player.transform.position);
-        if (distance <= threshold)
+        if  (distance <= threshold)
         {
             elapsedTime = 0f;
             connectedRoom.MoveCameraFollow();
