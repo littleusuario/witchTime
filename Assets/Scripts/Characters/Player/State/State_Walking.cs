@@ -7,6 +7,7 @@ public class State_Walking : IState
 {
     RandomMovement randomMovement;
     PlayerStateManager stateManager;
+    CollisionController collisionController;
     public event Action eventForward;
     public event Action eventBackward;
     private bool moving;
@@ -16,15 +17,19 @@ public class State_Walking : IState
     private float aceleracion = 10f;
     private float desaceleracion = 30f;
 
+    private Vector3 lastValidPosition;
+
     public State_Walking(RandomMovement randomMovement, PlayerStateManager stateManager)
     {
         this.randomMovement = randomMovement;
         this.stateManager = stateManager;
+        this.collisionController = randomMovement.GroundCheck;
     }
 
     public void EnterState()
     {
         velocidadActual = Vector3.zero;
+        lastValidPosition = randomMovement.transform.position;
     }
 
     public void UpdateState()
@@ -33,19 +38,29 @@ public class State_Walking : IState
 
         Vector3 direccionMovimiento = Vector3.zero;
 
-        if (moving)
+        if (collisionController.RayHit)
         {
-            if (Input.GetKey(KeyCode.W))
-                direccionMovimiento += Vector3.forward;
-            if (Input.GetKey(KeyCode.S))
-                direccionMovimiento += Vector3.back;
-            if (Input.GetKey(KeyCode.A))
-                direccionMovimiento += Vector3.left;
-            if (Input.GetKey(KeyCode.D))
-                direccionMovimiento += Vector3.right;
-        }
+            if (moving)
+            {
+                if (Input.GetKey(KeyCode.W))
+                    direccionMovimiento += Vector3.forward;
+                if (Input.GetKey(KeyCode.S))
+                    direccionMovimiento += Vector3.back;
+                if (Input.GetKey(KeyCode.A))
+                    direccionMovimiento += Vector3.left;
+                if (Input.GetKey(KeyCode.D))
+                    direccionMovimiento += Vector3.right;
 
-        MoverJugador(direccionMovimiento);
+                lastValidPosition = randomMovement.transform.position;
+            }
+
+            MoverJugador(direccionMovimiento);
+        }
+        else
+        {
+            randomMovement.transform.position = lastValidPosition;
+            velocidadActual = Vector3.zero;
+        }
     }
 
     public void ProcesarEntrada()
@@ -101,7 +116,6 @@ public class State_Walking : IState
         Vector3 movimiento = velocidadActual * Time.deltaTime;
         randomMovement.transform.Translate(movimiento, Space.World);
     }
-
 
     public void ExitState() { }
 }

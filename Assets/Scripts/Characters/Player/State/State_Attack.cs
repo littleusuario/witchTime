@@ -61,10 +61,21 @@ public class State_Attack : IState
     {
         Vector3 newPosition = Vector3.MoveTowards(randomMovement.transform.position, mousePOS, randomMovement.velocidad * Time.deltaTime);
         newPosition.y = 0;
-        if (!CheckCollisions(newPosition))
+
+        if (IsOnGround(newPosition) && !CheckCollisions(newPosition))
         {
             randomMovement.transform.position = newPosition;
         }
+    }
+
+    private bool IsOnGround(Vector3 position)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(position + Vector3.up, Vector3.down, out hit, 2f))
+        {
+            return hit.collider != null && hit.collider.CompareTag("Ground");
+        }
+        return false;
     }
 
     private void FlipParticleSystem(GameObject particleSystemMain)

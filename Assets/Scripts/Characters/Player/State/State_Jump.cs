@@ -66,7 +66,7 @@ public class State_Jump : IState
     }
     public void Jump() 
     {
-        Debug.Log(jumpVelocity);
+        //Debug.Log(jumpVelocity);
         SimulatePhysics();
 
         if (randomMovement.transform.position.y >= limitHeight) 
