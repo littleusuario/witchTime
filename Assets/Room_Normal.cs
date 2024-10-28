@@ -40,7 +40,7 @@ public class Room_Normal : RoomObject
         {
             checkForRooms = true;
 
-            CheckDoors(/*door*/);
+            CheckDoors();
             EraseUncheckDoors();
         }
     }

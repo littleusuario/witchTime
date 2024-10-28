@@ -7,6 +7,7 @@ public class LevelGenerator : MonoBehaviour
 {
     [Header("Factory")]
     [SerializeField] RoomFactory roomFactory;
+    [SerializeField] List<RoomObject> possibleRooms;
     [SerializeField] int maxNumberOfRooms = 15;
     [SerializeField] int currentRooms = 0;
 
@@ -150,7 +151,18 @@ public class LevelGenerator : MonoBehaviour
 
     private RoomObject roomCreate(Vector3 desiredPosition)
     {
-        RoomObject room = roomFactory.RoomCreator("Normal");
+        RoomObject room = null;
+
+        if (roomList.Count > 0) 
+        {
+            int possibility = Random.Range(0, possibleRooms.Count);
+
+            room = roomFactory.RoomCreator(possibleRooms[possibility].ID);
+        }
+        else 
+        {
+            room = roomFactory.RoomCreator("Normal");
+        }
         room.gameObject.transform.position = desiredPosition;
         return room;
     }

@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc6412c3b8179040a21885e2bc0db09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereRad: 0.3
+  sphereRad: 0.35
   bulletData: {fileID: 11400000, guid: c0bbdc2355de58e4bb38b550ce87a6a4, type: 2}
   mask:
     serializedVersion: 2
