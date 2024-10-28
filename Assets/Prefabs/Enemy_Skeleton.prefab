@@ -44,7 +44,7 @@ Animator:
   m_GameObject: {fileID: 334056607899107581}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6abb24f3f2d09124a81b26bd3aace6e7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4955d80216224f74db9773ff6cbedc1b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -670,11 +670,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca15ca92952a9984da13f22d194148a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 7541061032406014319, guid: 10505f44f9ce73746a55e3b33dc90c72, type: 3}
-  bulletLife: 8
-  speed: 4
+  bulletpool: {fileID: 0}
   spawn: {fileID: 7105162099119894473}
-  firingRate: 1
+  subjecttoObserve: {fileID: 0}
+  intervalsToObserve:
+    _steps: 0
+    _trigger:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &7148723457774239821
 GameObject:
   m_ObjectHideFlags: 0

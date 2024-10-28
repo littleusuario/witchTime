@@ -1,18 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 public class BulletSpawner : MonoBehaviour
 {
     [SerializeField] private BulletPool bulletpool;
     [SerializeField] private GameObject spawn;
-    [SerializeField] private FirstEnemy subjecttoObserve;
+    [SerializeField] private Enemy subjecttoObserve;
     [SerializeField] private Intervals intervalsToObserve;
     
     private Ishoot shoot;

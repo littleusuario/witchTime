@@ -15,7 +15,7 @@ public class FirstEnemy : Enemy
     [SerializeField] Animator animator;
     [SerializeField] PulseToTheBeat pulseToTheBeat;
     bool death;
-    public event Action Ondie;
+    public override event Action Ondie;
     EnemyStateManager stateManager;
 
     public float _StepDistance => StepDistance;
@@ -52,14 +52,9 @@ public class FirstEnemy : Enemy
 
     }
 
-    //private void RunBehaviour()
-    //{
-    //    enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, StepDistance);
-    //}
     public override void RunBehaviour()
     {
         stateManager.UpdateState();
-        //enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, StepDistance);
     }
 
     private void TakeDamage()
@@ -69,16 +64,13 @@ public class FirstEnemy : Enemy
         {
             if (animator != null) 
             {
-                animator.SetBool("HitDamage", true);
-                //StartCoroutine(HitKnockBack());
                 StartCoroutine(InvincibilityFrames());            
             }
         }
         else 
         {
-            //death = true;
-            //animator.SetBool("Death", true);
-            //StartCoroutine(HitKnockBack());
+            death = true;
+            animator.SetBool("Death", true);
             StartCoroutine(InvincibilityFrames());
         }
         if (HealthPoints == 0)
@@ -101,21 +93,6 @@ public class FirstEnemy : Enemy
         hitboxEnemy.enabled = true;
         yield return null;
     }
-
-    //IEnumerator HitKnockBack() 
-    //{
-    //    float elapsedTime = 0;
-    //    Vector3 initialPosition = enemy.transform.position;
-    //    Vector3 finalPosition = enemy.transform.position - player.transform.position;
-
-    //    while (elapsedTime < invincibilityFrames) 
-    //    {
-    //        elapsedTime += Time.deltaTime;
-    //        enemy.transform.position = Vector3.Lerp(initialPosition, finalPosition.normalized, elapsedTime / invincibilityFrames);
-    //        yield return null;
-    //    }
-    //    enemy.transform.position = finalPosition.normalized;
-    //}
 
     private void OnDestroy()
     {
