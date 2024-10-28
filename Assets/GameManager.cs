@@ -22,11 +22,15 @@ public class GameManager : MonoBehaviour
         (Instance != this)
         {
             Destroy(gameObject);
+            facade = null;
         }
 
         DontDestroyOnLoad(gameObject);
 
-        facade.StartGame();
+        if (Instance == this) 
+        {
+            facade.StartGame();
+        }
     }
 
     public void LoadNextLevel() 

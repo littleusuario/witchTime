@@ -20,16 +20,16 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] List<RoomObject> roomList;
 
     public int iterations = 0;
-
-    private void Awake()
-    {
-
-    }
     public void CreateLevelProcess(Scene scene, LoadSceneMode loadSceneMode)
     {
         iterations++;
         roomList.Clear();
         currentRooms = 0;
+        //if (iterations > 1)
+        //{
+        //    return;
+        //}
+
         if (RoomParent == null)
         {
             GameObject roomParent = new GameObject();
@@ -37,15 +37,11 @@ public class LevelGenerator : MonoBehaviour
             RoomParent = roomParent.transform;
         }
 
+
         rootRoom = roomCreate(roomPosition);
         rootRoom.transform.parent = RoomParent;
         currentRooms++;
         roomList.Add(rootRoom);
-
-        if (iterations > 1)
-        {
-            return;
-        }
 
         RoomGenerator();
 
