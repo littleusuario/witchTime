@@ -9,17 +9,23 @@ public class Room_Normal : RoomObject
     [SerializeField] private int rayLengthMultiplier = 8;
     [SerializeField] GameObject cameraObjectFollow;
     bool checkForRooms;
+    public RoomScriptable RoomScriptable;
     void Awake()
     {
         foreach (GameObject wall in walls) 
         {
+            wall.GetComponent<SpriteRenderer>().sprite = RoomScriptable.S_wall;
             GameObject room = FindDoorOnObject(wall);
 
             if(room != null) 
             {
                 doors.Add(room);
+                room.GetComponent<SpriteRenderer>().sprite = RoomScriptable.S_door;
             }
         }
+
+        rayLengthMultiplier = RoomScriptable.RayLengthMultiplier;
+        ground.sprite = RoomScriptable.S_ground;
         cameraObjectFollow = GameObject.Find("CameraFollow");
     }
 
@@ -75,11 +81,6 @@ public class Room_Normal : RoomObject
 
             Vector3 direction = ParentDirection(door);
             GameObject connectedDoor = doorCheck.CheckForDoor(direction, rayLengthMultiplier);
-
-            //if (connectedDoor == null)
-            //{
-            //    door.gameObject.SetActive(false);
-            //}
         }
     }
 

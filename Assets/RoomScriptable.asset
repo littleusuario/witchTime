@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216bb2b7a6bb7154c959e2f54d02d470, type: 3}
+  m_Name: RoomScriptable
+  m_EditorClassIdentifier: 
+  roomID: 
+  S_wall: {fileID: 21300000, guid: deb797d81539f0548a9901b4d096bddd, type: 3}
+  S_door: {fileID: 21300000, guid: 88e37e4040398b64bb839525ec5486cc, type: 3}
+  S_ground: {fileID: 21300000, guid: 62f230d8c0093524a8c77cbd661d1ac7, type: 3}
+  RayLengthMultiplier: 8

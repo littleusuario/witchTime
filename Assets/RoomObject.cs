@@ -12,6 +12,8 @@ public abstract class RoomObject : MonoBehaviour
 
     public List<GameObject> doors = new List<GameObject>();
 
+    public SpriteRenderer ground;
+
     public Vector3 cameraPosition;
 
     public int depth = 0;

@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             { 
                 Pool.Release(this);
-                hit.collider.gameObject.GetComponent<PlayerHealt>().TakeDamage(bulletData.damage);
+                hit.collider.gameObject.GetComponent<PlayerHealth>().TakeDamage(bulletData.damage);
                 
             }
         }

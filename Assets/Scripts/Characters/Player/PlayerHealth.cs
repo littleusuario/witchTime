@@ -5,11 +5,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHealt : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     private float life = 3f;
-    [SerializeField] private UnityEvent OnDie;
+    [SerializeField] private UnityEvent OnDie = new UnityEvent();
 
+    private void Start()
+    {
+        OnDie.AddListener(GameManager.Instance.LoadNextLevel);
+    }
     public void TakeDamage(int damage)
     {
         life -= damage;

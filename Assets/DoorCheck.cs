@@ -6,14 +6,22 @@ using UnityEngine;
 
 public class DoorCheck : MonoBehaviour
 {
+    [SerializeField] GameObject Player;
     [SerializeField] RoomObject connectedRoom;
     [SerializeField] RoomObject originRoom;
     [SerializeField] DoorCheck connectedDoor;
     [SerializeField] List<Collider> colliders;
     [SerializeField] Vector3 direction;
+    [SerializeField] float threshold = 1.0f;
+    private float elapsedTime = 0;
+    [SerializeField] float distance;
     
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
 
+    private void Start()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player");
+    }
     public GameObject CheckForDoor(Vector3 direction, float maxDistance) 
     {
         this.direction = direction; 
@@ -45,15 +53,15 @@ public class DoorCheck : MonoBehaviour
 
     public void Update()
     {
-        if(Physics.Raycast(transform.position, -direction.normalized, out RaycastHit hit, 1f)) 
+        elapsedTime += Time.deltaTime;
+        distance = Vector3.Distance(transform.position, Player.transform.position);
+        if (distance <= threshold) 
         {
-            if (hit.collider.transform.gameObject.CompareTag("Player")) 
-            {
-                connectedRoom.MoveCameraFollow();
-                Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * 1.5f;
-                newPosition.y = 0f;
-                hit.collider.transform.gameObject.transform.position = newPosition;
-            }
+            elapsedTime = 0f;
+            connectedRoom.MoveCameraFollow();
+            Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * 1.5f;
+            newPosition.y = 0f;
+            Player.transform.position = newPosition;
         }
     }
 }

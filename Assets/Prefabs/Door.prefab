@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1343673448774920439}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Door
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 88e37e4040398b64bb839525ec5486cc, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: ae12855ac249efc4c9ffb8fcf6cd840d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,8 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2273f9bae0f35c4ea0b9ac59b56be86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   connectedRoom: {fileID: 0}
   originRoom: {fileID: 0}
   connectedDoor: {fileID: 0}
   colliders: []
   direction: {x: 0, y: 0, z: 0}
+  threshold: 1.4
+  distance: 0
