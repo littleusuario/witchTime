@@ -25,6 +25,16 @@ public class LevelGenerator : MonoBehaviour
     {
 
     }
+
+
+    //Flyweight todo chingado
+    private RoomObject roomCreate(Vector3 position)
+    {
+        RoomObject room = roomFactory.RoomCreator("Normal");
+        room.gameObject.transform.position = desiredPosition;
+        return room;
+    }
+
     public void CreateLevelProcess(Scene scene, LoadSceneMode loadSceneMode)
     {
         iterations++;
@@ -73,6 +83,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 CheckRoom(rootRoom);
             }
+
         }
 
         for (int i = 0; i < roomList.Count; i++)
@@ -146,23 +157,18 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private RoomObject roomCreate(Vector3 desiredPosition)
-    {
-        RoomObject room = roomFactory.RoomCreator("Normal");
-        room.gameObject.transform.position = desiredPosition;
-        return room;
-    }
+
 
     public void CheckDoors(int index, Vector3 direction, RoomObject roomToCheck)
     {
-        if (roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom == null)
+        if (roomToCheck.roomData.doors[index].GetComponent<DoorCheck>().ConnectedRoom == null)
         {
             Debug.Log("ThereIsNothing");
             Vector3 desiredPosition = roomToCheck.transform.position + direction;
             RoomObject newRoom = roomCreate(desiredPosition);
             newRoom.transform.parent = RoomParent;
             roomList.Add(newRoom);
-            roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom = newRoom;
+            roomToCheck.roomData.doors[index].GetComponent<DoorCheck>().ConnectedRoom = newRoom;
 
             currentRooms++;
             return;
@@ -170,7 +176,7 @@ public class LevelGenerator : MonoBehaviour
         else
         {
             Debug.Log("ThereIsSomething");
-            CheckRoom(roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom);
+            CheckRoom(roomToCheck.roomData.doors[index].GetComponent<DoorCheck>().ConnectedRoom);
         }
     }
 
@@ -184,10 +190,10 @@ public class LevelGenerator : MonoBehaviour
             room.depth = depth;
             //depth = room.depth;
         }
-        CheckRoomDepth(room.doors[0].GetComponent<DoorCheck>().ConnectedRoom, depth);
-        CheckRoomDepth(room.doors[1].GetComponent<DoorCheck>().ConnectedRoom, depth);
-        CheckRoomDepth(room.doors[2].GetComponent<DoorCheck>().ConnectedRoom, depth);
-        CheckRoomDepth(room.doors[3].GetComponent<DoorCheck>().ConnectedRoom, depth);
+        CheckRoomDepth(room.roomData.doors[0].GetComponent<DoorCheck>().ConnectedRoom, depth);
+        CheckRoomDepth(room.roomData.doors[1].GetComponent<DoorCheck>().ConnectedRoom, depth);
+        CheckRoomDepth(room.roomData.doors[2].GetComponent<DoorCheck>().ConnectedRoom, depth);
+        CheckRoomDepth(room.roomData.doors[3].GetComponent<DoorCheck>().ConnectedRoom, depth);
     }
 
 }

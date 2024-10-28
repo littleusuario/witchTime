@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class RoomFactory : MonoBehaviour
 {
-    [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
-    [SerializeField] Dictionary<string, RoomObject> roomDictionary = new Dictionary<string, RoomObject>();
+    [SerializeField] private List<RoomData> roomDataList = new List<RoomData>();
+    [SerializeField] private GameObject roomPrefab;
+    private Dictionary<string, RoomData> roomDataDictionary = new Dictionary<string, RoomData>();
 
     private void Awake()
     {
-        foreach (RoomObject roomObject in roomList) 
+        foreach (RoomData roomData in roomDataList)
         {
-            roomDictionary.Add(roomObject.ID, roomObject);
+            roomDataDictionary[roomData.roomID] = roomData;
         }
     }
 
-    public RoomObject RoomCreator(string id) 
+    public RoomObject RoomCreator(string id, Vector3 position)
     {
-        if (roomDictionary.TryGetValue(id, out RoomObject room)) 
+        if (roomDataDictionary.TryGetValue(id, out RoomData roomData))
         {
-            return Instantiate(room);
+            RoomObject roomInstance = Instantiate(roomPrefab, position, Quaternion.identity).GetComponent<RoomObject>();
+            roomInstance.Initialize(roomData, position);
+            return roomInstance;
         }
-
         return null;
     }
 }

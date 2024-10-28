@@ -5,18 +5,27 @@ using UnityEngine;
 public abstract class RoomObject : MonoBehaviour
 {
     [Header("Room Walls")]
-
     public string ID;
 
-    public List<GameObject> walls = new List<GameObject>();
+    [Header("Room Data")]
+    public RoomData roomData;
 
-    public List<GameObject> doors = new List<GameObject>();
+    [Header("Instance-specific Data")]
+    public Vector3 cameraPosiion;
 
-    public Vector3 cameraPosition;
+    public void Initialize(RoomData data, Vector3 position)
+    {
+        this.roomData = data;
+        this.cameraPosiion = position;
+        transform.position = position;
+    }
+
+    public virtual void MoveCameraFollow()
+    {
+        Camera.main.transform.position = roomData.defaultCameraPosition;
+    }
 
     public int depth = 0;
-
-    public virtual void MoveCameraFollow() { }
 
     public virtual void StartCheckDoors() { }
 
