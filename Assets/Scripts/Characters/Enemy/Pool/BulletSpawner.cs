@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class BulletSpawner : MonoBehaviour
@@ -12,7 +13,8 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] private BulletPool bulletpool;
     [SerializeField] private Bullet bullet;
     [SerializeField] private GameObject spawn;
-
+    [SerializeField] private FirstEnemy subjecttoObserve;
+    [SerializeField] private Intervals intervalsToObserve;
     private int totalbullets = 4;
     private float rotation;
     private ShootType shoot = ShootType.Diagonal;
@@ -22,11 +24,31 @@ public class BulletSpawner : MonoBehaviour
         Diagonal,
         Straight,
     }
+
+    private void Awake()
+    {
+        if (subjecttoObserve != null) 
+        {
+            subjecttoObserve.Ondie += Ondie;
+        }
+
+        if (intervalsToObserve != null) 
+        {
+  
+        }
+        
+    }
+
+    private void Ondie()
+    {
+       
+       Destroy(this);
+    }
+
     public void Shooting()
     {
         if (shoot == ShootType.Straight)
         {
-            Debug.Log("1");
             float anglestep = 360 / totalbullets;
             float angle = 0;
             for (int i = 0; i < totalbullets; i++)
@@ -49,7 +71,6 @@ public class BulletSpawner : MonoBehaviour
         }
         if (shoot == ShootType.Diagonal)
         {
-            Debug.Log("2");
             float diagonalAngleStep = 360 / totalbullets;
             float diagonalAngle = 45;
             for (int i = 0; i < totalbullets; i++)

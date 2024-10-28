@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
@@ -14,6 +15,7 @@ public class FirstEnemy : Enemy
     [SerializeField] Animator animator;
     [SerializeField] PulseToTheBeat pulseToTheBeat;
     bool death;
+    public event Action Ondie;
     EnemyStateManager stateManager;
 
     public float _StepDistance => StepDistance;
@@ -32,6 +34,7 @@ public class FirstEnemy : Enemy
         {
             pulseToTheBeat.beatPulse += RunBehaviour;
         }
+        
     }
     private void Start()
     {
@@ -77,6 +80,10 @@ public class FirstEnemy : Enemy
             //animator.SetBool("Death", true);
             //StartCoroutine(HitKnockBack());
             StartCoroutine(InvincibilityFrames());
+        }
+        if (HealthPoints == 0)
+        {
+            Ondie.Invoke();
         }
     }
 

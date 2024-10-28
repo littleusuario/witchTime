@@ -28,12 +28,12 @@ public class Bullet : MonoBehaviour
             if ( hit.collider.CompareTag("Wall"))
             {
                 Pool.Release(this);
-                Debug.Log("salio");
             }
             if (hit.collider.CompareTag("Player"))
             { 
                 Pool.Release(this);
-                Debug.Log("Player");
+                hit.collider.gameObject.GetComponent<PlayerHealt>().TakeDamage(bulletData.damage);
+                
             }
         }
     }

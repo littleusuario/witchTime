@@ -1584,6 +1584,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7609321937746128826, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
   m_PrefabInstance: {fileID: 1624252256}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1266755718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266755713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74f225773b2ed6042bd769ef5e6e4253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1274217512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,6 +2635,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3189112656369092819, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1266755715}
+    - targetCorrespondingSourceObject: {fileID: 3189112656369092819, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1266755718}
     - targetCorrespondingSourceObject: {fileID: 7260582698484598038, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 297698592}
@@ -2851,7 +2866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1751221657
 MonoBehaviour:
   m_ObjectHideFlags: 0
