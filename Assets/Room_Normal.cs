@@ -1,76 +1,100 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class Room_Normal : RoomObject
 {
     [Header("Detection")]
     [SerializeField] private int rayLengthMultiplier = 8;
-    private GameObject cameraObjectFollow;
-    private bool checkForRooms = false;
-
-    private void Awake()
+    [SerializeField] GameObject cameraObjectFollow;
+    bool checkForRooms;
+    void Awake()
     {
+        foreach (GameObject wall in walls) 
+        {
+            GameObject room = FindDoorOnObject(wall);
+
+            if(room != null) 
+            {
+                doors.Add(room);
+            }
+        }
         cameraObjectFollow = GameObject.Find("CameraFollow");
     }
 
     private void Start()
     {
-        if (roomData != null)
-        {
-            MoveCameraFollow();
-        }
+        cameraPosition = transform.localPosition;
     }
 
-    private void Update()
+    public void Update()
     {
-        if (!checkForRooms)
+        if (!checkForRooms) 
         {
             checkForRooms = true;
-            CheckDoors();
-            EraseUncheckDoors();
+
+            foreach (GameObject door in doors)
+            {
+                CheckDoors(/*door*/);
+                EraseUncheckDoors();
+            }
         }
     }
-
-    private void CheckDoors()
+    GameObject FindDoorOnObject(GameObject parent) 
     {
-        foreach (GameObject door in roomData.doors)
+        foreach (Transform child in parent.transform)
         {
-            DoorCheck doorCheck = door.GetComponent<DoorCheck>();
-            Vector3 direction = ParentDirection(door);
-            doorCheck.CheckForDoor(direction, rayLengthMultiplier);
+            if (child.name == "Door")
+            {
+                return child.gameObject;
+            }
         }
-    }
 
-    private Vector3 ParentDirection(GameObject door)
-    {
-        string parentName = door.transform.parent.gameObject.name;
-        if (parentName == "UpWall") return Vector3.forward;
-        if (parentName == "DownWall") return Vector3.back;
-        if (parentName == "LeftWall") return Vector3.left;
-        if (parentName == "RightWall") return Vector3.right;
-
-        return Vector3.zero;
-    }
-
-    public override void MoveCameraFollow()
-    {
-        if (cameraObjectFollow != null)
-        {
-            cameraObjectFollow.transform.position = roomData.defaultCameraPosition;
-        }
+        return null;
     }
 
     public override void EraseUncheckDoors()
     {
-        foreach (GameObject door in roomData.doors)
+        foreach (GameObject door in doors)
         {
             if (door.GetComponent<DoorCheck>().ConnectedRoom == null)
             {
                 door.SetActive(false);
             }
         }
+
+        cameraPosition = transform.localPosition;
+    }
+
+    public void CheckDoors()
+    {
+        foreach (GameObject door in doors)
+        {
+            DoorCheck doorCheck = door.GetComponent<DoorCheck>();
+
+            Vector3 direction = ParentDirection(door);
+            GameObject connectedDoor = doorCheck.CheckForDoor(direction, rayLengthMultiplier);
+
+            //if (connectedDoor == null)
+            //{
+            //    door.gameObject.SetActive(false);
+            //}
+        }
+    }
+
+    public Vector3 ParentDirection(GameObject door) 
+    {
+        if (door.transform.parent.gameObject.name == "UpWall") { return Vector3.forward; }
+        if (door.transform.parent.gameObject.name == "DownWall") { return Vector3.back; }
+        if (door.transform.parent.gameObject.name == "LeftWall") { return Vector3.left; }
+        if (door.transform.parent.gameObject.name == "RightWall") { return Vector3.right; }
+
+        return Vector3.zero;
+    }
+
+    public override void MoveCameraFollow()
+    {
+        cameraObjectFollow.transform.position = cameraPosition;
     }
 }
