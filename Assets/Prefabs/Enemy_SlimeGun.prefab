@@ -56,7 +56,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.31
   m_Height: 1.41
@@ -633,15 +633,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayLimit: 0.2
-  tagsToCollide:
-  - Attack
+  tagsToCollide: []
   directions:
   - {x: 0, y: 0, z: 0.2}
   - {x: 0, y: 0, z: -0.2}
   - {x: 0.2, y: 0, z: 0}
   - {x: -0.2, y: 0, z: 0}
   rayHit: 0
-  tagCompare: Attack
+  tagCompare: 
   collisionBools: 00000000
 --- !u!1 &8649639828483943320
 GameObject:
@@ -751,6 +750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7828876384390247517}
   - component: {fileID: 7911533953618423370}
+  - component: {fileID: 1848485682316454224}
   m_Layer: 0
   m_Name: EnemyMovement
   m_TagString: Untagged
@@ -795,6 +795,29 @@ MonoBehaviour:
   pulseToTheBeat: {fileID: 6596594029513947287}
   thresholdAttackDistance: 1
   distance: 0
+--- !u!136 &1848485682316454224
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8721169731579256017}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.31
+  m_Height: 1.41
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.53, z: 0}
 --- !u!1 &8876726462663014423
 GameObject:
   m_ObjectHideFlags: 0

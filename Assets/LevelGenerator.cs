@@ -171,7 +171,6 @@ public class LevelGenerator : MonoBehaviour
     {
         if (roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom == null)
         {
-            //Debug.Log("ThereIsNothing");
             Vector3 desiredPosition = roomToCheck.transform.position + direction;
             RoomObject newRoom = roomCreate(desiredPosition);
             newRoom.transform.parent = RoomParent;
@@ -183,7 +182,6 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            //Debug.Log("ThereIsSomething");
             CheckRoom(roomToCheck.doors[index].GetComponent<DoorCheck>().ConnectedRoom);
         }
     }

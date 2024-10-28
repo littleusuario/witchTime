@@ -88,7 +88,7 @@ public class FirstEnemy : Enemy
         }
     }
 
-    private void TakeDamage()
+    public override void TakeDamage()
     {
         if (HealthPoints <= 0) return;
 
