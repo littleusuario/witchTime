@@ -28,11 +28,11 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        if (Instance == this)
-        {
-            playerCurrentHealth = playerMaxHealth;
-            facade.StartGame();
-        }
+        playerCurrentHealth = playerMaxHealth;
+        //if (Instance == this)
+        //{
+        //    facade.StartGame();
+        //}
     }
 
     private void Update()

@@ -8,6 +8,6 @@ public class FacadeManager : MonoBehaviour
     [SerializeField] LevelGenerator levelGenerator;
     public void StartGame()
     {
-        SceneManager.sceneLoaded += levelGenerator.CreateLevelProcess;
+        //SceneManager.sceneLoaded += levelGenerator.CreateLevelProcess;
     }
 }

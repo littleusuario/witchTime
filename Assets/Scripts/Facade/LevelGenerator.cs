@@ -12,28 +12,21 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] int currentRooms = 0;
 
     [Header("Room Variables")]
-    [SerializeField] Vector3 roomPosition;
+    [SerializeField] Vector3 roomPosition = Vector3.zero;
     [SerializeField] Transform RoomParent;
     [SerializeField] private GameObject exitPrefab;
     [SerializeField] private int PossibilyToContinue = 5;
     
     [SerializeField] RoomObject rootRoom;
-    [SerializeField] List<RoomObject> roomList;
+    [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
 
     public int iterations = 0;
-    public void CreateLevelProcess(Scene scene, LoadSceneMode loadSceneMode)
+    public void Start()
     {
         iterations++;
-        foreach (RoomObject room in roomList) 
-        {
-            Destroy(room);
-        }
-        roomList.Clear();
+        roomFactory = GetComponent<RoomFactory>();
+
         currentRooms = 0;
-        //if (iterations > 1)
-        //{
-        //    return;
-        //}
 
         if (RoomParent == null)
         {
@@ -42,7 +35,7 @@ public class LevelGenerator : MonoBehaviour
             RoomParent = roomParent.transform;
         }
 
-
+        roomPosition = Vector3.zero;
         rootRoom = roomCreate(roomPosition);
         rootRoom.transform.parent = RoomParent;
         currentRooms++;
@@ -66,6 +59,13 @@ public class LevelGenerator : MonoBehaviour
         {
             roomObject.CheckDoors();
         }
+
+        foreach(RoomObject roomObject in roomList) 
+        { 
+            roomObject.EraseUncheckDoors();
+        }
+
+
         Instantiate(exitPrefab, depthestRoom.transform.position + Vector3.up, Quaternion.Euler(90, 0, 0), depthestRoom.transform);
     }
     public void RoomGenerator()
@@ -139,11 +139,9 @@ public class LevelGenerator : MonoBehaviour
                     break;
 
                 case 4:
-                    //Debug.Log("Limit");
                     break;
 
                 default:
-                    //Debug.Log("Out");
                     break;
             }
         }
@@ -194,7 +192,6 @@ public class LevelGenerator : MonoBehaviour
         {
             depth++;
             room.depth = depth;
-            //depth = room.depth;
         }
         CheckRoomDepth(room.doors[0].GetComponent<DoorCheck>().ConnectedRoom, depth);
         CheckRoomDepth(room.doors[1].GetComponent<DoorCheck>().ConnectedRoom, depth);
