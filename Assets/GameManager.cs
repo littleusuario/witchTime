@@ -1,25 +1,26 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [SerializeField] FacadeManager facade;
+    [SerializeField] private FacadeManager facade;
 
     public int iterations = 0;
+
+    [Header("Player Health")]
+    [SerializeField] private int playerMaxHealth = 3;
+    private int playerCurrentHealth;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
-        else if
-        (Instance != this)
+        else if (Instance != this)
         {
             Destroy(gameObject);
             facade = null;
@@ -27,13 +28,50 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        if (Instance == this) 
+        if (Instance == this)
         {
+            playerCurrentHealth = playerMaxHealth;
             facade.StartGame();
         }
     }
 
-    public void LoadNextLevel() 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            RestartGame();
+        }
+    }
+
+    private void RestartGame()
+    {
+        playerCurrentHealth = playerMaxHealth;
+        iterations = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public int GetPlayerCurrentHealth()
+    {
+        return playerCurrentHealth;
+    }
+
+    public int GetPlayerMaxHealth()
+    {
+        return playerMaxHealth;
+    }
+
+    public void TakePlayerDamage(int damage)
+    {
+        playerCurrentHealth -= damage;
+        playerCurrentHealth = Mathf.Max(playerCurrentHealth, 0);
+    }
+
+    public void ResetPlayerHealth()
+    {
+        playerCurrentHealth = playerMaxHealth;
+    }
+
+    public void LoadNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

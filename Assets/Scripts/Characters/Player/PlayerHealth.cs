@@ -7,7 +7,6 @@ using Cinemachine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private float life = 3f;
     [SerializeField] private UnityEvent OnDie = new UnityEvent();
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private AudioSource audioSource;
@@ -32,8 +31,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        OnDie.AddListener(GameManager.Instance.LoadNextLevel);
-
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -61,8 +58,8 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isInvulnerable) return;
 
-        life -= damage;
-        Debug.Log(life);
+        GameManager.Instance.TakePlayerDamage(damage);
+        Debug.Log(GameManager.Instance.GetPlayerCurrentHealth());
 
         if (audioSource != null && damageSound != null)
         {
@@ -71,9 +68,11 @@ public class PlayerHealth : MonoBehaviour
 
         UpdateHealthDisplay();
 
-        if (life <= 0)
+        if (GameManager.Instance.GetPlayerCurrentHealth() <= 0)
         {
             OnDie.Invoke();
+            GameManager.Instance.ResetPlayerHealth();
+            GameManager.Instance.LoadNextLevel();
         }
         else
         {
@@ -81,11 +80,13 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+
     private void UpdateHealthDisplay()
     {
+        int currentHealth = GameManager.Instance.GetPlayerCurrentHealth();
         for (int i = 0; i < healthIcons.Count; i++)
         {
-            healthIcons[i].SetActive(i < life);
+            healthIcons[i].SetActive(i < currentHealth);
         }
     }
 

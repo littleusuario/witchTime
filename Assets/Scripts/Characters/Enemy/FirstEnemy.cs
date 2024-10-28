@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Timers;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public class FirstEnemy : Enemy
     GameObject player;
     private GameObject enemy;
     [SerializeField] private float velocity;
-    [SerializeField] private float StepDistance = 0.5f;
+    private float StepDistance = 0.75f;
     [SerializeField] CollisionController hitboxEnemy;
     [SerializeField] float invincibilityFrames = 0.5f;
     [SerializeField] Animator animator;
@@ -26,24 +25,24 @@ public class FirstEnemy : Enemy
     public Animator Animator => animator;
     public bool Death { get => death; set => death = value; }
     public GameObject Enemy => enemy;
+
     private void Awake()
     {
-
         if (hitboxEnemy != null)
         {
             hitboxEnemy.CollisionTrigger += TakeDamage;
         }
 
-        if (pulseToTheBeat != null) 
+        if (pulseToTheBeat != null)
         {
             pulseToTheBeat.beatPulse += RunBehaviour;
         }
-        
     }
+
     private void Start()
     {
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null) 
+        if (playerObject != null)
         {
             player = playerObject;
         }
@@ -54,15 +53,18 @@ public class FirstEnemy : Enemy
         State_SkeletonDeath state_SkeletonDeath = new State_SkeletonDeath(this);
         stateManager = new EnemyStateManager(state_SkeletonNormal, state_SkeletonDeath);
 
+        HealthPoints = 3;
     }
 
     private void Update()
     {
-        distance = Vector3.Distance(transform.position, player.transform.position);
-
-        if (distance <= thresholdAttackDistance)
+        if (player != null)
         {
-            DamagaZone();
+            distance = Vector3.Distance(transform.position, player.transform.position);
+            if (distance <= thresholdAttackDistance)
+            {
+                DamagaZone();
+            }
         }
     }
 
@@ -73,8 +75,7 @@ public class FirstEnemy : Enemy
 
     public override void DamagaZone()
     {
-        RaycastHit[] hits;
-        hits = Physics.SphereCastAll(transform.position, AttackRadius, transform.forward);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, AttackRadius, transform.forward);
 
         foreach (RaycastHit hit in hits)
         {
@@ -89,44 +90,55 @@ public class FirstEnemy : Enemy
 
     private void TakeDamage()
     {
+        if (HealthPoints <= 0) return;
+
         HealthPoints--;
+        Debug.Log($"HealthPoints: {HealthPoints}, animator: {animator}, hitboxEnemy: {hitboxEnemy}");
+
         if (HealthPoints > 0)
         {
-            if (animator != null) 
+            if (animator != null)
             {
-                StartCoroutine(InvincibilityFrames());            
+                StartCoroutine(InvincibilityFrames());
             }
         }
-        else 
+        else
         {
             death = true;
-            animator.SetBool("Death", true);
+            if (animator != null)
+            {
+                animator.SetBool("Death", true);
+            }
             StartCoroutine(InvincibilityFrames());
         }
-        if (HealthPoints == 0)
+
+        if (HealthPoints == 0 && Ondie != null)
         {
             Ondie.Invoke();
         }
     }
 
-    IEnumerator InvincibilityFrames() 
+    IEnumerator InvincibilityFrames()
     {
         hitboxEnemy.enabled = false;
         yield return new WaitForSeconds(invincibilityFrames);
-        if (death) 
+
+        if (death)
         {
             Destroy(gameObject);
-            StopCoroutine("InvincibilityFrames");
-            yield return null;
         }
-        animator.SetBool("HitDamage", false);
-        hitboxEnemy.enabled = true;
-        yield return null;
+        else
+        {
+            hitboxEnemy.enabled = true;
+        }
     }
 
     private void OnDestroy()
     {
-        pulseToTheBeat.beatPulse -= RunBehaviour;
-        pulseToTheBeat.enabled = false;
+        if (pulseToTheBeat != null)
+        {
+            pulseToTheBeat.beatPulse -= RunBehaviour;
+            pulseToTheBeat.enabled = false;
+        }
     }
 }
