@@ -19,7 +19,6 @@ public class SlashAttack : MonoBehaviour
 
             if (hitObject != null)
             {
-                Debug.Log("HELP");
                 hitObject.TakeDamage();
             }
         }

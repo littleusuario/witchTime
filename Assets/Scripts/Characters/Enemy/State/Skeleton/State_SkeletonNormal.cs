@@ -15,7 +15,7 @@ public class State_SkeletonNormal : State_EnemyNormal
     {
         float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.Player.transform.position);
 
-        if (distanceToPlayer < 6f)
+        if (distanceToPlayer < 6f && enemy.HealthPoints > 0)
         {
             enemy.Enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.Player.transform.position, enemy._StepDistance);
         }
