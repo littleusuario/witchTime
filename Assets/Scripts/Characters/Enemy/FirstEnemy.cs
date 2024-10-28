@@ -25,6 +25,7 @@ public class FirstEnemy : Enemy
     public GameObject Enemy => enemy;
     private void Awake()
     {
+
         if (hitboxEnemy != null)
         {
             hitboxEnemy.CollisionTrigger += TakeDamage;

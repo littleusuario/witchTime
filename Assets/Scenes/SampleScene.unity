@@ -1849,7 +1849,7 @@ GameObject:
   - component: {fileID: 1422560910}
   m_Layer: 0
   m_Name: BeatManager
-  m_TagString: Untagged
+  m_TagString: BeatManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1968,67 +1968,7 @@ MonoBehaviour:
   - _steps: 1
     _trigger:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 297698590}
-          m_TargetAssemblyTypeName: PulseToTheBeat, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1762402095}
-          m_TargetAssemblyTypeName: PulseToTheBeat, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1372231664}
-          m_TargetAssemblyTypeName: BeatPoolUI, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 675365653}
-          m_TargetAssemblyTypeName: PulseToTheBeat, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1916747159}
-          m_TargetAssemblyTypeName: BulletSpawner, Assembly-CSharp
-          m_MethodName: Shooting
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   _beatDetected: 0
 --- !u!4 &1422560911
 Transform:
@@ -3117,17 +3057,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1645192366}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1762402095 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6533755566384112220, guid: ce95e235f98c08d47bc14cd8b2daec76, type: 3}
-  m_PrefabInstance: {fileID: 7473478325627255895}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b4524cf5e6db224fb61eb687a9b1470, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1764836764
 GameObject:
   m_ObjectHideFlags: 0

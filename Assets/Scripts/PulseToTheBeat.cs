@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PulseToTheBeat : MonoBehaviour
@@ -23,9 +25,14 @@ public class PulseToTheBeat : MonoBehaviour
     public bool _isPulsing;
     public event Action beatPulse;
     public bool PulseInput => pulseInput;
+    private BeatManager BeatManager;
 
     private void Start()
     {
+        GameObject gameObject = GameObject.FindGameObjectWithTag("BeatManager");
+        BeatManager = gameObject.GetComponent<BeatManager>();
+        BeatManager.Intervals[0]._Trigger.AddListener(Pulse);
+
         _startSize = transform.localScale;
         _startPosition = transform.position;
         startY = _startPosition.y;

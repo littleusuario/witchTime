@@ -5,13 +5,17 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] private BulletPool bulletpool;
     [SerializeField] private GameObject spawn;
     [SerializeField] private Enemy subjecttoObserve;
-    [SerializeField] private Intervals intervalsToObserve;
+    [SerializeField] private BeatManager beatManager;
     
     private Ishoot shoot;
     private Straightshoot straightShoot;
     private Diagonalshoot diagonalShoot;
-    private void Awake()
+    private void Start()
     {
+        GameObject gameObject = GameObject.FindGameObjectWithTag("BeatManager");
+        beatManager = gameObject.GetComponent<BeatManager>();
+        beatManager.Intervals[0]._Trigger.AddListener(Shooting);
+
         shoot = GetComponent<Ishoot>();
         straightShoot = GetComponent<Straightshoot>();
         diagonalShoot = GetComponent<Diagonalshoot>();
@@ -32,7 +36,6 @@ public class BulletSpawner : MonoBehaviour
     }
     private void setBulletType()
     {
-      
         if (shoot == diagonalShoot) 
         {
             shoot = straightShoot;

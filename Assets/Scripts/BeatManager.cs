@@ -8,10 +8,9 @@ public class BeatManager : MonoBehaviour
 
     [SerializeField] private float _bpm;
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private Intervals[] _intervals;
+    [SerializeField] private List<Intervals> _intervals = new List<Intervals>();
     [SerializeField] private bool _beatDetected;
-
-    public bool BeatDetected => _beatDetected;
+    public List<Intervals> Intervals { get => _intervals; set => _intervals = value; }
 
     private void Update()
     {
@@ -35,6 +34,8 @@ public class Intervals
     [SerializeField] private float _steps;
     [SerializeField] private UnityEvent _trigger;
     private int _lastInterval;
+
+    public UnityEvent _Trigger { get => _trigger; set => _trigger = value; }
 
     public float GetIntervalLength(float bpm)
     {

@@ -25,6 +25,7 @@ TagManager:
   - Wall
   - Door
   - Exit
+  - BeatManager
   layers:
   - Default
   - TransparentFX
