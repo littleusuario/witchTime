@@ -61,6 +61,10 @@ public class LevelGenerator : MonoBehaviour
                 depth = roomObject.depth;
             }
         }
+        foreach (RoomObject roomObject in roomList) 
+        {
+            roomObject.CheckDoors();
+        }
         Instantiate(exitPrefab, depthestRoom.transform.position + Vector3.up, Quaternion.Euler(90, 0, 0), depthestRoom.transform);
     }
     public void RoomGenerator()

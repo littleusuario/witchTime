@@ -73,7 +73,7 @@ public class Room_Normal : RoomObject
         cameraPosition = transform.localPosition;
     }
 
-    public void CheckDoors()
+    public override void CheckDoors()
     {
         foreach (GameObject door in doors)
         {

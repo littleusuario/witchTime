@@ -18,6 +18,7 @@ public abstract class RoomObject : MonoBehaviour
 
     public int depth = 0;
 
+    public virtual void CheckDoors() { }
     public virtual void MoveCameraFollow() { }
 
     public virtual void StartCheckDoors() { }
