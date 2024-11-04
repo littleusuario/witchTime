@@ -44,7 +44,6 @@ public class Room_Normal : RoomObject
             checkForRooms = true;
 
             CheckDoors();
-            EraseUncheckDoors();
         }
     }
     GameObject FindDoorOnObject(GameObject parent) 
@@ -80,7 +79,7 @@ public class Room_Normal : RoomObject
             DoorCheck doorCheck = door.GetComponent<DoorCheck>();
 
             Vector3 direction = ParentDirection(door);
-            GameObject connectedDoor = doorCheck.CheckForDoor(direction, rayLengthMultiplier);
+            doorCheck.CheckForDoor(direction, rayLengthMultiplier);             
         }
     }
 

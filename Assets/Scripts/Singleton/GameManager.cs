@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
             facade = null;
         }
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         playerCurrentHealth = playerMaxHealth;
         //if (Instance == this)

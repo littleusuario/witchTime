@@ -20,6 +20,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] RoomObject rootRoom;
     [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
     [SerializeField] SpawnEnemies spawnEnemies;
+    bool doOnlyOncePlease;
 
     public int iterations = 0;
     public void Start()
@@ -47,6 +48,11 @@ public class LevelGenerator : MonoBehaviour
         RoomObject depthestRoom = null;
         int depth = 0;
 
+        foreach (RoomObject roomObject in roomList) 
+        {
+            roomObject.CheckDoors();
+        }
+
         foreach (RoomObject roomObject in roomList)
         {
             CheckRoomDepth(roomObject, depth);
@@ -56,22 +62,30 @@ public class LevelGenerator : MonoBehaviour
                 depth = roomObject.depth;
             }
         }
-        foreach (RoomObject roomObject in roomList) 
-        {
-            roomObject.CheckDoors();
-        }
 
-        foreach(RoomObject roomObject in roomList) 
-        { 
-            roomObject.EraseUncheckDoors();
-        }
-        foreach (Room_Normal rooms in roomList)
-        {
-            spawnEnemies.Notcleared.Add(rooms);
-        }
+
+        //foreach (Room_Normal rooms in roomList)
+        //{
+        //    spawnEnemies.Notcleared.Add(rooms);
+        //}
+
 
 
         Instantiate(exitPrefab, depthestRoom.transform.position + Vector3.up, Quaternion.Euler(90, 0, 0), depthestRoom.transform);
+    }
+
+ 
+    private void Update()
+    {
+        if (!doOnlyOncePlease) 
+        {
+
+            //doOnlyOncePlease = true;
+            //foreach (RoomObject roomObject in roomList)
+            //{
+            //    roomObject.EraseUncheckDoors();
+            //}
+        }
     }
     public void RoomGenerator()
     {
@@ -198,10 +212,23 @@ public class LevelGenerator : MonoBehaviour
             depth++;
             room.depth = depth;
         }
-        CheckRoomDepth(room.doors[0].GetComponent<DoorCheck>().ConnectedRoom, depth);
-        CheckRoomDepth(room.doors[1].GetComponent<DoorCheck>().ConnectedRoom, depth);
-        CheckRoomDepth(room.doors[2].GetComponent<DoorCheck>().ConnectedRoom, depth);
-        CheckRoomDepth(room.doors[3].GetComponent<DoorCheck>().ConnectedRoom, depth);
+
+        RoomObject upRoom = room.doors[0].GetComponent<DoorCheck>().ConnectedRoom;
+        RoomObject downRoom = room.doors[1].GetComponent<DoorCheck>().ConnectedRoom;
+        RoomObject rightRoom = room.doors[2].GetComponent<DoorCheck>().ConnectedRoom;
+        RoomObject leftRoom = room.doors[3].GetComponent<DoorCheck>().ConnectedRoom;
+
+        //if (upRoom != null)
+        //    CheckRoomDepth(upRoom, depth);
+        
+        //if (downRoom != null)
+        //    CheckRoomDepth(downRoom, depth);
+        
+        //if (rightRoom != null)
+        //    CheckRoomDepth(rightRoom, depth);
+        
+        //if (leftRoom != null)
+        //    CheckRoomDepth(leftRoom, depth);
     }
 
 }

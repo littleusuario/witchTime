@@ -17,15 +17,15 @@ public class SpawnEnemies : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.ActualRoom == Notcleared.Contains(GameManager.Instance.ActualRoom))
-        {
+        //if (GameManager.Instance.ActualRoom == Notcleared.Contains(GameManager.Instance.ActualRoom))
+        //{
 
-            Room_Normal spawn = GameManager.Instance.ActualRoom.GetComponentInChildren<Room_Normal>();
-            for (int i = 0; i < spawn.NumberOfenemies; i++)
-            {
-                Instantiate(spawn.EnemiestoSpawn[i]);
-            }
+        //    Room_Normal spawn = GameManager.Instance.ActualRoom.GetComponentInChildren<Room_Normal>();
+        //    for (int i = 0; i < spawn.NumberOfenemies; i++)
+        //    {
+        //        Instantiate(spawn.EnemiestoSpawn[i]);
+        //    }
            
-        }
+        //}
     }
 }

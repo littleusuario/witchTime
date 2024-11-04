@@ -20,7 +20,10 @@ public class DoorCheck : MonoBehaviour
     private float minPitch = 0.8f;
     private float maxPitch = 1.3f;
 
+    private float maxDistance = 0;
+
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
+    public DoorCheck ConnectedDoor { get => connectedDoor; set => connectedDoor = value; }
 
     private void Start()
     {
@@ -31,10 +34,13 @@ public class DoorCheck : MonoBehaviour
     public GameObject CheckForDoor(Vector3 direction, float maxDistance)
     {
         this.direction = direction;
-        RaycastHit[] hits;
+        this.maxDistance = maxDistance;
+        RaycastHit[] hits = null;
         Debug.DrawRay(transform.position, direction * maxDistance, Color.white, 1f);
 
         hits = Physics.RaycastAll(transform.position, direction, maxDistance);
+
+        if (hits.Length == 0) { }
 
         foreach (RaycastHit rayHit in hits)
         {
@@ -46,7 +52,6 @@ public class DoorCheck : MonoBehaviour
                 if (hitGameObject != gameObject)
                 {
                     Debug.DrawRay(transform.position, direction * maxDistance, Color.magenta, 1f);
-                    GameObject otherDoor = hitGameObject;
                     connectedDoor = hitGameObject.GetComponent<DoorCheck>();
 
                     connectedRoom = connectedDoor.originRoom;
@@ -57,6 +62,36 @@ public class DoorCheck : MonoBehaviour
         return null;
     }
 
+    private void FixedUpdate()
+    {
+        if (direction != Vector3.zero && maxDistance != 0) 
+        {
+            RaycastHit[] hits = null;
+            Debug.DrawRay(transform.position, direction * maxDistance, Color.white, 1f);
+
+            hits = Physics.RaycastAll(transform.position, direction, maxDistance);
+
+            if (hits.Length == 0) { }
+
+            foreach (RaycastHit rayHit in hits)
+            {
+                colliders.Add(rayHit.collider);
+                if (rayHit.collider.transform.gameObject.CompareTag("Door"))
+                {
+                    GameObject hitGameObject = rayHit.collider.transform.gameObject;
+
+                    if (hitGameObject != gameObject)
+                    {
+                        Debug.DrawRay(transform.position, direction * maxDistance, Color.magenta, 1f);
+                        connectedDoor = hitGameObject.GetComponent<DoorCheck>();
+
+                        connectedRoom = connectedDoor.originRoom;
+                    }
+                }
+            }
+
+        }
+    }
     public void Update()
     {
 
