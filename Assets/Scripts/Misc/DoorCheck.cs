@@ -19,8 +19,7 @@ public class DoorCheck : MonoBehaviour
 
     private float minPitch = 0.8f;
     private float maxPitch = 1.3f;
-
-    private float maxDistance = 0;
+    private float maxDistance;
 
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
     public DoorCheck ConnectedDoor { get => connectedDoor; set => connectedDoor = value; }
@@ -29,6 +28,7 @@ public class DoorCheck : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         audioSource = GetComponent<AudioSource>();
+
     }
 
     public GameObject CheckForDoor(Vector3 direction, float maxDistance)
@@ -105,11 +105,14 @@ public class DoorCheck : MonoBehaviour
             newPosition.y = 0f;
             Player.transform.position = newPosition;
             GameManager.Instance.ActualRoom = connectedRoom;
+            GameManager.Instance.spawnEnemies.Spawning();
             if (audioSource != null && doorSound != null)
             {
                 audioSource.pitch = Random.Range(minPitch, maxPitch);
                 audioSource.PlayOneShot(doorSound);
             }
+          
+        
         }
     }
 }

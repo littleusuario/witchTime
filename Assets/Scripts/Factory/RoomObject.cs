@@ -24,5 +24,6 @@ public abstract class RoomObject : MonoBehaviour
     public virtual void StartCheckDoors() { }
 
     public virtual void EraseUncheckDoors() { }
+
 }
 

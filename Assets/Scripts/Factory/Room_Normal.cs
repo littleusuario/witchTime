@@ -12,6 +12,7 @@ public class Room_Normal : RoomObject
     public RoomScriptable RoomScriptable;
     public List<GameObject> EnemiestoSpawn = new List<GameObject>();
     public int NumberOfenemies;
+    public Transform enemyspawn;
     void Awake()
     {
         NumberOfenemies = EnemiestoSpawn.Count;

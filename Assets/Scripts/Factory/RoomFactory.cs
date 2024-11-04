@@ -20,6 +20,7 @@ public class RoomFactory : MonoBehaviour
         if (roomDictionary.TryGetValue(id, out RoomObject room)) 
         {
             return Instantiate(room);
+            
         }
 
         return null;
