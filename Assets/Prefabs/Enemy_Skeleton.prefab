@@ -154,6 +154,8 @@ MonoBehaviour:
   pulseToTheBeat: {fileID: 6533755566384112220}
   thresholdAttackDistance: 0
   distance: 0
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  spriteRenderer: {fileID: 0}
 --- !u!136 &6517617114550265773
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -659,7 +661,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1437253194254849351}
-  - component: {fileID: 8731783892062903716}
   m_Layer: 0
   m_Name: Enemy_Skeleton
   m_TagString: Untagged
@@ -684,22 +685,6 @@ Transform:
   - {fileID: 7586622975303471716}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8731783892062903716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7105162099119894473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca15ca92952a9984da13f22d194148a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletpool: {fileID: 0}
-  spawn: {fileID: 7105162099119894473}
-  subjecttoObserve: {fileID: 0}
-  beatManager: {fileID: 0}
 --- !u!1 &7148723457774239821
 GameObject:
   m_ObjectHideFlags: 0

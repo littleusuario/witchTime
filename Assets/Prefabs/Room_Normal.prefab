@@ -2796,6 +2796,9 @@ MonoBehaviour:
   rayLengthMultiplier: 10
   cameraObjectFollow: {fileID: 0}
   RoomScriptable: {fileID: 11400000, guid: b8601a93eadf2494fac3fa5c30a0c369, type: 2}
+  EnemiestoSpawn: []
+  NumberOfenemies: 0
+  enemyspawn: []
 --- !u!1 &5000866868321088178
 GameObject:
   m_ObjectHideFlags: 0

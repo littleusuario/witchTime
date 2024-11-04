@@ -123,6 +123,7 @@ public class FirstEnemy : Enemy
         if (HealthPoints == 0 && Ondie != null)
         {
             Ondie.Invoke();
+            GameManager.Instance.ActualRoom.NumberOfenemies--;
         }
     }
 
