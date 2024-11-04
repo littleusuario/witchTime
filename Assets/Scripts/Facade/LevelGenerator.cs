@@ -81,10 +81,10 @@ public class LevelGenerator : MonoBehaviour
         {
 
             //doOnlyOncePlease = true;
-            //foreach (RoomObject roomObject in roomList)
-            //{
-            //    roomObject.EraseUncheckDoors();
-            //}
+            foreach (RoomObject roomObject in roomList)
+            {
+                roomObject.EraseUncheckDoors();
+            }
         }
     }
     public void RoomGenerator()
