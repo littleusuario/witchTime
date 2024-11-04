@@ -14,7 +14,7 @@ public class SpawnEnemies : MonoBehaviour
             Room_Normal spawn = GameManager.Instance.ActualRoom.GetComponent<Room_Normal>();
             for (int i = 0; i < spawn.NumberOfenemies; i++)
             {
-                Instantiate(spawn.EnemiestoSpawn[i],spawn.enemyspawn);
+                Instantiate(spawn.EnemiestoSpawn[i], spawn.enemyspawn[i]);
             }
         }
 

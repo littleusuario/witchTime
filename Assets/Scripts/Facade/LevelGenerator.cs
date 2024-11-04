@@ -64,10 +64,10 @@ public class LevelGenerator : MonoBehaviour
         }
 
 
-        //foreach (Room_Normal rooms in roomList)
-        //{
-        //    spawnEnemies.Notcleared.Add(rooms);
-        //}
+        foreach (Room_Normal rooms in roomList)
+        {
+            spawnEnemies.Notcleared.Add(rooms);
+        }
 
 
 

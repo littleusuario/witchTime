@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int playerMaxHealth = 3;
     private int playerCurrentHealth;
 
-    public RoomObject  ActualRoom;
+    public Room_Normal ActualRoom;
     private void Awake()
     {
         if (Instance == null)
@@ -55,6 +55,11 @@ public class GameManager : MonoBehaviour
     public int GetPlayerCurrentHealth()
     {
         return playerCurrentHealth;
+    }
+
+    public void SetCurrentRoom(RoomObject roomObject) 
+    {
+        Instance.ActualRoom = (Room_Normal)roomObject;
     }
 
     public int GetPlayerMaxHealth()

@@ -7,6 +7,7 @@ public class RoomFactory : MonoBehaviour
     [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
     [SerializeField] Dictionary<string, RoomObject> roomDictionary = new Dictionary<string, RoomObject>();
 
+
     private void Awake()
     {
         foreach (RoomObject roomObject in roomList) 

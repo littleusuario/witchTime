@@ -1923,7 +1923,7 @@ MonoBehaviour:
   PossibilyToContinue: 100
   rootRoom: {fileID: 0}
   roomList: []
-  spawnEnemies: {fileID: 0}
+  spawnEnemies: {fileID: 1031520120}
   iterations: 0
 --- !u!114 &1031520118
 MonoBehaviour:
