@@ -24,6 +24,9 @@ public class DoorCheck : MonoBehaviour
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
     public DoorCheck ConnectedDoor { get => connectedDoor; set => connectedDoor = value; }
 
+    int tryNumberTimes = 2;
+    public int TryNumberTimes => tryNumberTimes;
+
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -31,40 +34,15 @@ public class DoorCheck : MonoBehaviour
 
     }
 
-    public GameObject CheckForDoor(Vector3 direction, float maxDistance)
+    public void SetDirectionAndDistance(Vector3 direction, float maxDistance)
     {
         this.direction = direction;
         this.maxDistance = maxDistance;
-        RaycastHit[] hits = null;
-        Debug.DrawRay(transform.position, direction * maxDistance, Color.white, 1f);
-
-        hits = Physics.RaycastAll(transform.position, direction, maxDistance);
-
-        if (hits.Length == 0) { }
-
-        foreach (RaycastHit rayHit in hits)
-        {
-            colliders.Add(rayHit.collider);
-            if (rayHit.collider.transform.gameObject.CompareTag("Door"))
-            {
-                GameObject hitGameObject = rayHit.collider.transform.gameObject;
-
-                if (hitGameObject != gameObject)
-                {
-                    Debug.DrawRay(transform.position, direction * maxDistance, Color.magenta, 1f);
-                    connectedDoor = hitGameObject.GetComponent<DoorCheck>();
-
-                    connectedRoom = connectedDoor.originRoom;
-                    return hitGameObject;
-                }
-            }
-        }
-        return null;
     }
 
     private void FixedUpdate()
     {
-        if (direction != Vector3.zero && maxDistance != 0) 
+        if (direction != Vector3.zero && maxDistance != 0 && tryNumberTimes > 0) 
         {
             RaycastHit[] hits = null;
             Debug.DrawRay(transform.position, direction * maxDistance, Color.white, 1f);
@@ -90,6 +68,7 @@ public class DoorCheck : MonoBehaviour
                 }
             }
 
+            tryNumberTimes--;
         }
     }
     public void Update()

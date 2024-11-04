@@ -64,7 +64,8 @@ public class Room_Normal : RoomObject
     {
         foreach (GameObject door in doors)
         {
-            if (door.GetComponent<DoorCheck>().ConnectedRoom == null)
+            DoorCheck doorCheck = door.GetComponent<DoorCheck>();
+            if (doorCheck.ConnectedDoor == null && doorCheck.TryNumberTimes <= 0)
             {
                 door.SetActive(false);
             }
@@ -80,7 +81,7 @@ public class Room_Normal : RoomObject
             DoorCheck doorCheck = door.GetComponent<DoorCheck>();
 
             Vector3 direction = ParentDirection(door);
-            doorCheck.CheckForDoor(direction, rayLengthMultiplier);             
+            doorCheck.SetDirectionAndDistance(direction, rayLengthMultiplier);             
         }
     }
 
