@@ -2797,6 +2797,9 @@ MonoBehaviour:
   rayLengthMultiplier: 10
   cameraObjectFollow: {fileID: 0}
   RoomScriptable: {fileID: 11400000, guid: b8601a93eadf2494fac3fa5c30a0c369, type: 2}
+  EnemiestoSpawn:
+  - {fileID: 5535308581211802101}
+  NumberOfenemies: 0
 --- !u!1 &5000866868321088178
 GameObject:
   m_ObjectHideFlags: 0
@@ -4669,6 +4672,11 @@ PrefabInstance:
 --- !u!4 &5173505860612965562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 236711995674703143, guid: 7fe74416c92708c4f8480df43cba5a50, type: 3}
+  m_PrefabInstance: {fileID: 4936794449062621597}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5535308581211802101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 599640342374021224, guid: 7fe74416c92708c4f8480df43cba5a50, type: 3}
   m_PrefabInstance: {fileID: 4936794449062621597}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5386294911843157608

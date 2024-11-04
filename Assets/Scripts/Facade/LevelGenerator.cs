@@ -19,6 +19,7 @@ public class LevelGenerator : MonoBehaviour
     
     [SerializeField] RoomObject rootRoom;
     [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
+    [SerializeField] SpawnEnemies spawnEnemies;
 
     public int iterations = 0;
     public void Start()
@@ -63,6 +64,10 @@ public class LevelGenerator : MonoBehaviour
         foreach(RoomObject roomObject in roomList) 
         { 
             roomObject.EraseUncheckDoors();
+        }
+        foreach (Room_Normal rooms in roomList)
+        {
+            spawnEnemies.Notcleared.Add(rooms);
         }
 
 

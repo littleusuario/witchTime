@@ -10,8 +10,11 @@ public class Room_Normal : RoomObject
     [SerializeField] GameObject cameraObjectFollow;
     bool checkForRooms;
     public RoomScriptable RoomScriptable;
+    public List<GameObject> EnemiestoSpawn = new List<GameObject>();
+    public int NumberOfenemies;
     void Awake()
     {
+        NumberOfenemies = EnemiestoSpawn.Count;
         foreach (GameObject wall in walls) 
         {
             wall.GetComponent<SpriteRenderer>().sprite = RoomScriptable.S_wall;

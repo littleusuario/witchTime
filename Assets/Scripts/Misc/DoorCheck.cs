@@ -69,7 +69,7 @@ public class DoorCheck : MonoBehaviour
             Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * 1.5f;
             newPosition.y = 0f;
             Player.transform.position = newPosition;
-
+            GameManager.Instance.ActualRoom = connectedRoom;
             if (audioSource != null && doorSound != null)
             {
                 audioSource.pitch = Random.Range(minPitch, maxPitch);
