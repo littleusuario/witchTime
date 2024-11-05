@@ -105,6 +105,7 @@ public class FirstEnemy : Enemy
 
         if (HealthPoints > 0)
         {
+            Instantiate(DamageParticleSystem, transform.position, Quaternion.identity, transform);
             if (animator != null)
             {
                 StartCoroutine(HitEffect());

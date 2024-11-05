@@ -437,6 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthPoints: 1
   AttackRadius: 1
+  DamageParticleSystem: {fileID: 3477862717305150004, guid: bc08b02cf46b179449c7f5e31ce1c009, type: 3}
   velocity: 2
   hitboxEnemy: {fileID: 2738041428370789051}
   invincibilityFrames: 0.5
