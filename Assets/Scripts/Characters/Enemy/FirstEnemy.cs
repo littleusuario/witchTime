@@ -122,8 +122,9 @@ public class FirstEnemy : Enemy
 
         if (HealthPoints == 0 && Ondie != null)
         {
+            GameManager.Instance.ActualRoom.EnemiestoSpawn.Remove(gameObject);
             Ondie.Invoke();
-            GameManager.Instance.ActualRoom.NumberOfenemies--;
+          
         }
     }
 

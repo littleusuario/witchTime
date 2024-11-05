@@ -11,10 +11,9 @@ public class Room_Normal : RoomObject
     bool checkForRooms;
     public RoomScriptable RoomScriptable;
     public List<GameObject> EnemiestoSpawn = new List<GameObject>();
-    public int NumberOfenemies;
+ 
     void Awake()
     {
-        NumberOfenemies = EnemiestoSpawn.Count;
         foreach (GameObject wall in walls) 
         {
             wall.GetComponent<SpriteRenderer>().sprite = RoomScriptable.S_wall;
@@ -97,7 +96,9 @@ public class Room_Normal : RoomObject
 
     public override void MoveCameraFollow()
     {
+
+        GameManager.Instance.spawnEnemies.Spawning(this);
         cameraObjectFollow.transform.position = cameraPosition;
-        GameManager.Instance.spawnEnemies.Spawning();
+      
     }
 }
