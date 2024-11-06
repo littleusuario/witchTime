@@ -74,12 +74,25 @@ public class SecondEnemy : Enemy
 
     public override void RunBehaviour()
     {
-        stateManager.UpdateState();
+        if(beats >= beatsInactiveStart)
+            stateManager.UpdateState();
+
+        beats++;
     }
 
     public override void DamagaZone()
     {
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, AttackRadius, transform.forward);
 
+        foreach (RaycastHit hit in hits)
+        {
+            GameObject hitObject = hit.collider.transform.gameObject;
+
+            if (hitObject.CompareTag("Player") && HealthPoints > 0)
+            {
+                hitObject.GetComponent<PlayerHealth>().TakeDamage(1);
+            }
+        }
     }
 
     public override void TakeDamage()

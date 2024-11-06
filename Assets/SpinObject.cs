@@ -8,13 +8,6 @@ public class SpinObject : MonoBehaviour
     [SerializeField] float timeToRotate = 3f;
     [SerializeField] int boxesMenu = 0;
     bool Rotating;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow) && !Rotating && boxesMenu > 0) 

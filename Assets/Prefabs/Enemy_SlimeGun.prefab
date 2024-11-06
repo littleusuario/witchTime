@@ -840,6 +840,8 @@ MonoBehaviour:
   HealthPoints: 2
   AttackRadius: 1
   DamageParticleSystem: {fileID: 3548944917942328832, guid: d8ea73ff54f5bb24b9abb758f56b1c49, type: 3}
+  beatsInactiveStart: 0
+  beats: 0
   velocity: 2
   StepDistance: 0.1
   hitboxEnemy: {fileID: 4927426946128692105}

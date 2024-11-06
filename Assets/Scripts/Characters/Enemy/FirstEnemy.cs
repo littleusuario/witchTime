@@ -66,7 +66,7 @@ public class FirstEnemy : Enemy
 
     private void Update()
     {
-        if (player != null)
+        if (player != null && beats > beatsInactiveStart)
         {
             distance = Vector3.Distance(transform.position, player.transform.position);
             if (distance <= thresholdAttackDistance)
@@ -78,7 +78,10 @@ public class FirstEnemy : Enemy
 
     public override void RunBehaviour()
     {
-        stateManager.UpdateState();
+        if(beats >= beatsInactiveStart)
+            stateManager.UpdateState();
+
+        beats++;
     }
 
     public override void DamagaZone()

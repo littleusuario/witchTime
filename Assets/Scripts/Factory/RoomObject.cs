@@ -17,7 +17,7 @@ public abstract class RoomObject : MonoBehaviour
     public Vector3 cameraPosition;
 
     public int depth = 0;
-
+    public bool RoomChecked;
     public virtual void CheckDoors() { }
     public virtual void MoveCameraFollow() { }
 

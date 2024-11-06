@@ -20,12 +20,9 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] RoomObject rootRoom;
     [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
     [SerializeField] SpawnEnemies spawnEnemies;
-    bool doOnlyOncePlease;
-
-    public int iterations = 0;
-    public void Start()
+    int tryNumberTimes = 3;
+    public void CreateLevelProcess()
     {
-        iterations++;
         roomFactory = GetComponent<RoomFactory>();
 
         currentRooms = 0;
@@ -69,22 +66,21 @@ public class LevelGenerator : MonoBehaviour
             spawnEnemies.Notcleared.Add(rooms);
         }
 
-
-
         Instantiate(exitPrefab, depthestRoom.transform.position + Vector3.up, Quaternion.Euler(90, 0, 0), depthestRoom.transform);
     }
 
  
     private void Update()
     {
-        if (!doOnlyOncePlease) 
+        if (tryNumberTimes > 0) 
         {
-
             //doOnlyOncePlease = true;
+            bool finishClear = true;
             foreach (RoomObject roomObject in roomList)
             {
                 roomObject.EraseUncheckDoors();
             }
+            tryNumberTimes--;
         }
     }
     public void RoomGenerator()
@@ -205,11 +201,11 @@ public class LevelGenerator : MonoBehaviour
 
     private void CheckRoomDepth(RoomObject room, int depth)
     {
-        if (room == null) return;
+        if (room == null || room.RoomChecked) return;
 
+            depth++;
         if (depth > room.depth)
         {
-            depth++;
             room.depth = depth;
         }
 
@@ -218,17 +214,29 @@ public class LevelGenerator : MonoBehaviour
         RoomObject rightRoom = room.doors[2].GetComponent<DoorCheck>().ConnectedRoom;
         RoomObject leftRoom = room.doors[3].GetComponent<DoorCheck>().ConnectedRoom;
 
-        //if (upRoom != null)
-        //    CheckRoomDepth(upRoom, depth);
-        
-        //if (downRoom != null)
-        //    CheckRoomDepth(downRoom, depth);
-        
-        //if (rightRoom != null)
-        //    CheckRoomDepth(rightRoom, depth);
-        
-        //if (leftRoom != null)
-        //    CheckRoomDepth(leftRoom, depth);
+        if (upRoom != null && !upRoom.RoomChecked) 
+        {
+            CheckRoomDepth(upRoom, depth);
+            upRoom.RoomChecked = true;
+        }
+
+        if (downRoom != null && !downRoom.RoomChecked) 
+        {
+            CheckRoomDepth(downRoom, depth);
+            downRoom.RoomChecked = true;
+        }
+
+        if (rightRoom != null && !rightRoom.RoomChecked) 
+        {
+            CheckRoomDepth(rightRoom, depth);
+            rightRoom.RoomChecked = true;
+        }
+
+        if (leftRoom != null && !leftRoom.RoomChecked) 
+        {
+            CheckRoomDepth(leftRoom, depth);
+            leftRoom.RoomChecked = true;
+        }
     }
 
 }

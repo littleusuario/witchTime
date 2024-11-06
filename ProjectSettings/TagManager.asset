@@ -29,6 +29,7 @@ TagManager:
   - BeatVisualHelp
   - Facade
   - SoundHelp
+  - Cinemachine
   layers:
   - Default
   - TransparentFX

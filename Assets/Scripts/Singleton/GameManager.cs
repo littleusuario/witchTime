@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         {
             facade = FacadeObject.GetComponent<FacadeManager>();
             spawnEnemies = FacadeObject.GetComponent<SpawnEnemies>();
+            facade.StartGame();
         }
 
         GameObject BeatUIHelpObject = GameObject.FindGameObjectWithTag("BeatVisualHelp");
