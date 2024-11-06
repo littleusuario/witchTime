@@ -3,20 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIButtonInteractions : MonoBehaviour, IPointerClickHandler
+public abstract class UIButtonInteractions : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] GameObject tickGameObject;
+    [SerializeField] protected GameObject tickGameObject;
 
-    public void BeatUIToggle()
-    {
-        if (GameManager.Instance != null)
-            GameManager.Instance.BeatUIHelpActive = !GameManager.Instance.BeatUIHelpActive;
+    public abstract void BeatUIToggle();
 
-        tickGameObject.SetActive(GameManager.Instance.BeatUIHelpActive ? true : false);
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        BeatUIToggle();
-    }
+    public abstract void OnPointerClick(PointerEventData eventData);
 }

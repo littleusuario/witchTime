@@ -29,6 +29,7 @@ public class State_Attack : IState
     public void UpdateState()
     {
         Vector3 mousePOS = Camera.main.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * 10f);
+        Debug.Log(mousePOS);
         float angle = AngleBetweenTwoPoints(randomMovement.transform.position, mousePOS);
         UpdateParticleSystem(angle, mousePOS);
 

@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
 
     public Room_Normal ActualRoom;
 
-    public bool BeatUIHelpActive = true; 
+    public bool BeatUIHelpActive = true;
+    public bool SoundHelpActive = false;
     private void Awake()
     {
         if (Instance == null)
@@ -55,6 +56,13 @@ public class GameManager : MonoBehaviour
         {
             BeatUIHelpObject.SetActive(BeatUIHelpActive ? true : false);
         }
+
+        GameObject SoundHelpObject = GameObject.FindGameObjectWithTag("SoundHelp");
+
+        if (SoundHelpObject != null) 
+        {
+            SoundHelpObject.SetActive(SoundHelpActive ? true : false);
+        }
     }
     private void Update()
     {
@@ -62,6 +70,9 @@ public class GameManager : MonoBehaviour
         {
             RestartGame();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
     }
 
     private void RestartGame()
@@ -69,6 +80,13 @@ public class GameManager : MonoBehaviour
         playerCurrentHealth = playerMaxHealth;
         iterations = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void PauseGame()
+    {
+        playerCurrentHealth = playerMaxHealth;
+        iterations = 0;
+        SceneManager.LoadScene("MainMenu");
     }
 
     public int GetPlayerCurrentHealth()
