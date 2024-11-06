@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     private Material material;
     private bool isInvulnerable = false;
     private float invulnerabilityDuration = 3f;
+    private float shakeDuration = 0.5f;
     private float blinkInterval = 0.1f;
     public ParticleSystem DamageParticleSystem;
 
@@ -60,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
         if (isInvulnerable) return;
 
         GameManager.Instance.TakePlayerDamage(damage);
-        GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity, transform).gameObject;
+        GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity).gameObject;
         Debug.Log(GameManager.Instance.GetPlayerCurrentHealth());
 
         if (audioSource != null && damageSound != null)
@@ -99,11 +100,14 @@ public class PlayerHealth : MonoBehaviour
         float elapsedTime = 0f;
         float currentFlashAmount = 1f;
 
+        float initialAmplitude = 3f;
+        float initialFrequency = 20f;  
+
         material.SetColor("_FlashColor", flashColor);
         if (perlin != null)
         {
-            perlin.m_AmplitudeGain = amplitude;
-            perlin.m_FrequencyGain = frequency;
+            perlin.m_AmplitudeGain = initialAmplitude;
+            perlin.m_FrequencyGain = initialFrequency;
         }
 
         Color originalColor = spriteRenderer.color;
@@ -117,10 +121,16 @@ public class PlayerHealth : MonoBehaviour
             currentFlashAmount = Mathf.Lerp(1f, 0f, lerpFactor);
             material.SetFloat("_FlashAmount", currentFlashAmount);
 
-            if (perlin != null)
+            if (perlin != null && elapsedTime < shakeDuration)
             {
-                perlin.m_AmplitudeGain = Mathf.Lerp(amplitude, 0f, lerpFactor);
-                perlin.m_FrequencyGain = Mathf.Lerp(frequency, 0f, lerpFactor);
+                float shakeLerpFactor = elapsedTime / shakeDuration;
+                perlin.m_AmplitudeGain = Mathf.Lerp(initialAmplitude, 0f, shakeLerpFactor);
+                perlin.m_FrequencyGain = Mathf.Lerp(initialFrequency, 0f, shakeLerpFactor);
+            }
+            else if (perlin != null)
+            {
+                perlin.m_AmplitudeGain = 0f;
+                perlin.m_FrequencyGain = 0f;
             }
 
             yield return new WaitForSeconds(blinkInterval);
@@ -138,4 +148,6 @@ public class PlayerHealth : MonoBehaviour
 
         isInvulnerable = false;
     }
+
+
 }

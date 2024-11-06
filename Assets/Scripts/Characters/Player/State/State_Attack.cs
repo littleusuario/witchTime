@@ -19,10 +19,8 @@ public class State_Attack : IState
 
     public void EnterState()
     {
-        randomMovement.animator.SetBool("up", false);
-        randomMovement.animator.SetBool("down", false);
-        randomMovement.animator.SetBool("left", false);
-        randomMovement.animator.SetBool("right", false);
+        randomMovement.animator.SetFloat("Horizontal", 0f);
+        randomMovement.animator.SetFloat("Vertical", 0f);
 
         randomMovement.animator.SetBool("attacking", true);
         hasAttacked = false;
@@ -130,25 +128,10 @@ public class State_Attack : IState
 
     private void UpdateMouseBools(Vector3 mousePOS)
     {
-        Vector3 direction = mousePOS - randomMovement.transform.position;
-        ResetAnimationBools();
+        Vector3 direction = (mousePOS - randomMovement.transform.position).normalized;
 
-        bool isHorizontal = Mathf.Abs(direction.x) > 0.5f * Mathf.Abs(direction.z);
-        bool isVertical = Mathf.Abs(direction.z) > 0.5f * Mathf.Abs(direction.x);
-
-        if (isHorizontal && !isVertical)
-        {
-            randomMovement.animator.SetBool(direction.x < 0 ? "mouseLeft" : "mouseRight", true);
-        }
-        else if (isVertical && !isHorizontal)
-        {
-            randomMovement.animator.SetBool(direction.z > 0 ? "mouseUp" : "mouseDown", true);
-        }
-        else
-        {
-            randomMovement.animator.SetBool(direction.x < 0 ? "mouseLeft" : "mouseRight", true);
-            randomMovement.animator.SetBool(direction.z > 0 ? "mouseUp" : "mouseDown", true);
-        }
+        randomMovement.animator.SetFloat("MouseHorizontal", direction.x);
+        randomMovement.animator.SetFloat("MouseVertical", direction.z);
 
         randomMovement.StartCoroutine(ResetMouseBools());
     }
@@ -161,10 +144,8 @@ public class State_Attack : IState
 
     private void ResetAnimationBools()
     {
-        randomMovement.animator.SetBool("mouseLeft", false);
-        randomMovement.animator.SetBool("mouseRight", false);
-        randomMovement.animator.SetBool("mouseUp", false);
-        randomMovement.animator.SetBool("mouseDown", false);
+        randomMovement.animator.SetFloat("MouseHorizontal", 0);
+        randomMovement.animator.SetFloat("MouseVertical", 0);
     }
 
     public void ExitState()

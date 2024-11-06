@@ -6,10 +6,13 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] private GameObject spawn;
     [SerializeField] private Enemy subjecttoObserve;
     [SerializeField] private BeatManager beatManager;
-    
+
     private Ishoot shoot;
     private Straightshoot straightShoot;
     private Diagonalshoot diagonalShoot;
+
+    private bool shouldShoot = false;
+
     private void Start()
     {
         GameObject gameObject = GameObject.FindGameObjectWithTag("BeatManager");
@@ -19,24 +22,33 @@ public class BulletSpawner : MonoBehaviour
         shoot = GetComponent<Ishoot>();
         straightShoot = GetComponent<Straightshoot>();
         diagonalShoot = GetComponent<Diagonalshoot>();
+
         shoot = diagonalShoot;
-      
+
         if (subjecttoObserve != null)
         {
             subjecttoObserve.Ondie += Ondie;
         }
-
     }
 
-   
     public void Shooting()
     {
-        shoot.shoot(bulletpool, spawn);
-        setBulletType();
+        if (shouldShoot)
+        {
+            setBulletType();
+
+            shoot.shoot(bulletpool, spawn);
+            shouldShoot = !shouldShoot;
+        }
+        else
+        {
+            shouldShoot = !shouldShoot;
+        }
     }
+
     private void setBulletType()
     {
-        if (shoot == diagonalShoot) 
+        if (shoot == diagonalShoot)
         {
             shoot = straightShoot;
         }
@@ -50,19 +62,4 @@ public class BulletSpawner : MonoBehaviour
     {
         Destroy(this);
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

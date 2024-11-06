@@ -49,15 +49,6 @@ public class State_Walking : IState
 
         randomMovement.animator.SetFloat("Horizontal", inputHorizontal);
         randomMovement.animator.SetFloat("Vertical", inputVertical);
-
-        if (!moving)
-        {
-            randomMovement.animator.speed = 0;
-        }
-        else
-        {
-            randomMovement.animator.speed = 1;
-        }
     }
     public void ProcesarEntrada()
     {
