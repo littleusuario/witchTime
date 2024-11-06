@@ -30,6 +30,30 @@ public class SpinObject : MonoBehaviour
         }
     }
 
+    public void SpinToOptions(int RoomToRotate)
+    {
+        if (!Rotating) 
+        {
+            StartCoroutine(SpinRotation(rotations[RoomToRotate]));
+        }
+    }
+
+    public void SpinToCredits(int RoomToRotate)
+    {
+        if (!Rotating)
+        {
+            StartCoroutine(SpinRotation(rotations[RoomToRotate]));
+        }
+    }
+
+    public void SpinToMenu(int RoomToRotate)
+    {
+        if (!Rotating)
+        {
+            StartCoroutine(SpinRotation(rotations[RoomToRotate]));
+        }
+    }
+
     IEnumerator SpinRotation(Vector3 endEulerAngles) 
     {
         float elapsedTime = 0;
@@ -38,7 +62,7 @@ public class SpinObject : MonoBehaviour
         while (elapsedTime < timeToRotate) 
         {
             elapsedTime += Time.deltaTime;
-            transform.eulerAngles = Vector3.Lerp(initialEulerAngles, endEulerAngles, elapsedTime / timeToRotate);
+            transform.eulerAngles = Vector3.Slerp(initialEulerAngles, endEulerAngles, elapsedTime / timeToRotate);
             yield return null;
         }
 

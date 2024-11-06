@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private int playerCurrentHealth;
 
     public Room_Normal ActualRoom;
+
+    public bool BeatUIHelpActive = true; 
     private void Awake()
     {
         if (Instance == null)
@@ -28,15 +30,32 @@ public class GameManager : MonoBehaviour
             facade = null;
         }
 
-        //DontDestroyOnLoad(gameObject);
-
+        DontDestroyOnLoad(gameObject);
         playerCurrentHealth = playerMaxHealth;
-        //if (Instance == this)
-        //{
-        //    facade.StartGame();
-        //}
     }
 
+    private void Start()
+    {
+        SceneManager.sceneLoaded += GetLevelReferences;
+    }
+
+    private void GetLevelReferences(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        GameObject FacadeObject = GameObject.FindGameObjectWithTag("Facade");
+
+        if (FacadeObject != null)
+        {
+            facade = FacadeObject.GetComponent<FacadeManager>();
+            spawnEnemies = FacadeObject.GetComponent<SpawnEnemies>();
+        }
+
+        GameObject BeatUIHelpObject = GameObject.FindGameObjectWithTag("BeatVisualHelp");
+
+        if (BeatUIHelpObject != null) 
+        {
+            BeatUIHelpObject.SetActive(BeatUIHelpActive ? true : false);
+        }
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F5))
