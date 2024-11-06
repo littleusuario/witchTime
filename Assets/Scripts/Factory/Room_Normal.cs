@@ -44,7 +44,6 @@ public class Room_Normal : RoomObject
 
             CheckDoors();
         }
-        
     }
     GameObject FindDoorOnObject(GameObject parent) 
     {
@@ -74,7 +73,7 @@ public class Room_Normal : RoomObject
     }
 
     public override void CheckDoors()
-    {
+    { 
         foreach (GameObject door in doors)
         {
             DoorCheck doorCheck = door.GetComponent<DoorCheck>();

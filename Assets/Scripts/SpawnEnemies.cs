@@ -6,20 +6,21 @@ public class SpawnEnemies : MonoBehaviour
 {
     public List<RoomObject> Notcleared = new List<RoomObject>();
 
-    Room_Normal spawn;
     public void Spawning( Room_Normal ActualRoom)
     {
-
         if (Notcleared.Contains(ActualRoom))
         {
-            Room_Normal spawn = GameManager.Instance.ActualRoom.GetComponent<Room_Normal>();
-            for (int i = 0; i < spawn.EnemiestoSpawn.Count; i++)
+            if (GameManager.Instance.ActualRoom != null) 
             {
-                spawn.EnemiestoSpawn[i].gameObject.SetActive(true);
+                Room_Normal spawn = GameManager.Instance.ActualRoom.GetComponent<Room_Normal>();        
+            
+                foreach (GameObject enemy in spawn.EnemiestoSpawn) 
+                {
+                    enemy.SetActive(true);
+                }
+                spawn.EnemiestoSpawn.Clear();
             }
         }
-    
-
     }
 
     private void Update()
@@ -29,10 +30,13 @@ public class SpawnEnemies : MonoBehaviour
 
    private void clear()
     {
-        Room_Normal spawn = GameManager.Instance.ActualRoom.GetComponent<Room_Normal>();
-        if (spawn.EnemiestoSpawn.Count == 0) { 
-
-            Notcleared.Remove(GameManager.Instance.ActualRoom);
+        if (GameManager.Instance.ActualRoom != null) 
+        {
+            Room_Normal spawn = GameManager.Instance.ActualRoom.GetComponent<Room_Normal>();
+            if (spawn.EnemiestoSpawn.Count == 0)
+            {
+                Notcleared.Remove(GameManager.Instance.ActualRoom);
+            }
         }
     }
 }

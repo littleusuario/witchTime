@@ -89,7 +89,7 @@ public class FirstEnemy : Enemy
         {
             GameObject hitObject = hit.collider.transform.gameObject;
 
-            if (hitObject.CompareTag("Player") && HealthPoints <= 0)
+            if (hitObject.CompareTag("Player") && HealthPoints > 0)
             {
                 hitObject.GetComponent<PlayerHealth>().TakeDamage(1);
             }
@@ -105,7 +105,8 @@ public class FirstEnemy : Enemy
 
         if (HealthPoints > 0)
         {
-            Instantiate(DamageParticleSystem, transform.position, Quaternion.identity, transform);
+            GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity, transform).gameObject;
+
             if (animator != null)
             {
                 StartCoroutine(HitEffect());
@@ -123,9 +124,7 @@ public class FirstEnemy : Enemy
 
         if (HealthPoints == 0 && Ondie != null)
         {
-            GameManager.Instance.ActualRoom.EnemiestoSpawn.Remove(gameObject);
             Ondie.Invoke();
-          
         }
     }
 

@@ -2801,7 +2801,6 @@ MonoBehaviour:
   EnemiestoSpawn:
   - {fileID: 4542843107469229816}
   - {fileID: 8779070603867837399}
-  NumberOfenemies: 0
 --- !u!1 &5000866868321088178
 GameObject:
   m_ObjectHideFlags: 0

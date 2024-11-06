@@ -2168,6 +2168,7 @@ MonoBehaviour:
   audioSource: {fileID: 1266755721}
   damageSound: {fileID: 8300000, guid: 9156961592c4f4948b5c5e158ed98c61, type: 3}
   flashColor: {r: 2, g: 0, b: 0, a: 1}
+  DamageParticleSystem: {fileID: 3548944917942328832, guid: 69b9622c04e4eb5439ca0a1da2289aca, type: 3}
   virtualCamera: {fileID: 1551804481}
   healthIcons:
   - {fileID: 1437724400}

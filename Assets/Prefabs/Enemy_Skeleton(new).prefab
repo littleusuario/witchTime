@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 1852882586489703168}
   m_Layer: 0
   m_Name: EnemyMovement
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthPoints: 1
   AttackRadius: 1
-  DamageParticleSystem: {fileID: 3477862717305150004, guid: bc08b02cf46b179449c7f5e31ce1c009, type: 3}
+  DamageParticleSystem: {fileID: 3548944917942328832, guid: 54a185f332019e4419b4e97cd440853e, type: 3}
   velocity: 2
   hitboxEnemy: {fileID: 2738041428370789051}
   invincibilityFrames: 0.5
@@ -446,7 +446,7 @@ MonoBehaviour:
   thresholdAttackDistance: 1
   distance: 0
   flashColor: {r: 1, g: 1, b: 1, a: 1}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 2379289071057746261}
 --- !u!136 &1852882586489703168
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -694,7 +694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayLimit: 0.2
   tagsToCollide:
-  - 
+  - Attack
   directions:
   - {x: 0, y: 0, z: 0.2}
   - {x: 0, y: 0, z: -0.2}
@@ -762,7 +762,7 @@ Transform:
   m_GameObject: {fileID: 8625926189206780233}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.265, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -846,7 +846,7 @@ Transform:
   m_GameObject: {fileID: 8691656057472639712}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0.195, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

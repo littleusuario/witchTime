@@ -24,7 +24,7 @@ public class SecondEnemy : Enemy
     public Animator Animator => animator;
     public bool Death { get => death; set => death = value; }
     public GameObject Enemy => enemy;
-    SpriteRenderer spriteRenderer = null;
+    [SerializeField] SpriteRenderer spriteRenderer = null;
 
     private Material material;
     [SerializeField] private Color flashColor = Color.white;
@@ -91,6 +91,7 @@ public class SecondEnemy : Enemy
 
         if (HealthPoints > 0)
         {
+            GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity, transform).gameObject;
             if (animator != null)
             {
                 StartCoroutine(HitEffect());
@@ -108,10 +109,7 @@ public class SecondEnemy : Enemy
 
         if (HealthPoints == 0 && Ondie != null)
         {
-            GameManager.Instance.ActualRoom.EnemiestoSpawn.Remove(gameObject);
             Ondie.Invoke();
-       
-
         }
     }
 

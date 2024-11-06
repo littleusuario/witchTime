@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     private bool isInvulnerable = false;
     private float invulnerabilityDuration = 3f;
     private float blinkInterval = 0.1f;
+    public ParticleSystem DamageParticleSystem;
 
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin perlin;
@@ -59,6 +60,7 @@ public class PlayerHealth : MonoBehaviour
         if (isInvulnerable) return;
 
         GameManager.Instance.TakePlayerDamage(damage);
+        GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity, transform).gameObject;
         Debug.Log(GameManager.Instance.GetPlayerCurrentHealth());
 
         if (audioSource != null && damageSound != null)
