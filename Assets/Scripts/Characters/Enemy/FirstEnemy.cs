@@ -105,7 +105,7 @@ public class FirstEnemy : Enemy
 
         if (HealthPoints > 0)
         {
-            GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity, transform).gameObject;
+            GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity).gameObject;
 
             if (animator != null)
             {
@@ -115,11 +115,12 @@ public class FirstEnemy : Enemy
         else
         {
             death = true;
-            if (animator != null)
-            {
-                animator.SetBool("Death", true);
-            }
-            StartCoroutine(InvincibilityFrames());
+            Destroy(gameObject.transform.parent.gameObject.transform.parent.gameObject);
+            //if (animator != null)
+            //{
+            //    animator.SetBool("Death", true);
+            //}
+            //StartCoroutine(InvincibilityFrames());
         }
 
         if (HealthPoints == 0 && Ondie != null)

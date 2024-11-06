@@ -13,6 +13,5 @@ public class State_SlimeDeath : State_EnemyDeath
     public override void EnterState()
     {
         enemy.Death = true;
-        enemy.Animator.SetBool("Death", true);
     }
 }
