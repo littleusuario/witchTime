@@ -2794,6 +2794,7 @@ MonoBehaviour:
   ground: {fileID: 7975293787889013845}
   cameraPosition: {x: 0, y: 0, z: 0}
   depth: 0
+  RoomChecked: 0
   rayLengthMultiplier: 10
   cameraObjectFollow: {fileID: 0}
   RoomScriptable: {fileID: 11400000, guid: b8601a93eadf2494fac3fa5c30a0c369, type: 2}
@@ -4846,6 +4847,18 @@ PrefabInstance:
     - target: {fileID: 7131065951818230010, guid: 7fe74416c92708c4f8480df43cba5a50, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911533953618423370, guid: 7fe74416c92708c4f8480df43cba5a50, type: 3}
+      propertyPath: flashColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911533953618423370, guid: 7fe74416c92708c4f8480df43cba5a50, type: 3}
+      propertyPath: flashColor.g
+      value: 0.11018352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911533953618423370, guid: 7fe74416c92708c4f8480df43cba5a50, type: 3}
+      propertyPath: flashColor.r
+      value: 0.042452812
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

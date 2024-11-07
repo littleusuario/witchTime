@@ -72,8 +72,6 @@ public class LevelGenerator : MonoBehaviour
     {
         if (tryNumberTimes > 0) 
         {
-            //doOnlyOncePlease = true;
-            bool finishClear = true;
             foreach (RoomObject roomObject in roomList)
             {
                 roomObject.EraseUncheckDoors();
