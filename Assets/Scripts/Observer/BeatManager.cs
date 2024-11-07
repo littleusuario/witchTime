@@ -1,15 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class BeatManager : MonoBehaviour
 {
-
-    public float _bpm;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private List<Intervals> _intervals = new List<Intervals>();
     [SerializeField] private bool _beatDetected;
+
+    public float _bpm;
     public List<Intervals> Intervals { get => _intervals; set => _intervals = value; }
 
     private void Update()

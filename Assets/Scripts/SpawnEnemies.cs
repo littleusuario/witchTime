@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
     public List<RoomObject> Notcleared = new List<RoomObject>();
-
     public void Spawning( Room_Normal ActualRoom)
     {
         if (Notcleared.Contains(ActualRoom))

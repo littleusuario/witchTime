@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Room_Normal : RoomObject
@@ -8,7 +6,9 @@ public class Room_Normal : RoomObject
     [Header("Detection")]
     [SerializeField] private int rayLengthMultiplier = 8;
     [SerializeField] GameObject cameraObjectFollow;
-    bool checkForRooms;
+
+    private bool checkForRooms;
+    
     public RoomScriptable RoomScriptable;
     public List<GameObject> EnemiestoSpawn = new List<GameObject>();
  

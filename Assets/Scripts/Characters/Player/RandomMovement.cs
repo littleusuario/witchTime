@@ -4,28 +4,27 @@ using UnityEngine;
 public class RandomMovement : MonoBehaviour
 {
     [Header("Variables de movimiento")]
-    public float velocidad = 2f;
-    public float maxJumpHeight = 0.01f;
-
-    public Animator animator;
-    private Camera mainCamera;
     [SerializeField] Vector3[] particleRotations;
     [SerializeField] GameObject slashParticle;
     [SerializeField] CollisionController collisionHitbox;
     [SerializeField] CollisionController groundCheck;
-    public GameObject SlashParticle => slashParticle;
-    public Vector3[] ParticleRotations => particleRotations;
-    public CollisionController CollisionHitbox => collisionHitbox;
-    public CollisionController GroundCheck => groundCheck;
-
-    public PlayerStateManager stateManager;
-
     [SerializeField] private PulseToTheBeat pulseOfTheBeat;
-    public PulseToTheBeat PulseOfTheBeat => pulseOfTheBeat;
 
     [Header("Sonidos")]
     [SerializeField] private List<AudioClip> sounds;
     [SerializeField] AudioSource attackAudioSource;
+
+    private Camera mainCamera;
+
+    public float velocidad = 2f;
+    public float maxJumpHeight = 0.01f;
+    public Animator animator;
+    public GameObject SlashParticle => slashParticle;
+    public Vector3[] ParticleRotations => particleRotations;
+    public CollisionController CollisionHitbox => collisionHitbox;
+    public CollisionController GroundCheck => groundCheck;
+    public PlayerStateManager stateManager;
+    public PulseToTheBeat PulseOfTheBeat => pulseOfTheBeat;
 
     void Awake()
     {

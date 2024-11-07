@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Pool;
+using UnityEngine.UI;
 
 public class BeatPoolUI : MonoBehaviour
 {
@@ -12,10 +10,11 @@ public class BeatPoolUI : MonoBehaviour
     [SerializeField] int defaultCapacity = 2;
     [SerializeField] int maxCapacity = 2;
     [SerializeField] Transform beatParent;
+    [SerializeField] float shootingTime = 1;
+    
     ObjectPool<BeatUI> beatPool;
     bool once;
     float elapsedTime;
-    [SerializeField] float shootingTime = 1;
 
     void Start()
     {

@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UIButtonSoundHelp : UIButtonInteractions
 {
-
     private void Start()
     {
         if (GameManager.Instance != null && tickGameObject != null)

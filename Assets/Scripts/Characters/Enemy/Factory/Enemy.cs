@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamageable
 {
+    [Header("Enemy Parent Class")]
     public int HealthPoints;
     public int AttackRadius = 5;
     public abstract event Action Ondie;
@@ -13,5 +12,5 @@ public abstract class Enemy : MonoBehaviour
     public int beats = 0;
     public abstract void RunBehaviour();
     public abstract void DamagaZone();
-    public abstract void TakeDamage();
+    public abstract void TakeDamage(int damage);
 }

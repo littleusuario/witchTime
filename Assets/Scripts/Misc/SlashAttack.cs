@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SlashAttack : MonoBehaviour
@@ -7,6 +5,13 @@ public class SlashAttack : MonoBehaviour
     [SerializeField] Vector3 hitboxHalfSize;
     [SerializeField] Vector3 offset;
     [SerializeField] Vector3 rotation;
+    [SerializeField] int weaponDamage = 1;
+    GameObject player;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
     void Update()
     {
         rotation = transform.rotation.eulerAngles;
@@ -15,11 +20,11 @@ public class SlashAttack : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            Enemy hitObject = hit.collider.transform.gameObject.GetComponent<Enemy>();
+            IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
 
-            if (hitObject != null)
+            if (damageable != null && hit.collider.gameObject != player)
             {
-                hitObject.TakeDamage();
+                damageable.TakeDamage(weaponDamage);
             }
         }
     }

@@ -1,11 +1,10 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using Cinemachine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private UnityEvent OnDie = new UnityEvent();
     [SerializeField] private SpriteRenderer spriteRenderer;

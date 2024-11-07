@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
-    ObjectPool<Bullet> pool;
+    [SerializeField] private BulletScriptable bulletData;
     [SerializeField] private float sphereRad;
+    
+    ObjectPool<Bullet> pool;
     private Vector3 origin;
     private Vector3 direction;
-    [SerializeField] private BulletScriptable bulletData;
     public LayerMask mask;
     public float maxdist;
 
@@ -23,15 +22,17 @@ public class Bullet : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(origin, sphereRad, mask);
         foreach (var hit in hitColliders)
         {
-            if (hit.CompareTag("Wall"))
+            IDamageable damageable = hit.gameObject.GetComponent<IDamageable>();
+
+            if (damageable != null)
             {
                 Pool.Release(this);
+                damageable.TakeDamage(bulletData.damage);
                 return;
             }
-            if (hit.CompareTag("Player"))
-            {
+            else 
+            {            
                 Pool.Release(this);
-                hit.gameObject.GetComponent<PlayerHealth>().TakeDamage(bulletData.damage);
                 return;
             }
         }

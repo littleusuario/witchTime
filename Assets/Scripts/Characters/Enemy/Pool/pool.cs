@@ -1,16 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class BulletPool : MonoBehaviour
 {
-
-  private ObjectPool<Bullet> bullpool;
-  [SerializeField] private GameObject spawn;
-  [SerializeField] private BulletSpawner rotation;
+    [SerializeField] private GameObject spawn;
+    [SerializeField] private BulletSpawner rotation;
+    
+    private ObjectPool<Bullet> bullpool;
+    
     public ObjectPool<Bullet> BullPool { get { return bullpool; } set { bullpool = value; } }
     public static BulletPool instance;
     public Bullet prefab;

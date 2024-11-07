@@ -1,12 +1,10 @@
-using System.Collections;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class SecondEnemy : Enemy
 {
-    GameObject player;
-    private GameObject enemy;
+    [Header("Enemy Properties")]
     [SerializeField] private float velocity;
     [SerializeField] private float StepDistance = 0.5f;
     [SerializeField] CollisionController hitboxEnemy;
@@ -14,26 +12,25 @@ public class SecondEnemy : Enemy
     [SerializeField] Animator animator;
     [SerializeField] PulseToTheBeat pulseToTheBeat;
     [SerializeField] float thresholdAttackDistance = 1.5f;
-    bool death;
     [SerializeField] float distance = 0;
-    public override event Action Ondie;
-    EnemyStateManager stateManager;
+    [SerializeField] SpriteRenderer spriteRenderer = null;
+    [SerializeField] private Color flashColor = Color.white;
+    
+    private GameObject player;
+    private GameObject enemy;
+    private Material material;
+    private bool death;
+    private EnemyStateManager stateManager;
 
+    public override event Action Ondie;
     public float _StepDistance => StepDistance;
     public GameObject Player => player;
     public Animator Animator => animator;
     public bool Death { get => death; set => death = value; }
     public GameObject Enemy => enemy;
-    [SerializeField] SpriteRenderer spriteRenderer = null;
 
-    private Material material;
-    [SerializeField] private Color flashColor = Color.white;
     private void Awake()
     {
-        if (hitboxEnemy != null)
-        {
-            hitboxEnemy.CollisionTrigger += TakeDamage;
-        }
 
         if (pulseToTheBeat != null)
         {
@@ -86,16 +83,19 @@ public class SecondEnemy : Enemy
 
         foreach (RaycastHit hit in hits)
         {
-            GameObject hitObject = hit.collider.transform.gameObject;
-
-            if (hitObject.CompareTag("Player") && HealthPoints > 0)
+            if (hit.collider.gameObject.GetComponent<Enemy>() == null) 
             {
-                hitObject.GetComponent<PlayerHealth>().TakeDamage(1);
+                IDamageable damageableObject = hit.collider.gameObject.GetComponent<IDamageable>();
+
+                if (damageableObject != null && HealthPoints > 0)
+                {
+                    damageableObject.TakeDamage(1);
+                }
             }
         }
     }
 
-    public override void TakeDamage()
+    public override void TakeDamage(int damage)
     {
         if (HealthPoints <= 0) return;
 

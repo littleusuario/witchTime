@@ -1,30 +1,27 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorCheck : MonoBehaviour
 {
-    [SerializeField] GameObject Player;
-    [SerializeField] RoomObject connectedRoom;
-    [SerializeField] RoomObject originRoom;
-    [SerializeField] DoorCheck connectedDoor;
-    [SerializeField] List<Collider> colliders;
-    [SerializeField] Vector3 direction;
-    [SerializeField] float threshold = 1.0f;
+    [SerializeField] private GameObject Player;
+    [SerializeField] private RoomObject connectedRoom;
+    [SerializeField] private RoomObject originRoom;
+    [SerializeField] private DoorCheck connectedDoor;
+    [SerializeField] private List<Collider> colliders;
+    [SerializeField] private Vector3 direction;
+    [SerializeField] private float threshold = 1.0f;
+    [SerializeField] private float distance;
+    [SerializeField] private AudioClip doorSound;
+    
     private float elapsedTime = 0;
-    [SerializeField] float distance;
-
-    [SerializeField] AudioClip doorSound;
     private AudioSource audioSource;
-
     private float minPitch = 0.8f;
     private float maxPitch = 1.3f;
     private float maxDistance;
+    private int tryNumberTimes = 2;
 
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
     public DoorCheck ConnectedDoor { get => connectedDoor; set => connectedDoor = value; }
-
-    int tryNumberTimes = 2;
     public int TryNumberTimes => tryNumberTimes;
 
     private void Start()

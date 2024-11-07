@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -16,11 +14,11 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] Transform RoomParent;
     [SerializeField] private GameObject exitPrefab;
     [SerializeField] private int PossibilyToContinue = 5;
-    
+
     [SerializeField] RoomObject rootRoom;
     [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
     [SerializeField] SpawnEnemies spawnEnemies;
-    int tryNumberTimes = 3;
+    int tryNumberTimes = 5;
     public void CreateLevelProcess()
     {
         roomFactory = GetComponent<RoomFactory>();

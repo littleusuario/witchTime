@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [SerializeField] private FacadeManager facade;
-    public SpawnEnemies spawnEnemies;
-
-    public int iterations = 0;
-
+    
     [Header("Player Health")]
     [SerializeField] private int playerMaxHealth = 3;
+    
+    [SerializeField] private FacadeManager facade;
+    
     private int playerCurrentHealth;
-
+    
+    public SpawnEnemies spawnEnemies;
+    public int iterations = 0;
     public Room_Normal ActualRoom;
-
     public bool BeatUIHelpActive = true;
     public bool SoundHelpActive = false;
     private void Awake()

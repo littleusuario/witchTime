@@ -10,7 +10,6 @@ public class BulletSpawner : MonoBehaviour
     private Ishoot shoot;
     private Straightshoot straightShoot;
     private Diagonalshoot diagonalShoot;
-
     private bool shouldShoot = false;
 
     private void Start()

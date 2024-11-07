@@ -1,23 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 public class State_Walking : IState
 {
     private RandomMovement randomMovement;
     private PlayerStateManager stateManager;
     private CollisionController collisionController;
-    public event Action eventForward;
-    public event Action eventBackward;
     private bool moving;
     private Vector3 velocidadActual;
     private Vector3 velocidadObjetivo;
     private float aceleracion = 10f;
     private float desaceleracion = 30f;
     private Vector3 lastValidPosition;
-
     private float inputHorizontal;
     private float inputVertical;
+    
+    public event Action eventForward;
+    public event Action eventBackward;
+
     public State_Walking(RandomMovement randomMovement, PlayerStateManager stateManager)
     {
         this.randomMovement = randomMovement;

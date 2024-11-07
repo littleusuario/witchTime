@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,20 +10,18 @@ public class CollisionController : MonoBehaviour
     [SerializeField] Vector3[] directions;
     [SerializeField] bool rayHit;
     [SerializeField] string tagCompare = string.Empty;
-    public event Action CollisionTrigger;
-
-    public List<Ray>StoredRays => storedRays;
-    public bool RayHit => rayHit;
-    public float RayLimit => rayLimit;
-
     [SerializeField] private bool[] collisionBools = new bool[4];
-    public bool[] CollisionBools => collisionBools;
-
+    
     bool blockForward;
     bool blockBack;
     bool blockRight;
     bool blockLeft;
 
+    public event Action CollisionTrigger;
+    public List<Ray>StoredRays => storedRays;
+    public bool RayHit => rayHit;
+    public float RayLimit => rayLimit;
+    public bool[] CollisionBools => collisionBools;
 
 
     void Update()

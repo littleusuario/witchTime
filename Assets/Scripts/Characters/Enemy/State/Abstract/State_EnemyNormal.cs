@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public abstract class State_EnemyNormal : IState
 {
     public EnemyStateManager StateManager;
