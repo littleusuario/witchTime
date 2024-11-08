@@ -17,6 +17,8 @@ public abstract class RoomObject : MonoBehaviour
 
     public int depth = 0;
     public bool RoomChecked;
+    public List<GameObject> EnemiestoSpawn = new List<GameObject>();
+
     public virtual void CheckDoors() { }
     public virtual void MoveCameraFollow() { }
 

@@ -10,7 +10,6 @@ public class Room_Normal : RoomObject
     private bool checkForRooms;
 
     public RoomScriptable RoomScriptable;
-    public List<GameObject> EnemiestoSpawn = new List<GameObject>();
 
     private List<SpriteRenderer> roomSprites = new List<SpriteRenderer>();
 

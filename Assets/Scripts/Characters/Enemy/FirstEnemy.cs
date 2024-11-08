@@ -17,7 +17,6 @@ public class FirstEnemy : Enemy
     public Animator Animator => animator;
     public bool Death { get => death; set => death = value; }
     public GameObject Enemy => enemy;
-
     private void Start()
     {
         InitializeEnemy(spriteRenderer);

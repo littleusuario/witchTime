@@ -11,6 +11,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public ParticleSystem DamageParticleSystem;
     public float timeInactive = 1;
     public float elapsedTime = 0;
+    public RoomObject originRoom;
     protected GameObject player;
     protected GameObject enemy;
     protected Material material;
@@ -42,7 +43,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             player = playerObject;
         }
 
-        enemy = gameObject.transform.parent.gameObject;
+        enemy = gameObject.transform.parent.gameObject.transform.parent.gameObject;
     }
 
     protected void EnemyUpdate() 
@@ -97,6 +98,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         else
         {
             death = true;
+            originRoom.EnemiestoSpawn.Remove(enemy);
             Destroy(gameObject.transform.parent.gameObject.transform.parent.gameObject);
         }
 

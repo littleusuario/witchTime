@@ -19,6 +19,7 @@ public class DoorCheck : MonoBehaviour
     private float maxPitch = 1.3f;
     private float maxDistance;
     private int tryNumberTimes = 2;
+    private Animator animator;
 
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
     public DoorCheck ConnectedDoor { get => connectedDoor; set => connectedDoor = value; }
@@ -28,7 +29,7 @@ public class DoorCheck : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         audioSource = GetComponent<AudioSource>();
-
+        animator = GetComponent<Animator>();
     }
 
     public void SetDirectionAndDistance(Vector3 direction, float maxDistance)
@@ -70,10 +71,13 @@ public class DoorCheck : MonoBehaviour
     }
     public void Update()
     {
-
+        if (originRoom.EnemiestoSpawn.Count == 0) 
+        {
+            animator.SetBool("NoEnemies", true);
+        }
         elapsedTime += Time.deltaTime;
         distance = Vector3.Distance(transform.position, Player.transform.position);
-        if  (distance <= threshold)
+        if  (distance <= threshold && originRoom.EnemiestoSpawn.Count == 0)
         {
             elapsedTime = 0f;
             GameManager.Instance.SetCurrentRoom(connectedRoom);
@@ -86,8 +90,6 @@ public class DoorCheck : MonoBehaviour
                 audioSource.pitch = Random.Range(minPitch, maxPitch);
                 audioSource.PlayOneShot(doorSound);
             }
-          
-        
         }
     }
 }

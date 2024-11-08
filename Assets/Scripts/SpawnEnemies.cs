@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
@@ -14,9 +15,13 @@ public class SpawnEnemies : MonoBehaviour
             
                 foreach (GameObject enemy in spawn.EnemiestoSpawn) 
                 {
+                    Enemy trueEnemy = enemy.GetComponentInChildren<Enemy>();
+                    if(trueEnemy != null)
+                    {
+                        trueEnemy.originRoom = ActualRoom;
+                    }
                     enemy.SetActive(true);
                 }
-                spawn.EnemiestoSpawn.Clear();
             }
         }
     }
