@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Room_Normal ActualRoom;
     public bool BeatUIHelpActive = true;
     public bool SoundHelpActive = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
             PauseGame();
     }
 
-    private void RestartGame()
+    public void RestartGame()
     {
         playerCurrentHealth = playerMaxHealth;
         iterations = 0;
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        iterations++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

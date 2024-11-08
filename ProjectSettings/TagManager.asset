@@ -30,6 +30,7 @@ TagManager:
   - Facade
   - SoundHelp
   - Cinemachine
+  - Cursor
   layers:
   - Default
   - TransparentFX

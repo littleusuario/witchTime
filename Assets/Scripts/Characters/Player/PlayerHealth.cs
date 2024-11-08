@@ -73,8 +73,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (GameManager.Instance.GetPlayerCurrentHealth() <= 0)
         {
             OnDie.Invoke();
-            GameManager.Instance.ResetPlayerHealth();
-            GameManager.Instance.LoadNextLevel();
+            GameManager.Instance.RestartGame();
         }
         else
         {

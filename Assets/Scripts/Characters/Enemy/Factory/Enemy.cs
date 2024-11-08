@@ -84,7 +84,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if (HealthPoints <= 0) return;
 
         HealthPoints--;
-        Debug.Log($"HealthPoints: {HealthPoints}, animator: {animator}, hitboxEnemy: {hitboxEnemy}");
 
         if (HealthPoints > 0)
         {
@@ -104,6 +103,21 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if (HealthPoints == 0 && Ondie != null)
         {
             Ondie.Invoke();
+        }
+    }
+
+    public void FlipTowardsPlayer()
+    {
+        if (player != null)
+        {
+            if (player.transform.position.x > transform.position.x)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
         }
     }
 
@@ -148,7 +162,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             hitboxEnemy.enabled = true;
         }
     }
-
 
     protected void OnDestroy()
     {

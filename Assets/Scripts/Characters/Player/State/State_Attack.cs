@@ -9,6 +9,7 @@ public class State_Attack : IState
     bool flipped;
     float thresholdAngle = 5f;
     private bool hasAttacked;
+    private GameObject cursorObject;
 
     public State_Attack(RandomMovement randomMovement, PlayerStateManager stateManager)
     {
@@ -18,6 +19,8 @@ public class State_Attack : IState
 
     public void EnterState()
     {
+        cursorObject = GameObject.FindWithTag("Cursor");
+
         randomMovement.animator.SetFloat("Horizontal", 0f);
         randomMovement.animator.SetFloat("Vertical", 0f);
 
@@ -27,14 +30,16 @@ public class State_Attack : IState
 
     public void UpdateState()
     {
-        Vector3 mousePOS = Camera.main.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * 10f);
-        float angle = AngleBetweenTwoPoints(randomMovement.transform.position, mousePOS);
-        UpdateParticleSystem(angle, mousePOS);
+        if (cursorObject == null) return;
+
+        Vector3 cursorPos = cursorObject.transform.position;
+        float angle = AngleBetweenTwoPoints(randomMovement.transform.position, cursorPos);
+        UpdateParticleSystem(angle, cursorPos);
 
         if (randomMovement.SlashParticle.activeSelf)
         {
-            UpdateMouseBools(mousePOS);
-            MoveTowardsMouse(mousePOS);
+            UpdateMouseBools(cursorPos);
+            MoveTowardsCursor(cursorPos);
 
             if (!hasAttacked)
             {
@@ -51,7 +56,7 @@ public class State_Attack : IState
         CheckForStateChange();
     }
 
-    private void UpdateParticleSystem(float angle, Vector3 mousePOS)
+    private void UpdateParticleSystem(float angle, Vector3 cursorPos)
     {
         var particleSystemMain = randomMovement.SlashParticle;
         particleSystemMain.transform.eulerAngles = new Vector3(0, -angle + 90, 0);
@@ -63,9 +68,9 @@ public class State_Attack : IState
         }
     }
 
-    private void MoveTowardsMouse(Vector3 mousePOS)
+    private void MoveTowardsCursor(Vector3 cursorPos)
     {
-        Vector3 newPosition = Vector3.MoveTowards(randomMovement.transform.position, mousePOS, randomMovement.velocidad * Time.deltaTime);
+        Vector3 newPosition = Vector3.MoveTowards(randomMovement.transform.position, cursorPos, randomMovement.velocidad * Time.deltaTime);
         newPosition.y = 0;
 
         if (IsOnGround(newPosition) && !CheckCollisions(newPosition))
@@ -125,9 +130,9 @@ public class State_Attack : IState
         }
     }
 
-    private void UpdateMouseBools(Vector3 mousePOS)
+    private void UpdateMouseBools(Vector3 cursorPos)
     {
-        Vector3 direction = (mousePOS - randomMovement.transform.position).normalized;
+        Vector3 direction = (cursorPos - randomMovement.transform.position).normalized;
 
         randomMovement.animator.SetFloat("MouseHorizontal", direction.x);
         randomMovement.animator.SetFloat("MouseVertical", direction.z);

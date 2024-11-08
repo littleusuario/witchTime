@@ -20,9 +20,11 @@ public class LevelGenerator : MonoBehaviour
     int tryNumberTimes = 5;
     [SerializeField] int exitCounts = 0;
     [SerializeField] int maxNumberOfExits = 2;
+
     public void CreateLevelProcess()
     {
         roomFactory = GetComponent<RoomFactory>();
+        maxNumberOfRooms = (maxNumberOfRooms + GameManager.Instance.iterations);
 
         currentRooms = 0;
 

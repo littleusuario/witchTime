@@ -8,44 +8,68 @@ public class Room_Normal : RoomObject
     [SerializeField] GameObject cameraObjectFollow;
 
     private bool checkForRooms;
-    
+
     public RoomScriptable RoomScriptable;
     public List<GameObject> EnemiestoSpawn = new List<GameObject>();
- 
+
+    private List<SpriteRenderer> roomSprites = new List<SpriteRenderer>();
+
     void Awake()
     {
-        foreach (GameObject wall in walls) 
+        foreach (GameObject wall in walls)
         {
-            wall.GetComponent<SpriteRenderer>().sprite = RoomScriptable.S_wall;
+            SpriteRenderer wallRenderer = wall.GetComponent<SpriteRenderer>();
+            wallRenderer.sprite = RoomScriptable.S_wall;
+            roomSprites.Add(wallRenderer);
+
             GameObject room = FindDoorOnObject(wall);
 
-            if(room != null) 
+            if (room != null)
             {
                 doors.Add(room);
-                room.GetComponent<SpriteRenderer>().sprite = RoomScriptable.S_door;
+                SpriteRenderer doorRenderer = room.GetComponent<SpriteRenderer>();
+                doorRenderer.sprite = RoomScriptable.S_door;
+                roomSprites.Add(doorRenderer);
             }
         }
 
         rayLengthMultiplier = RoomScriptable.RayLengthMultiplier;
         ground.sprite = RoomScriptable.S_ground;
+
+        GameObject groundChild = FindGroundChild();
+        if (groundChild != null)
+        {
+            SpriteRenderer groundChildRenderer = groundChild.GetComponent<SpriteRenderer>();
+            if (groundChildRenderer != null)
+            {
+                roomSprites.Add(groundChildRenderer);
+            }
+        }
+
+        if (ground.GetComponent<SpriteRenderer>() != null)
+        {
+            roomSprites.Add(ground.GetComponent<SpriteRenderer>());
+        }
+
         cameraObjectFollow = GameObject.Find("CameraFollow");
     }
 
     private void Start()
     {
         cameraPosition = transform.localPosition;
+        ChangeFloorColor();
     }
 
     public void Update()
     {
-        if (!checkForRooms) 
+        if (!checkForRooms)
         {
             checkForRooms = true;
-
             CheckDoors();
         }
     }
-    GameObject FindDoorOnObject(GameObject parent) 
+
+    GameObject FindDoorOnObject(GameObject parent)
     {
         foreach (Transform child in parent.transform)
         {
@@ -55,6 +79,18 @@ public class Room_Normal : RoomObject
             }
         }
 
+        return null;
+    }
+
+    private GameObject FindGroundChild()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("Ground"))
+            {
+                return child.gameObject;
+            }
+        }
         return null;
     }
 
@@ -73,17 +109,17 @@ public class Room_Normal : RoomObject
     }
 
     public override void CheckDoors()
-    { 
+    {
         foreach (GameObject door in doors)
         {
             DoorCheck doorCheck = door.GetComponent<DoorCheck>();
 
             Vector3 direction = ParentDirection(door);
-            doorCheck.SetDirectionAndDistance(direction, rayLengthMultiplier);             
+            doorCheck.SetDirectionAndDistance(direction, rayLengthMultiplier);
         }
     }
 
-    public Vector3 ParentDirection(GameObject door) 
+    public Vector3 ParentDirection(GameObject door)
     {
         if (door.transform.parent.gameObject.name == "UpWall") { return Vector3.forward; }
         if (door.transform.parent.gameObject.name == "DownWall") { return Vector3.back; }
@@ -95,9 +131,39 @@ public class Room_Normal : RoomObject
 
     public override void MoveCameraFollow()
     {
-
         GameManager.Instance.spawnEnemies.Spawning(this);
         cameraObjectFollow.transform.position = cameraPosition;
-      
+    }
+
+    public List<SpriteRenderer> GetWallAndDoorSpriteRenderers()
+    {
+        return roomSprites;
+    }
+
+    private void ChangeFloorColor()
+    {
+        int iterations = GameManager.Instance.iterations;
+        Color color = GenerateColor(iterations);
+
+        foreach (SpriteRenderer renderer in roomSprites)
+        {
+            renderer.color = color;
+        }
+    }
+
+    private Color GenerateColor(int iterations)
+    {
+        if (iterations == 0)
+        {
+            return Color.white;
+        }
+        else
+        {
+            float hue = Mathf.Repeat((iterations + 4) * 0.1f, 1f);
+            float saturation = 0.3f;
+            float value = 0.9f;
+
+            return Color.HSVToRGB(hue, saturation, value);
+        }
     }
 }

@@ -324,7 +324,6 @@ RectTransform:
   - {fileID: 1274217513}
   - {fileID: 1164090914}
   - {fileID: 1372231661}
-  - {fileID: 1309023450}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2028,7 +2027,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.5, y: -76.8}
+  m_AnchoredPosition: {x: 157.5, y: -76.79999}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &968360321
@@ -2147,7 +2146,7 @@ MonoBehaviour:
   - {fileID: 6388770457163974164, guid: 233ac68fca5d3d44e8f5c3d854f0f0e4, type: 3}
   - {fileID: 6388770457163974164, guid: 4b0811a34c09c354989ed5475e09e74c, type: 3}
   - {fileID: 6388770457163974164, guid: ece9c8109d973af4496f821546b878fe, type: 3}
-  maxNumberOfRooms: 10
+  maxNumberOfRooms: 9
   currentRooms: 0
   RoomParent: {fileID: 0}
   PossibilyToContinue: 100
@@ -2727,7 +2726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1309023450
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2735,16 +2734,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309023449}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.59853435, y: -0, z: -0, w: 0.8010972}
+  m_LocalPosition: {x: 0, y: 0, z: -3.1164868}
+  m_LocalScale: {x: 0.0010691672, y: 0.0010691674, z: 0.0010691674}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 56787007}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 2233.0222}
   m_SizeDelta: {x: 1830.6, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1309023451
@@ -5213,8 +5212,8 @@ SceneRoots:
   - {fileID: 1422560911}
   - {fileID: 267253272}
   - {fileID: 211225247}
-  - {fileID: 923914207}
   - {fileID: 1389708734}
+  - {fileID: 1904046624}
   - {fileID: 2684644916898432351}
   - {fileID: 943088337}
   - {fileID: 7473478325627255895}
@@ -5223,6 +5222,7 @@ SceneRoots:
   - {fileID: 659226020}
   - {fileID: 288925190}
   - {fileID: 1701936002}
-  - {fileID: 52044703}
-  - {fileID: 1904046624}
+  - {fileID: 1309023450}
+  - {fileID: 923914207}
   - {fileID: 1624252256}
+  - {fileID: 52044703}
