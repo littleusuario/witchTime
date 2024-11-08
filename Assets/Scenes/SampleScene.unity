@@ -2146,15 +2146,16 @@ MonoBehaviour:
   - {fileID: 6388770457163974164, guid: 4e5968d295e98f14ab6b414535f23f2e, type: 3}
   - {fileID: 6388770457163974164, guid: 233ac68fca5d3d44e8f5c3d854f0f0e4, type: 3}
   - {fileID: 6388770457163974164, guid: 4b0811a34c09c354989ed5475e09e74c, type: 3}
+  - {fileID: 6388770457163974164, guid: ece9c8109d973af4496f821546b878fe, type: 3}
   maxNumberOfRooms: 10
   currentRooms: 0
-  roomPosition: {x: 0, y: 0, z: 0}
   RoomParent: {fileID: 0}
-  exitPrefab: {fileID: 2756423368548845831, guid: a2757e355e7519c4bbbb077873175fe8, type: 3}
   PossibilyToContinue: 100
   rootRoom: {fileID: 0}
   roomList: []
   spawnEnemies: {fileID: 1031520120}
+  exitCounts: 0
+  maxNumberOfExits: 1
 --- !u!114 &1031520118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2185,6 +2186,7 @@ MonoBehaviour:
   - {fileID: 6388770457163974164, guid: 233ac68fca5d3d44e8f5c3d854f0f0e4, type: 3}
   - {fileID: 6388770457163974164, guid: 4e5968d295e98f14ab6b414535f23f2e, type: 3}
   - {fileID: 6388770457163974164, guid: 4b0811a34c09c354989ed5475e09e74c, type: 3}
+  - {fileID: 6388770457163974164, guid: ece9c8109d973af4496f821546b878fe, type: 3}
 --- !u!114 &1031520120
 MonoBehaviour:
   m_ObjectHideFlags: 0

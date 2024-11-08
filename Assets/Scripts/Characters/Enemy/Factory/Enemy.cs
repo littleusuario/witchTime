@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
@@ -10,8 +9,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public int AttackRadius = 5;
     public event Action Ondie;
     public ParticleSystem DamageParticleSystem;
-    public int beatsInactiveStart = 1;
-    public int beats = 0;
+    public float timeInactive = 1;
+    public float elapsedTime = 0;
     protected GameObject player;
     protected GameObject enemy;
     protected Material material;
@@ -48,7 +47,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     protected void EnemyUpdate() 
     {
-        if (player != null && beats > beatsInactiveStart)
+        elapsedTime += Time.deltaTime;
+        if (player != null && elapsedTime > timeInactive)
         {
             distance = Vector3.Distance(transform.position, player.transform.position);
             if (distance <= thresholdAttackDistance)
@@ -59,10 +59,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
     public void RunBehaviour() 
     {
-        if (beats >= beatsInactiveStart)
+        if (elapsedTime >= timeInactive)
             stateManager.UpdateState();
-
-        beats++;
     }
     protected void DamageZone() 
     {

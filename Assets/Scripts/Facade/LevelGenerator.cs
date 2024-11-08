@@ -10,15 +10,16 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] int currentRooms = 0;
 
     [Header("Room Variables")]
-    [SerializeField] Vector3 roomPosition = Vector3.zero;
+    Vector3 roomPosition = Vector3.zero;
     [SerializeField] Transform RoomParent;
-    [SerializeField] private GameObject exitPrefab;
     [SerializeField] private int PossibilyToContinue = 5;
 
     [SerializeField] RoomObject rootRoom;
     [SerializeField] List<RoomObject> roomList = new List<RoomObject>();
     [SerializeField] SpawnEnemies spawnEnemies;
     int tryNumberTimes = 5;
+    [SerializeField] int exitCounts = 0;
+    [SerializeField] int maxNumberOfExits = 2;
     public void CreateLevelProcess()
     {
         roomFactory = GetComponent<RoomFactory>();
@@ -64,7 +65,7 @@ public class LevelGenerator : MonoBehaviour
             spawnEnemies.Notcleared.Add(rooms);
         }
 
-        Instantiate(exitPrefab, depthestRoom.transform.position + Vector3.up, Quaternion.Euler(90, 0, 0), depthestRoom.transform);
+        //Instantiate(exitPrefab, depthestRoom.transform.position + Vector3.up, Quaternion.Euler(90, 0, 0), depthestRoom.transform);
     }
 
  
@@ -112,10 +113,21 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (roomList[i].transform.position == roomList[j].transform.position && roomList[j] != rootRoom)
                         {
-                            Destroy(roomList[j].gameObject);
-                            roomList.RemoveAt(j);
-                            currentRooms--;
-                            break;
+                            if(roomList[j].ID != "Exit") 
+                            {
+                                Destroy(roomList[j].gameObject);
+                                roomList.RemoveAt(j);
+                                currentRooms--;
+                                break;
+                            }
+                            else 
+                            {
+                                Destroy(roomList[j].gameObject);
+                                roomList.RemoveAt(j);
+                                currentRooms--;
+                                exitCounts--;
+                                break;
+                            }
                         }
                     }
                 }
@@ -162,17 +174,30 @@ public class LevelGenerator : MonoBehaviour
     {
         RoomObject room = null;
 
-        if (roomList.Count > 0) 
+        if (roomList.Count > 0 && roomList.Count < maxNumberOfRooms)
         {
-            int possibility = Random.Range(0, possibleRooms.Count);
-
-            room = roomFactory.RoomCreator(possibleRooms[possibility].ID);
+            if (roomList.Count == maxNumberOfRooms - 1 && exitCounts < maxNumberOfExits) 
+            {
+                exitCounts++;
+                room = roomFactory.RoomCreator(possibleRooms[possibleRooms.Count - 1].ID);
+            }
+            else 
+            {
+                int possibility = Random.Range(0, possibleRooms.Count - 2);
+                room = roomFactory.RoomCreator(possibleRooms[possibility].ID);
+            }
         }
-        else 
+        else
         {
             room = roomFactory.RoomCreator("Normal");
         }
+        
+        if (room == null) 
+        {
+            Debug.Log("aaaa");
+        }
         room.gameObject.transform.position = desiredPosition;
+
         return room;
     }
 
