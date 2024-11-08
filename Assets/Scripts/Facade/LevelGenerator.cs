@@ -185,7 +185,7 @@ public class LevelGenerator : MonoBehaviour
             }
             else 
             {
-                int possibility = Random.Range(0, possibleRooms.Count - 2);
+                int possibility = Random.Range(0, possibleRooms.Count - 1);
                 room = roomFactory.RoomCreator(possibleRooms[possibility].ID);
             }
         }
