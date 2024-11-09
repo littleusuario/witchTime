@@ -3169,6 +3169,7 @@ GameObject:
   - component: {fileID: 1372231663}
   - component: {fileID: 1372231662}
   - component: {fileID: 1372231664}
+  - component: {fileID: 1372231665}
   m_Layer: 5
   m_Name: BeatSymbol
   m_TagString: Untagged
@@ -3249,6 +3250,20 @@ MonoBehaviour:
   redBeats: []
   beatCanvas: {fileID: 0}
   _isPulsing: 0
+--- !u!114 &1372231665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372231660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63f492d738de8345acb6d5c70386d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1624252257}
+  beatSimbol: {fileID: 1372231662}
 --- !u!1 &1389708733
 GameObject:
   m_ObjectHideFlags: 0
@@ -4177,6 +4192,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1836946596}
   m_SourcePrefab: {fileID: 100100000, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
+--- !u!1 &1624252257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2324256078085146715, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
+  m_PrefabInstance: {fileID: 1624252256}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1687591264
 GameObject:
   m_ObjectHideFlags: 0
