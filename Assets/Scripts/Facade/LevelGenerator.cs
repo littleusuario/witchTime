@@ -144,7 +144,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void CheckRoom(RoomObject roomToCheck)
     {
-        int roomToChose = Random.Range(0, 4);
+        int roomToChose = Random.Range(0, 10);
 
         if (roomToCheck != null)
         {
