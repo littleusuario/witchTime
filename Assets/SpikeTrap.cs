@@ -16,7 +16,7 @@ public class SpikeTrap : TrapObject
     {
         animator = GetComponent<Animator>();
         Initialize();
-        transform.position = new Vector3(transform.position.x, 0 - 0.1f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
     void Update()
     {
