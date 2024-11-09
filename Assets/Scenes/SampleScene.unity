@@ -3262,8 +3262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63f492d738de8345acb6d5c70386d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1624252257}
+  player: {fileID: 1266755713}
   beatSimbol: {fileID: 1372231662}
+  mainCamera: {fileID: 0}
 --- !u!1 &1389708733
 GameObject:
   m_ObjectHideFlags: 0
@@ -4192,11 +4193,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1836946596}
   m_SourcePrefab: {fileID: 100100000, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
---- !u!1 &1624252257 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2324256078085146715, guid: 6e479aa7d02dcde439eced126426bad3, type: 3}
-  m_PrefabInstance: {fileID: 1624252256}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1687591264
 GameObject:
   m_ObjectHideFlags: 0
