@@ -12,6 +12,10 @@ public class GameOverUI : MonoBehaviour
     public GameObject Cam;
     public GameObject RecordObject;
     private NoiseMovement noiseMovement;
+    public ParticleSystem ParticleSystem;
+
+    public List<GameObject> UIToAnimate;
+    public float DelayTime = 0.3f;
     void Start()
     {
         if (HighScore != null)
@@ -38,6 +42,11 @@ public class GameOverUI : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             Cam.transform.position = Vector3.Lerp(initialPosition, endPosition, elapsedTime / TimeToEndTransition);
+
+            if( elapsedTime > TimeToEndTransition / 2) 
+            {
+                ParticleSystem.gameObject.SetActive(false);
+            }
             yield return null;
         }
         Cam.transform.position = endPosition;
@@ -45,5 +54,11 @@ public class GameOverUI : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         noiseMovement.enabled = true;
         GameOverRoom.SetActive(true);
+
+        foreach (GameObject item in UIToAnimate)
+        {
+            item.SetActive(true);
+            yield return new WaitForSeconds(DelayTime);
+        }
     }
 }

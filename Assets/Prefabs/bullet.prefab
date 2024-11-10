@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: -5981265613813747224}
   m_Layer: 1
   m_Name: bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,11 +192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc6412c3b8179040a21885e2bc0db09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereRad: 0.35
   bulletData: {fileID: 11400000, guid: c0bbdc2355de58e4bb38b550ce87a6a4, type: 2}
+  sphereRad: 0.35
   mask:
     serializedVersion: 2
-    m_Bits: 2
+    m_Bits: 256
   maxdist: 0.3
 --- !u!212 &-5981265613813747224
 SpriteRenderer:
