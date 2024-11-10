@@ -1,22 +1,29 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;  // Asegúrate de incluir este namespace
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
+
+    public bool IsGamePaused;
+
     [Header("Player Health")]
     public int playerMaxHealth = 4;
-    
-    [SerializeField] private FacadeManager facade;
-    
     public int playerCurrentHealth;
-    
+
+    [SerializeField] private FacadeManager facade;
     public SpawnEnemies spawnEnemies;
     public int iterations = 0;
     public Room_Normal ActualRoom;
     public bool BeatUIHelpActive = true;
     public bool SoundHelpActive = false;
+
+    [Header("Cinemachine Camera Shake")]
+    public CinemachineVirtualCamera virtualCamera;
+    private CinemachineBasicMultiChannelPerlin perlin;
 
     private void Awake()
     {
@@ -27,7 +34,6 @@ public class GameManager : MonoBehaviour
         else if (Instance != this)
         {
             Destroy(gameObject);
-            facade = null;
         }
 
         DontDestroyOnLoad(gameObject);
@@ -52,18 +58,41 @@ public class GameManager : MonoBehaviour
 
         GameObject BeatUIHelpObject = GameObject.FindGameObjectWithTag("BeatVisualHelp");
 
-        if (BeatUIHelpObject != null) 
+        if (BeatUIHelpObject != null)
         {
             BeatUIHelpObject.SetActive(BeatUIHelpActive ? true : false);
         }
 
         GameObject SoundHelpObject = GameObject.FindGameObjectWithTag("SoundHelp");
 
-        if (SoundHelpObject != null) 
+        if (SoundHelpObject != null)
         {
             SoundHelpObject.SetActive(SoundHelpActive ? true : false);
         }
+
+        SetupCinemachine();
     }
+
+    private void SetupCinemachine()
+    {
+        GameObject cinemachineObject = GameObject.FindGameObjectWithTag("Cinemachine");
+
+        if (cinemachineObject != null)
+        {
+            virtualCamera = cinemachineObject.GetComponent<CinemachineVirtualCamera>();
+
+            if (virtualCamera != null)
+            {
+                perlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                if (perlin != null)
+                {
+                    perlin.m_AmplitudeGain = 0f;
+                    perlin.m_FrequencyGain = 0f;
+                }
+            }
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F5))
@@ -125,5 +154,49 @@ public class GameManager : MonoBehaviour
     {
         iterations++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseGameForSeconds(float seconds)
+    {
+        if (!IsGamePaused)
+        {
+            StartCoroutine(PauseCoroutine(seconds));
+        }
+    }
+
+    private IEnumerator PauseCoroutine(float seconds)
+    {
+        IsGamePaused = true;
+        Time.timeScale = 0f;
+
+        yield return new WaitForSecondsRealtime(seconds);
+
+        Time.timeScale = 1f;
+        IsGamePaused = false;
+    }
+
+    public void TriggerCameraShake(float amplitude, float frequency, float duration)
+    {
+        if (perlin != null)
+        {
+            StartCoroutine(CameraShakeCoroutine(amplitude, frequency, duration));
+        }
+    }
+
+    private IEnumerator CameraShakeCoroutine(float targetAmplitude, float targetFrequency, float duration)
+    {
+        int steps = 30;
+        float stepDuration = duration / steps;
+
+        perlin.m_AmplitudeGain += targetAmplitude;
+        perlin.m_FrequencyGain += targetFrequency;
+
+        for (int i = 0; i < steps; i++)
+        {
+            yield return new WaitForSeconds(stepDuration);
+        }
+
+        perlin.m_AmplitudeGain = Mathf.Max(0f, perlin.m_AmplitudeGain - targetAmplitude);
+        perlin.m_FrequencyGain = Mathf.Max(0f, perlin.m_FrequencyGain - targetFrequency);
     }
 }

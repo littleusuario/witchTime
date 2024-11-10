@@ -30,6 +30,11 @@ public class State_Walking : IState
     }
     public void UpdateState()
     {
+        if (GameManager.Instance.IsGamePaused)
+        {
+            return;
+        }
+
         ProcesarEntrada();
         Vector3 direccionMovimiento = new Vector3(inputHorizontal, 0, inputVertical);
         if (collisionController.RayHit)

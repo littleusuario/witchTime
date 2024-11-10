@@ -30,6 +30,11 @@ public class State_Attack : IState
 
     public void UpdateState()
     {
+        if (GameManager.Instance.IsGamePaused)
+        {
+            return;
+        }
+
         if (cursorObject == null) return;
 
         Vector3 cursorPos = cursorObject.transform.position;

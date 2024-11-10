@@ -69,6 +69,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             audioSource.PlayOneShot(damageSound);
         }
 
+        GameManager.Instance.PauseGameForSeconds(0.15f);
         UpdateHealthDisplay();
 
         if (GameManager.Instance.GetPlayerCurrentHealth() <= 0)
@@ -137,7 +138,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
                 perlin.m_AmplitudeGain = Mathf.Lerp(initialAmplitude, 0f, shakeLerpFactor);
                 perlin.m_FrequencyGain = Mathf.Lerp(initialFrequency, 0f, shakeLerpFactor);
             }
-            else if (perlin != null)
+            else if (perlin != null && !GameManager.Instance.IsGamePaused)
             {
                 perlin.m_AmplitudeGain = 0f;
                 perlin.m_FrequencyGain = 0f;
@@ -150,7 +151,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         spriteRenderer.enabled = true;
         spriteRenderer.color = originalColor;
         material.SetFloat("_FlashAmount", 0f);
-        if (perlin != null)
+
+        if (perlin != null && !GameManager.Instance.IsGamePaused)
         {
             perlin.m_AmplitudeGain = 0f;
             perlin.m_FrequencyGain = 0f;

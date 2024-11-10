@@ -4128,14 +4128,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1deeba055b0dc4b8d8a85956f4e783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsGamePaused: 0
   playerMaxHealth: 3
-  facade: {fileID: 1031520118}
   playerCurrentHealth: 0
+  facade: {fileID: 1031520118}
   spawnEnemies: {fileID: 1031520120}
   iterations: 0
   ActualRoom: {fileID: 0}
   BeatUIHelpActive: 1
   SoundHelpActive: 0
+  virtualCamera: {fileID: 0}
 --- !u!1 &1527149073
 GameObject:
   m_ObjectHideFlags: 0

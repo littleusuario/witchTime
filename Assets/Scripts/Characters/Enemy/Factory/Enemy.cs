@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Random = System.Random;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
@@ -14,44 +13,43 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public float timeInactive = 1;
     public float elapsedTime = 0;
     public RoomObject originRoom;
+
     protected GameObject player;
     protected GameObject enemy;
-    protected Material material;
+    protected Material originalMaterial;
     protected float distance = 0;
     protected EnemyStateManager stateManager;
+
     [SerializeField] protected GameObject heart;
     [SerializeField] protected float thresholdAttackDistance = 1.5f;
     [SerializeField] protected Animator animator;
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected CollisionController hitboxEnemy;
     [SerializeField] protected PulseToTheBeat pulseToTheBeat;
+    [SerializeField] protected Material hitMaterial;
 
-    [ColorUsage(true, true)]
-    [SerializeField] protected Color flashColor = Color.white;
+    private GameManager gameManager;
+    private bool isMaterialChanged = false;
     protected bool death;
-    protected void InitializeEnemy(SpriteRenderer spriteRenderer) 
+
+    protected void InitializeEnemy(SpriteRenderer spriteRenderer)
     {
+        gameManager = GameManager.Instance;
+        originalMaterial = spriteRenderer.material;
+
         if (pulseToTheBeat != null)
         {
             pulseToTheBeat.beatPulse += RunBehaviour;
         }
 
-        if (spriteRenderer != null)
-        {
-            material = spriteRenderer.material;
-        }
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null)
-        {
-            player = playerObject;
-        }
-
-        enemy = gameObject.transform.parent.gameObject.transform.parent.gameObject;
+        player = GameObject.FindGameObjectWithTag("Player");
+        enemy = gameObject.transform.parent?.parent?.gameObject;
     }
 
-    protected void EnemyUpdate() 
+    protected void EnemyUpdate()
     {
         elapsedTime += Time.deltaTime;
+
         if (player != null && elapsedTime > timeInactive)
         {
             distance = Vector3.Distance(transform.position, player.transform.position);
@@ -61,20 +59,24 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             }
         }
     }
-    public void RunBehaviour() 
+
+    public void RunBehaviour()
     {
         if (elapsedTime >= timeInactive)
-            stateManager.UpdateState();
+        {
+            stateManager?.UpdateState();
+        }
     }
-    protected void DamageZone() 
-    {
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, AttackRadius, transform.forward);
 
-        foreach (RaycastHit hit in hits)
+    protected void DamageZone()
+    {
+        var hits = Physics.SphereCastAll(transform.position, AttackRadius, transform.forward);
+
+        foreach (var hit in hits)
         {
             if (hit.collider.GetComponent<Enemy>() == null)
             {
-                IDamageable damageableObject = hit.collider.gameObject.GetComponent<IDamageable>();
+                var damageableObject = hit.collider.GetComponent<IDamageable>();
 
                 if (damageableObject != null && HealthPoints > 0)
                 {
@@ -83,88 +85,66 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             }
         }
     }
-    public void TakeDamage(int damage) 
+
+    public void TakeDamage(int damage)
     {
         if (HealthPoints <= 0) return;
 
-        HealthPoints--;
+        gameManager.TriggerCameraShake(0.5f, 5f, 0.25f);
+        gameManager.PauseGameForSeconds(0.09f);
+        HealthPoints -= damage;
+
+        if (gameManager.IsGamePaused && !isMaterialChanged)
+        {
+            spriteRenderer.material = hitMaterial;
+            isMaterialChanged = true;
+        }
 
         if (HealthPoints > 0)
         {
-            GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity).gameObject;
-
-            if (animator != null)
-            {
-                StartCoroutine(HitEffect());
-            }
+            //Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity);
         }
         else
         {
             death = true;
-            Drop(dropChance,transform.position);
-            originRoom.EnemiestoSpawn.Remove(enemy);
-            Destroy(gameObject.transform.parent.gameObject.transform.parent.gameObject);
+            StartCoroutine(HandleDeath());
         }
 
-        if (HealthPoints == 0 && Ondie != null)
+        Ondie?.Invoke();
+    }
+
+    private IEnumerator HandleDeath()
+    {
+        yield return new WaitForSeconds(0.09f);
+
+        Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity);
+        originRoom.EnemiestoSpawn.Remove(enemy);
+        Destroy(enemy);
+    }
+
+    private void Update()
+    {
+        if (!gameManager.IsGamePaused && isMaterialChanged)
         {
-            Ondie.Invoke();
+            spriteRenderer.material = originalMaterial;
+            isMaterialChanged = false;
         }
     }
 
-    public void Drop(int dropChance, Vector3 SpawnTransform)
+    public void Drop(int dropChance, Vector3 spawnTransform)
     {
-        Random rnd = new Random();
-        int possibility = rnd.Next(0, 100);
-
-        if (possibility <= 30 && GameManager.Instance.playerCurrentHealth < GameManager.Instance.playerMaxHealth)
+        int possibility = UnityEngine.Random.Range(0, 100);
+        if (possibility <= dropChance && gameManager.playerCurrentHealth < gameManager.playerMaxHealth)
         {
-            GameObject Heart = Instantiate(heart, SpawnTransform+Vector3.up, Quaternion.identity).gameObject;
-            Debug.Log("Se instancio");
+            Instantiate(heart, spawnTransform + Vector3.up, Quaternion.identity);
         }
-        Debug.Log(possibility);
     }
 
     public void FlipTowardsPlayer()
     {
-        if (player != null)
-        {
-            if (player.transform.position.x > transform.position.x)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else
-            {
-                spriteRenderer.flipX = false;
-            }
-        }
-    }
+        if (player == null || spriteRenderer == null) return;
 
-    protected IEnumerator HitEffect()
-    {
-        float elapsedTime = 0f;
-        float currentFlashAmount = 0f;
-
-        material.SetColor("_FlashColor", flashColor);
-
-        Color originalColor = spriteRenderer.color;
-        spriteRenderer.color = Color.red;
-
-        while (elapsedTime < 0.25f)
-        {
-            elapsedTime += Time.deltaTime;
-
-            float lerpFactor = elapsedTime / 0.25f;
-            currentFlashAmount = Mathf.Lerp(1f, 1f, lerpFactor);
-            StartCoroutine(InvincibilityFrames());
-            material.SetFloat("_FlashAmount", currentFlashAmount);
-
-            yield return null;
-        }
-
-        spriteRenderer.enabled = true;
-        spriteRenderer.color = originalColor;
-        material.SetFloat("_FlashAmount", 0f);
+        spriteRenderer.flipX = player.transform.position.x > transform.position.x;
     }
 
     protected IEnumerator InvincibilityFrames()
@@ -174,7 +154,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         if (death)
         {
-            Destroy(gameObject.transform.parent.gameObject.transform.parent.gameObject);
+            Destroy(enemy);
         }
         else
         {
