@@ -11,7 +11,9 @@ public class Room_Normal : RoomObject
 
     public RoomScriptable RoomScriptable;
 
-    private List<SpriteRenderer> roomSprites = new List<SpriteRenderer>();
+    [SerializeField] private List<SpriteRenderer> roomSprites = new List<SpriteRenderer>();
+
+    [SerializeField] private SpriteRenderer minimap;
 
     void Awake()
     {
@@ -165,4 +167,13 @@ public class Room_Normal : RoomObject
             return Color.HSVToRGB(hue, saturation, value);
         }
     }
+
+    public void IsCurrentRoom(bool isActive)
+    {
+        if (minimap != null)
+        {
+            minimap.color = isActive ? Color.red : GenerateColor(GameManager.Instance.iterations);
+        }
+    }
+
 }

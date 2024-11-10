@@ -94,9 +94,15 @@ public class GameManager : MonoBehaviour
         return playerCurrentHealth;
     }
 
-    public void SetCurrentRoom(RoomObject roomObject) 
+    public void SetCurrentRoom(RoomObject roomObject)
     {
+        if (Instance.ActualRoom != null)
+        {
+            Instance.ActualRoom.IsCurrentRoom(false);
+        }
+
         Instance.ActualRoom = (Room_Normal)roomObject;
+        Instance.ActualRoom.IsCurrentRoom(true);
     }
 
     public int GetPlayerMaxHealth()

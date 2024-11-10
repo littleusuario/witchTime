@@ -82,6 +82,7 @@ public class LevelGenerator : MonoBehaviour
             tryNumberTimes--;
         }
     }
+
     public void RoomGenerator()
     {
         while (currentRooms < maxNumberOfRooms)
@@ -192,8 +193,9 @@ public class LevelGenerator : MonoBehaviour
         else
         {
             room = roomFactory.RoomCreator("Normal");
+            GameManager.Instance.SetCurrentRoom(room);
         }
-        
+
         if (room == null) 
         {
             Debug.Log("aaaa");
