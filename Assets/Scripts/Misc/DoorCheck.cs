@@ -11,7 +11,8 @@ public class DoorCheck : MonoBehaviour
     [SerializeField] private Vector3 direction;
     [SerializeField] private float threshold = 1.0f;
     [SerializeField] private float distance;
-    [SerializeField] private AudioClip doorSound;
+    [SerializeField] private AudioClip doorPassTroughSound;
+    [SerializeField] private AudioClip doorOpenSound;
     
     private float elapsedTime = 0;
     private AudioSource audioSource;
@@ -46,8 +47,10 @@ public class DoorCheck : MonoBehaviour
 
     private void CheckEnemies() 
     {
-        if (originRoom.EnemiestoSpawn.Count == 0 && GameManager.Instance.ActualRoom == originRoom)
+        if (originRoom.EnemiestoSpawn.Count == 0 && GameManager.Instance.ActualRoom == originRoom && !noEnemies)
         {
+            audioSource.pitch = Random.Range(minPitch, maxPitch);
+            audioSource.PlayOneShot(doorOpenSound);
             animator.SetBool("NoEnemies", true);
             noEnemies = true;
         }
@@ -95,10 +98,10 @@ public class DoorCheck : MonoBehaviour
             Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * 1.5f;
             newPosition.y = 0f;
             Player.transform.position = newPosition;
-            if (audioSource != null && doorSound != null)
+            if (audioSource != null && doorPassTroughSound != null)
             {
                 audioSource.pitch = Random.Range(minPitch, maxPitch);
-                audioSource.PlayOneShot(doorSound);
+                audioSource.PlayOneShot(doorPassTroughSound);
             }
         }
     }
