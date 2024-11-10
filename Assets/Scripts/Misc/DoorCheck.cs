@@ -20,6 +20,8 @@ public class DoorCheck : MonoBehaviour
     private float maxDistance;
     private int tryNumberTimes = 2;
     private Animator animator;
+    private bool noEnemies = false;
+    private BeatManager beatManager;
 
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
     public DoorCheck ConnectedDoor { get => connectedDoor; set => connectedDoor = value; }
@@ -30,6 +32,10 @@ public class DoorCheck : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+
+        GameObject gameObject = GameObject.FindGameObjectWithTag("BeatManager");
+        beatManager = gameObject.GetComponent<BeatManager>();
+        beatManager.Intervals[0]._Trigger.AddListener(CheckEnemies);
     }
 
     public void SetDirectionAndDistance(Vector3 direction, float maxDistance)
@@ -38,6 +44,14 @@ public class DoorCheck : MonoBehaviour
         this.maxDistance = maxDistance;
     }
 
+    private void CheckEnemies() 
+    {
+        if (originRoom.EnemiestoSpawn.Count == 0 && GameManager.Instance.ActualRoom == originRoom)
+        {
+            animator.SetBool("NoEnemies", true);
+            noEnemies = true;
+        }
+    }
     private void FixedUpdate()
     {
         if (direction != Vector3.zero && maxDistance != 0 && tryNumberTimes > 0) 
@@ -71,13 +85,9 @@ public class DoorCheck : MonoBehaviour
     }
     public void Update()
     {
-        if (originRoom.EnemiestoSpawn.Count == 0) 
-        {
-            animator.SetBool("NoEnemies", true);
-        }
         elapsedTime += Time.deltaTime;
         distance = Vector3.Distance(transform.position, Player.transform.position);
-        if  (distance <= threshold && originRoom.EnemiestoSpawn.Count == 0)
+        if  (distance <= threshold && noEnemies)
         {
             elapsedTime = 0f;
             GameManager.Instance.SetCurrentRoom(connectedRoom);

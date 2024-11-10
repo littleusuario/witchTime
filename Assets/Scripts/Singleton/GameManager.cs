@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 using Cinemachine;  // Asegúrate de incluir este namespace
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +27,11 @@ public class GameManager : MonoBehaviour
     [Header("Cinemachine Camera Shake")]
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin perlin;
+
+    [Header("Main Camera Volume")]
+    public Camera mainCamera;
+    private Volume cameraVolume;
+    public int HighScore = 0;
 
     private void Awake()
     {
@@ -71,6 +79,7 @@ public class GameManager : MonoBehaviour
         }
 
         SetupCinemachine();
+
     }
 
     private void SetupCinemachine()
@@ -90,6 +99,16 @@ public class GameManager : MonoBehaviour
                     perlin.m_FrequencyGain = 0f;
                 }
             }
+        }
+    }
+
+    private void SetupCamera() 
+    {
+        mainCamera = Camera.main;
+
+        if (mainCamera != null) 
+        {
+            cameraVolume = mainCamera.GetComponent<Volume>();
         }
     }
 
@@ -164,6 +183,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public void TriggerCameraShake(float amplitude, float frequency, float duration)
+    {
+        if (perlin != null)
+        {
+            StartCoroutine(CameraShakeCoroutine(amplitude, frequency, duration));
+        }
+    }
+    public void InitializeDeathSequence() 
+    {
+        StartCoroutine(DeathCoroutine(0.5f));
+    }
+
+    IEnumerator DeathCoroutine(float seconds) 
+    {
+        SceneManager.LoadScene("GameOverScreen");
+        yield return new WaitForSeconds(seconds);
+        playerCurrentHealth = playerMaxHealth;
+    }
     private IEnumerator PauseCoroutine(float seconds)
     {
         IsGamePaused = true;
@@ -173,14 +211,6 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
         IsGamePaused = false;
-    }
-
-    public void TriggerCameraShake(float amplitude, float frequency, float duration)
-    {
-        if (perlin != null)
-        {
-            StartCoroutine(CameraShakeCoroutine(amplitude, frequency, duration));
-        }
     }
 
     private IEnumerator CameraShakeCoroutine(float targetAmplitude, float targetFrequency, float duration)
@@ -199,4 +229,5 @@ public class GameManager : MonoBehaviour
         perlin.m_AmplitudeGain = Mathf.Max(0f, perlin.m_AmplitudeGain - targetAmplitude);
         perlin.m_FrequencyGain = Mathf.Max(0f, perlin.m_FrequencyGain - targetFrequency);
     }
+
 }

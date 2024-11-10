@@ -45,4 +45,9 @@ public class RandomMovement : MonoBehaviour
             attackAudioSource.PlayOneShot(randomSound);
         }
     }
+
+    public void SwitchStateDeath() 
+    {
+        stateManager.ChangeState(stateManager.state_PlayerDeath);
+    }
 }

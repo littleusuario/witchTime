@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private float amplitude = 0.5f;
     private float frequency = 10f;
         
-   [Header("Health Display")]
+    [Header("Health Display")]
     [SerializeField] private List<GameObject> healthIcons;
     [SerializeField] private int maxHealth = 3; //Máximo de corazones
 
@@ -61,8 +61,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (isInvulnerable) return;
 
         GameManager.Instance.TakePlayerDamage(damage);
-        GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity).gameObject;
-        Debug.Log(GameManager.Instance.GetPlayerCurrentHealth());
 
         if (audioSource != null && damageSound != null)
         {
@@ -74,11 +72,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
         if (GameManager.Instance.GetPlayerCurrentHealth() <= 0)
         {
-            OnDie.Invoke();
-            GameManager.Instance.RestartGame();
+            //OnDie.Invoke();
+            GameManager.Instance.InitializeDeathSequence();
         }
         else
         {
+            GameObject particles = Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity).gameObject;
             StartCoroutine(Invulnerability());
         }
     }
@@ -160,6 +159,4 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
         isInvulnerable = false;
     }
-
-
 }

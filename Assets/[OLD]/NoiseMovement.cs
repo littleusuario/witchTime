@@ -9,6 +9,8 @@ public class NoiseMovement : MonoBehaviour
     private float seedOffsetX;
     private float seedOffsetY;
 
+    public Vector3 StartPos { get => startPos; set => startPos = value; } 
+
     void Start()
     {
         startPos = transform.position;
