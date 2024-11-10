@@ -18,7 +18,26 @@ public abstract class RoomObject : MonoBehaviour
     public int depth = 0;
     public bool RoomChecked;
     public List<GameObject> EnemiestoSpawn = new List<GameObject>();
+    public List<TrapObject> Traps = new List<TrapObject>();
 
+    public void InitializeTraps() 
+    {
+        foreach (Transform child in transform) 
+        {
+            TrapObject trap = child.GetComponent<TrapObject>();
+            
+            if (trap != null) 
+            {
+                Traps.Add(trap);
+            }
+        }
+
+
+        foreach (TrapObject trap in Traps) 
+        {
+            trap.OriginRoom = this;
+        }
+    }
     public virtual void CheckDoors() { }
     public virtual void MoveCameraFollow() { }
 

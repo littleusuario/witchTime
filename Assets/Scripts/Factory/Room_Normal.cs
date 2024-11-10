@@ -59,6 +59,7 @@ public class Room_Normal : RoomObject
     {
         cameraPosition = transform.localPosition;
         ChangeFloorColor();
+        InitializeTraps();
     }
 
     public void Update()
