@@ -26,9 +26,10 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private float amplitude = 0.5f;
     private float frequency = 10f;
-
-    [Header("Health Display")]
+        
+   [Header("Health Display")]
     [SerializeField] private List<GameObject> healthIcons;
+    [SerializeField] private int maxHealth = 3; //Máximo de corazones
 
     private void Start()
     {
@@ -81,7 +82,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
     }
 
-
     private void UpdateHealthDisplay()
     {
         int currentHealth = GameManager.Instance.GetPlayerCurrentHealth();
@@ -89,6 +89,18 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             healthIcons[i].SetActive(i < currentHealth);
         }
+    }
+
+    //Curación con pickups de corazones
+    public void Heal(int amount)
+    {
+
+        if(GameManager.Instance.playerCurrentHealth < GameManager.Instance.playerMaxHealth)
+        {
+            GameManager.Instance.playerCurrentHealth += amount;
+        }
+
+        UpdateHealthDisplay();
     }
 
     private IEnumerator Invulnerability()

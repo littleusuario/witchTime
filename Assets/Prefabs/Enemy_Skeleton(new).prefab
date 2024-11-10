@@ -503,16 +503,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthPoints: 1
   AttackRadius: 1
+  dropChance: 30
   DamageParticleSystem: {fileID: 3548944917942328832, guid: 54a185f332019e4419b4e97cd440853e, type: 3}
-  velocity: 2
-  hitboxEnemy: {fileID: 2738041428370789051}
-  invincibilityFrames: 0.5
-  animator: {fileID: 7569548651335004319}
-  pulseToTheBeat: {fileID: 3828596520329743999}
+  timeInactive: 1
+  elapsedTime: 0
+  originRoom: {fileID: 0}
+  heart: {fileID: 9147095982899544407, guid: 5de590cfc289018479daab301460db50, type: 3}
   thresholdAttackDistance: 1
-  distance: 0
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  animator: {fileID: 7569548651335004319}
   spriteRenderer: {fileID: 2379289071057746261}
+  hitboxEnemy: {fileID: 2738041428370789051}
+  pulseToTheBeat: {fileID: 3828596520329743999}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  invincibilityFrames: 0.5
+  velocity: 2
 --- !u!136 &1852882586489703168
 CapsuleCollider:
   m_ObjectHideFlags: 0

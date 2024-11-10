@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 5040028170452828770}
   m_Layer: 0
   m_Name: NOY
-  m_TagString: Noytasar
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -336,9 +336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1c7d1b00dd99140ba2ef8522b2626f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 3
-  maxJumpHeight: 0.01
-  animator: {fileID: 6302453099529613577}
   particleRotations: []
   slashParticle: {fileID: 0}
   collisionHitbox: {fileID: 0}
@@ -346,6 +343,9 @@ MonoBehaviour:
   pulseOfTheBeat: {fileID: 0}
   sounds: []
   attackAudioSource: {fileID: 0}
+  velocidad: 3
+  maxJumpHeight: 0.01
+  animator: {fileID: 6302453099529613577}
 --- !u!1 &3640769170493553175
 GameObject:
   m_ObjectHideFlags: 0

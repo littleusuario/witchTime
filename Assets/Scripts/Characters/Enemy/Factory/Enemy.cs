@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = System.Random;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
@@ -8,6 +9,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public int HealthPoints;
     public int AttackRadius = 5;
     public event Action Ondie;
+    public int dropChance;
     public ParticleSystem DamageParticleSystem;
     public float timeInactive = 1;
     public float elapsedTime = 0;
@@ -17,6 +19,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected Material material;
     protected float distance = 0;
     protected EnemyStateManager stateManager;
+    [SerializeField] protected GameObject heart;
     [SerializeField] protected float thresholdAttackDistance = 1.5f;
     [SerializeField] protected Animator animator;
     [SerializeField] protected SpriteRenderer spriteRenderer;
@@ -98,6 +101,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         else
         {
             death = true;
+            Drop(dropChance,transform.position);
             originRoom.EnemiestoSpawn.Remove(enemy);
             Destroy(gameObject.transform.parent.gameObject.transform.parent.gameObject);
         }
@@ -106,6 +110,18 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         {
             Ondie.Invoke();
         }
+    }
+
+    public void Drop(int dropChance, Vector3 SpawnTransform)
+    {
+        Random rnd = new Random();
+                
+        if(rnd.Next(0, 100) >= 1)
+        {
+            GameObject Heart = Instantiate(heart, SpawnTransform+Vector3.up, Quaternion.identity).gameObject;
+            Debug.Log("Se instancio");
+        }
+
     }
 
     public void FlipTowardsPlayer()

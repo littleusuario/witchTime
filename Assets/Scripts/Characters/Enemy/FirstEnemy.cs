@@ -5,11 +5,10 @@ public class FirstEnemy : Enemy
     [Header("Enemy Properties")]
     [ColorUsage(true, true)]
 
-
     [SerializeField] float invincibilityFrames = 0.5f;
 
     [SerializeField] private float velocity;
-    
+
     private float StepDistance = 0.75f;
 
     public float _StepDistance => StepDistance;

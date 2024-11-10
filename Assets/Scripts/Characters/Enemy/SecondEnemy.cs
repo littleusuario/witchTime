@@ -6,7 +6,7 @@ public class SecondEnemy : Enemy
     [SerializeField] private float velocity;
     [SerializeField] private float StepDistance = 0.5f;
     [SerializeField] float invincibilityFrames = 0.5f;
- 
+
     public float _StepDistance => StepDistance;
     public GameObject Player => player;
     public Animator Animator => animator;

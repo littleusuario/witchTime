@@ -6,11 +6,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     
     [Header("Player Health")]
-    [SerializeField] private int playerMaxHealth = 3;
+    public int playerMaxHealth = 4;
     
     [SerializeField] private FacadeManager facade;
     
-    private int playerCurrentHealth;
+    public int playerCurrentHealth;
     
     public SpawnEnemies spawnEnemies;
     public int iterations = 0;
