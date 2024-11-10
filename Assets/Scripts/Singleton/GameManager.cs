@@ -166,6 +166,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetPlayerHealth()
     {
+        iterations = 0;
         playerCurrentHealth = playerMaxHealth;
     }
 

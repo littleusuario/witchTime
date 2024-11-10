@@ -10,11 +10,19 @@ public class GameOverUI : MonoBehaviour
     public Vector3 endPosition = Vector3.zero;
     public float TimeToEndTransition = 10f;
     public GameObject Cam;
+    public GameObject RecordObject;
     private NoiseMovement noiseMovement;
     void Start()
     {
         if (HighScore != null)
             HighScore.text =  $"{(GameManager.Instance.iterations + 1).ToString()}";
+
+        if (GameManager.Instance.iterations > GameManager.Instance.HighScore) 
+        {
+            RecordObject.SetActive(true);
+            GameManager.Instance.HighScore = GameManager.Instance.iterations;
+            GameManager.Instance.ResetPlayerHealth();
+        }
         Cam = Camera.main.gameObject;
         noiseMovement = Cam.GetComponent<NoiseMovement>();
         StartCoroutine(GameOverTransition());

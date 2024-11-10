@@ -1314,7 +1314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &559022908
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3148,6 +3148,7 @@ MonoBehaviour:
   endPosition: {x: 0, y: 5, z: -40}
   TimeToEndTransition: 3.5
   Cam: {fileID: 0}
+  RecordObject: {fileID: 559022907}
 --- !u!1 &1099439867
 GameObject:
   m_ObjectHideFlags: 0
