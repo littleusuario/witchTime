@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8491035082449392669}
   - component: {fileID: 7719772181651134634}
   - component: {fileID: 3380804632148252762}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 8156869857691436433}
   - component: {fileID: -3169549933582104613}
   - component: {fileID: -5981265613813747224}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ MonoBehaviour:
   sphereRad: 0.35
   mask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 258
   maxdist: 0.3
 --- !u!212 &-5981265613813747224
 SpriteRenderer:

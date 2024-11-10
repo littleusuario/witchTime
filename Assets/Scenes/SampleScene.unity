@@ -2657,6 +2657,8 @@ MonoBehaviour:
   - {fileID: 6388770457163974164, guid: 4e5968d295e98f14ab6b414535f23f2e, type: 3}
   - {fileID: 6388770457163974164, guid: 233ac68fca5d3d44e8f5c3d854f0f0e4, type: 3}
   - {fileID: 6388770457163974164, guid: 4b0811a34c09c354989ed5475e09e74c, type: 3}
+  - {fileID: 6388770457163974164, guid: 1bb99866f002dee4da60b0af92fddfcc, type: 3}
+  - {fileID: 6388770457163974164, guid: 576284148c9c50840b24c621cd7fbc47, type: 3}
   - {fileID: 6388770457163974164, guid: ece9c8109d973af4496f821546b878fe, type: 3}
   maxNumberOfRooms: 9
   currentRooms: 0
@@ -2697,6 +2699,8 @@ MonoBehaviour:
   - {fileID: 6388770457163974164, guid: 233ac68fca5d3d44e8f5c3d854f0f0e4, type: 3}
   - {fileID: 6388770457163974164, guid: 4e5968d295e98f14ab6b414535f23f2e, type: 3}
   - {fileID: 6388770457163974164, guid: 4b0811a34c09c354989ed5475e09e74c, type: 3}
+  - {fileID: 6388770457163974164, guid: 1bb99866f002dee4da60b0af92fddfcc, type: 3}
+  - {fileID: 6388770457163974164, guid: 576284148c9c50840b24c621cd7fbc47, type: 3}
   - {fileID: 6388770457163974164, guid: ece9c8109d973af4496f821546b878fe, type: 3}
 --- !u!114 &1031520120
 MonoBehaviour:
