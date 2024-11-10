@@ -91,7 +91,7 @@ public class CollisionController : MonoBehaviour
 
                 if (rayHit && directionHit.transform.gameObject.CompareTag("Exit")) 
                 {
-                    GameManager.Instance.LoadNextLevel();
+                    directionHit.transform.gameObject.GetComponent<ExitDoorLevel>().InitializeTransition();
                 }
             }
             return rayHit;
