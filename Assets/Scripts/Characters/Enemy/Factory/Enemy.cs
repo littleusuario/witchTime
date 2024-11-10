@@ -108,6 +108,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         {
             death = true;
             StartCoroutine(HandleDeath());
+
         }
 
         Ondie?.Invoke();
@@ -116,7 +117,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     private IEnumerator HandleDeath()
     {
         yield return new WaitForSeconds(0.09f);
-
+        Drop(dropChance, transform.position); //Drop
         Instantiate(DamageParticleSystem, transform.position + transform.up, Quaternion.identity);
         originRoom.EnemiestoSpawn.Remove(enemy);
         Destroy(enemy);
