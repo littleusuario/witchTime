@@ -24,6 +24,7 @@ public class DoorCheck : MonoBehaviour
     private bool noEnemies = false;
     private BeatManager beatManager;
 
+    public float newPositionMultiplier = 1.5f;
     public RoomObject ConnectedRoom { get => connectedRoom; set => connectedRoom = value; }
     public DoorCheck ConnectedDoor { get => connectedDoor; set => connectedDoor = value; }
     public int TryNumberTimes => tryNumberTimes;
@@ -95,7 +96,7 @@ public class DoorCheck : MonoBehaviour
             elapsedTime = 0f;
             GameManager.Instance.SetCurrentRoom(connectedRoom);
             connectedRoom.MoveCameraFollow();
-            Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * 1.5f;
+            Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * newPositionMultiplier;
             newPosition.y = 0f;
             Player.transform.position = newPosition;
             if (audioSource != null && doorPassTroughSound != null)
