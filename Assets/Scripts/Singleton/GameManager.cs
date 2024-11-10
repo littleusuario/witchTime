@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Cinemachine;  // Asegúrate de incluir este namespace
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public bool BeatUIHelpActive = true;
     public bool SoundHelpActive = false;
 
-    [Header("Cinemachine Camera Shake")]
+    [Header("Virtual Camera")]
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin perlin;
 
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         iterations++;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("LevelTransition");
     }
 
     public void PauseGameForSeconds(float seconds)

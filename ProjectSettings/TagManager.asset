@@ -33,6 +33,7 @@ TagManager:
   - Cursor
   - Minimap
   - ObjectFollowCam
+  - FadeController
   layers:
   - Default
   - TransparentFX
@@ -43,7 +44,7 @@ TagManager:
   - 3D
   - MinMap
   - Player
-  - 
+  - Fade
   - 
   - 
   - 

@@ -13,6 +13,7 @@ public class RandomMovement : MonoBehaviour
     [Header("Sonidos")]
     [SerializeField] private List<AudioClip> sounds;
     [SerializeField] AudioSource attackAudioSource;
+    [SerializeField] AudioSource landSound;
 
     private Camera mainCamera;
 
@@ -26,15 +27,50 @@ public class RandomMovement : MonoBehaviour
     public PlayerStateManager stateManager;
     public PulseToTheBeat PulseOfTheBeat => pulseOfTheBeat;
 
+    private bool canMove = true;
+    private float movementCooldown = 0f;
+    private bool canProcessInput = false;
+
     void Awake()
     {
         stateManager = new PlayerStateManager(this);
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<Camera>();
+        WaitforLand(0.6f);
     }
 
     void Update()
     {
+        if (movementCooldown > 0f)
+        {
+            movementCooldown -= Time.deltaTime;
+            if (movementCooldown <= 0f)
+            {
+                canMove = true;
+                canProcessInput = true;
+                GameManager.Instance.PauseGameForSeconds(0.09f);
+                landSound.Play();
+                GameManager.Instance.TriggerCameraShake(1f, 3f, 0.1f);
+            }
+        }
+
         stateManager.Update();
+    }
+
+    public void WaitforLand(float seconds)
+    {
+        canMove = true;
+        canProcessInput = false;
+        movementCooldown = seconds;
+    }
+
+    public bool CanMove()
+    {
+        return canMove;
+    }
+
+    public bool CanProcessInput()
+    {
+        return canProcessInput;
     }
 
     public void PlayRandomSound()
@@ -46,7 +82,7 @@ public class RandomMovement : MonoBehaviour
         }
     }
 
-    public void SwitchStateDeath() 
+    public void SwitchStateDeath()
     {
         stateManager.ChangeState(stateManager.state_PlayerDeath);
     }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExitDoorLevel : MonoBehaviour
@@ -17,6 +16,8 @@ public class ExitDoorLevel : MonoBehaviour
     private AudioSource audioSource;
     private AudioSource beatManagerAudioSource;
 
+    private FadeController fadeController;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -33,6 +34,12 @@ public class ExitDoorLevel : MonoBehaviour
         if (beatManager != null)
         {
             beatManagerAudioSource = beatManager.GetComponent<AudioSource>();
+        }
+
+        GameObject fadeObject = GameObject.FindGameObjectWithTag("FadeController");
+        if (fadeObject != null)
+        {
+            fadeController = fadeObject.GetComponent<FadeController>();
         }
     }
 
@@ -76,6 +83,11 @@ public class ExitDoorLevel : MonoBehaviour
 
     IEnumerator MoveCamera()
     {
+        if (fadeController != null)
+        {
+            StartCoroutine(fadeController.FadeIn(-0.25f));
+        }
+
         float elapsedTime = 0;
         Vector3 initialPosition = CameraFollowObject.transform.position;
         Vector3 endPosition = new Vector3(initialPosition.x, -15, initialPosition.z);
@@ -88,6 +100,7 @@ public class ExitDoorLevel : MonoBehaviour
         }
 
         CameraFollowObject.transform.position = endPosition;
+
         GameManager.Instance.LoadNextLevel();
     }
 

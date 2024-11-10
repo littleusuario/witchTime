@@ -30,20 +30,21 @@ public class State_Walking : IState
     }
     public void UpdateState()
     {
-        if (GameManager.Instance.IsGamePaused)
-        {
-            return;
-        }
-
         ProcesarEntrada();
+
         Vector3 direccionMovimiento = new Vector3(inputHorizontal, 0, inputVertical);
+
         if (collisionController.RayHit)
         {
             if (moving)
             {
                 lastValidPosition = randomMovement.transform.position;
             }
-            MoverJugador(direccionMovimiento);
+
+            if (randomMovement.CanProcessInput())
+            {
+                MoverJugador(direccionMovimiento);
+            }
         }
         else
         {
@@ -51,9 +52,21 @@ public class State_Walking : IState
             velocidadActual = Vector3.zero;
         }
 
+        if (!randomMovement.CanProcessInput())
+        {
+            return;
+        }
+
         randomMovement.animator.SetFloat("Horizontal", inputHorizontal);
         randomMovement.animator.SetFloat("Vertical", inputVertical);
+
+
+        if (GameManager.Instance.IsGamePaused || !randomMovement.CanMove())
+        {
+            return; 
+        }
     }
+
     public void ProcesarEntrada()
     {
 
