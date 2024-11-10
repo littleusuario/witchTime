@@ -46,16 +46,21 @@ public class DoorCheck : MonoBehaviour
         this.maxDistance = maxDistance;
     }
 
-    private void CheckEnemies() 
+    private void CheckEnemies()
     {
         if (originRoom.EnemiestoSpawn.Count == 0 && GameManager.Instance.ActualRoom == originRoom && !noEnemies)
         {
-            audioSource.pitch = Random.Range(minPitch, maxPitch);
-            audioSource.PlayOneShot(doorOpenSound);
+            if (audioSource != null && audioSource.enabled && audioSource.gameObject.activeInHierarchy)
+            {
+                audioSource.pitch = Random.Range(minPitch, maxPitch);
+                audioSource.PlayOneShot(doorOpenSound);
+            }
+
             animator.SetBool("NoEnemies", true);
             noEnemies = true;
         }
     }
+
     private void FixedUpdate()
     {
         if (direction != Vector3.zero && maxDistance != 0 && tryNumberTimes > 0) 
