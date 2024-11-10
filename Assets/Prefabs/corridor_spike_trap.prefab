@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c057c31a63d7dc4592a0e82195c3959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToToggle: 0.5
+  timeToToggle: 0.3
   animator: {fileID: 0}
   thressholdDistance: 0.45
   activationTime: 0

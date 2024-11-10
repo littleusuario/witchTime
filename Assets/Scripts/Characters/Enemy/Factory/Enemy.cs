@@ -115,13 +115,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public void Drop(int dropChance, Vector3 SpawnTransform)
     {
         Random rnd = new Random();
-                
-        if(rnd.Next(0, 100) >= 1)
+        int possibility = rnd.Next(0, 100);
+
+        if (possibility <= 30 && GameManager.Instance.playerCurrentHealth < GameManager.Instance.playerMaxHealth)
         {
             GameObject Heart = Instantiate(heart, SpawnTransform+Vector3.up, Quaternion.identity).gameObject;
             Debug.Log("Se instancio");
         }
-
+        Debug.Log(possibility);
     }
 
     public void FlipTowardsPlayer()
