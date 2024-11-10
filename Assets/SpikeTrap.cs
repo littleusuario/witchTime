@@ -15,21 +15,30 @@ public class SpikeTrap : TrapObject
     private bool spikesOn = false;
     private bool steppedOnTrap = false;
     private float distance = 0;
+
+    [SerializeField] private AudioClip activationSound;
+    [SerializeField] private AudioClip deactivationSound;
+    private AudioSource audioSource;
+
+    [SerializeField] private float deactivationCooldown = 0.15f;
+    private float deactivationCooldownTimer = 0;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         Initialize();
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
+
     void Update()
     {
         if (Vector3.Distance(transform.position, player.transform.position) < thressholdDistance)
             steppedOnTrap = true;
 
-
         if (steppedOnTrap)
         {
-            if (!trapOn) 
+            if (!trapOn)
             {
                 deactivationTime = 0;
                 activationTime += Time.deltaTime;
@@ -39,38 +48,63 @@ public class SpikeTrap : TrapObject
                     animator.SetBool("Activate", trapOn);
                     activationTime = 0;
                     spikesOn = true;
+
+                    PlaySound(activationSound);
                 }
             }
             else
             {
                 activationTime = 0;
                 deactivationTime += Time.deltaTime;
-                if (deactivationTime >= timeToToggle + timeToToggle/2 && trapOn)
+                if (deactivationTime >= timeToToggle + timeToToggle / 2 && trapOn)
                 {
                     trapOn = false;
                     spikesOn = false;
                     animator.SetBool("Activate", trapOn);
                     deactivationTime = 0;
                     steppedOnTrap = false;
+
+                    PlaySound(deactivationSound);
+
+                    deactivationCooldownTimer = deactivationCooldown;
                 }
             }
         }
 
-        if (spikesOn) 
+        if (deactivationCooldownTimer > 0)
+        {
+            deactivationCooldownTimer -= Time.deltaTime;
+            TrapActivate();
+        }
+
+        if (spikesOn)
         {
             TrapActivate();
         }
     }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, sizeOfTheBox);
+
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, thressholdDistance);
     }
+
     public override void TrapActivate()
     {
         Collider[] colliders = Physics.OverlapBox(transform.position, sizeOfTheBox / 2);
 
-        foreach (Collider collider in colliders) 
+        foreach (Collider collider in colliders)
         {
             if (collider.transform.name == player.name)
                 collider.gameObject.GetComponent<IDamageable>().TakeDamage(1);

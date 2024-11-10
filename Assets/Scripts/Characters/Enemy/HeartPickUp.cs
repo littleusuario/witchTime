@@ -8,10 +8,21 @@ public class HeartPickUp : MonoBehaviour
     [SerializeField] private float sphereRad;
     public float timeLapse;
 
+    [SerializeField] private AudioClip pickupSound;
+    private AudioSource audioSource;
+
     private Vector3 origin;
+    private bool isPickedUp = false;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
+        if (isPickedUp) return;
+
         origin = transform.position;
         timeLapse += Time.deltaTime;
         if (timeLapse > 1)
@@ -22,14 +33,21 @@ public class HeartPickUp : MonoBehaviour
                 if (hit.transform.gameObject.CompareTag("Player"))
                 {
                     PlayerHealth addHealth = hit.gameObject.GetComponent<PlayerHealth>();
-                    Debug.Log("Esta colisionando");
-                    addHealth.Heal(healAmount);
+                    audioSource.PlayOneShot(pickupSound);
 
-                    Destroy(this.gameObject);
+                    addHealth.Heal(healAmount);
+                    isPickedUp = true;
+
+                    StartCoroutine(DestroyAfterDelay());
                 }
             }
         }
-       
+    }
+
+    private IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Destroy(this.gameObject);
     }
 
     private void OnDrawGizmos()
