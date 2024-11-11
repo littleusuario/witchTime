@@ -1,75 +1,73 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Pool;
 using UnityEngine.UI;
+using UnityEngine.Pool;
 
 public class BeatUI : MonoBehaviour
 {
-    [SerializeField] private float stepDistance = 0.1f;
-    [SerializeField] private float thresholdDissapear;
-    private float speed;
-
+    [SerializeField] private float thresholdDissapear = 10f;
     private ObjectPool<BeatUI> beatPool;
-    public ObjectPool<BeatUI> BeatPool { get => beatPool; set => beatPool = value; }
-
     private RectTransform rectTransform;
     private RawImage rawImage;
-    public float currentOpacity = 0f;
+    private float currentOpacity;
 
-    private BeatManager beatManager;
+    public ObjectPool<BeatUI> BeatPool
+    {
+        get => beatPool;
+        set => beatPool = value;
+    }
 
-    public float Speed { get => speed; set => speed = value; }
-
-    private void Start()
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         rawImage = GetComponent<RawImage>();
-        Color color = rawImage.color;
-        color.a = currentOpacity;
-        rawImage.color = color;
-
-        GameObject beatManagerObject = GameObject.FindGameObjectWithTag("BeatManager");
-        if (beatManagerObject != null)
-        {
-            beatManager = beatManagerObject.GetComponent<BeatManager>();
-            float secondsPerBeat = 60f / beatManager._bpm;
-            speed = secondsPerBeat;
-        }
     }
 
-    void Update()
+    public void ResetOpacity()
     {
-        if (currentOpacity < 1f)
+        currentOpacity = 0f;
+        if (rawImage != null)
         {
-            currentOpacity = Mathf.Lerp(currentOpacity, 1f, Time.deltaTime * 2f);
-            currentOpacity = Mathf.Clamp(currentOpacity, 0f, 1f);
-
             Color color = rawImage.color;
             color.a = currentOpacity;
             rawImage.color = color;
         }
+    }
 
-        if (rectTransform.anchoredPosition.x > -thresholdDissapear && rectTransform.anchoredPosition.x < thresholdDissapear)
+    private void Update()
+    {
+        if (currentOpacity < 1f)
+        {
+            currentOpacity = Mathf.Lerp(currentOpacity, 1f, 0.05f);
+            currentOpacity = Mathf.Clamp(currentOpacity, 0f, 1f);
+
+            if (rawImage != null)
+            {
+                Color color = rawImage.color;
+                color.a = currentOpacity;
+                rawImage.color = color;
+            }
+        }
+
+        if (Mathf.Abs(rectTransform.anchoredPosition.x) < thresholdDissapear)
         {
             beatPool.Release(this);
         }
     }
 
-    public IEnumerator LerpToPosition()
+    public IEnumerator LerpToPosition(float duration)
     {
-        rectTransform = GetComponent<RectTransform>();
-        float elapsedTime = 0;
+        float startTime = Time.realtimeSinceStartup;
         Vector3 initialPosition = rectTransform.anchoredPosition;
         Vector3 endPosition = new Vector3(0, rectTransform.anchoredPosition.y);
 
-        float duration = speed;
-
-        while (elapsedTime < duration)
+        while (Time.realtimeSinceStartup - startTime < duration)
         {
-            elapsedTime += Time.deltaTime;
-            rectTransform.anchoredPosition = Vector2.Lerp(initialPosition, endPosition, elapsedTime / duration);
+            float elapsed = Time.realtimeSinceStartup - startTime;
+            rectTransform.anchoredPosition = Vector2.Lerp(initialPosition, endPosition, elapsed / duration);
             yield return null;
         }
+
         rectTransform.anchoredPosition = endPosition;
         beatPool.Release(this);
     }

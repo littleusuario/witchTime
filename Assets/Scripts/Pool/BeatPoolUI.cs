@@ -4,76 +4,60 @@ using UnityEngine.UI;
 
 public class BeatPoolUI : MonoBehaviour
 {
-    [SerializeField] float speedOfBeat;
-    [SerializeField] BeatUI beatUIPrefab;
-    [SerializeField] bool checkCollection = false;
-    [SerializeField] int defaultCapacity = 2;
-    [SerializeField] int maxCapacity = 2;
-    [SerializeField] Transform beatParent;
-    [SerializeField] float shootingTime = 1;
-    
-    ObjectPool<BeatUI> beatPool;
-    bool once;
-    float elapsedTime;
+    [SerializeField] private float bpm = 90f;
+    [SerializeField] private BeatUI beatUIPrefab;
+    [SerializeField] private bool checkCollection = false;
+    [SerializeField] private int defaultCapacity = 2;
+    [SerializeField] private int maxCapacity = 2;
+    [SerializeField] private Transform beatParent;
 
-    void Start()
+    private ObjectPool<BeatUI> beatPool;
+    private float shootingTime;
+    private float lastBeatTime;
+
+    private void Start()
     {
-        beatPool = new ObjectPool<BeatUI>(createItem, GetItemFromPool, OnReturnItemFromPool, OnDestroyItemFromPool, checkCollection, defaultCapacity, maxCapacity);
+        shootingTime = 60f / bpm;
+
+        beatPool = new ObjectPool<BeatUI>(CreateItem, GetItemFromPool, OnReturnItemFromPool, OnDestroyItemFromPool, checkCollection, defaultCapacity, maxCapacity);
+
+        lastBeatTime = Time.realtimeSinceStartup;
     }
 
-    public void Update()
+    private void Update()
     {
-        elapsedTime += Time.deltaTime;
+        float currentTime = Time.realtimeSinceStartup;
 
-        if (elapsedTime > shootingTime)
+        if (currentTime - lastBeatTime >= shootingTime)
         {
-            elapsedTime = 0;
+            lastBeatTime = currentTime;
             BeatUI beat = beatPool.Get();
-            beat.transform.position = transform.position;
-            beat.StartCoroutine(beat.LerpToPosition());
+            beat.transform.position = transform.position; 
+            beat.StartCoroutine(beat.LerpToPosition(shootingTime));
         }
     }
 
-    public BeatUI createItem()
+    private BeatUI CreateItem()
     {
         BeatUI beat = Instantiate(beatUIPrefab, beatParent);
         beat.BeatPool = beatPool;
-        beat.Speed = speedOfBeat;
         beat.gameObject.SetActive(false);
-
-        beat.currentOpacity = 0f;
-        RawImage rawImage = beat.GetComponent<RawImage>();
-        if (rawImage != null)
-        {
-            Color color = rawImage.color;
-            color.a = beat.currentOpacity;
-            rawImage.color = color;
-        }
-
+        beat.ResetOpacity();
         return beat;
     }
 
-
-    public void GetItemFromPool(BeatUI beat)
+    private void GetItemFromPool(BeatUI beat)
     {
-        beat.currentOpacity = 0f;
-        RawImage rawImage = beat.GetComponent<RawImage>();
-        if (rawImage != null)
-        {
-            Color color = rawImage.color;
-            color.a = beat.currentOpacity;
-            rawImage.color = color;
-        }
-
+        beat.ResetOpacity();
         beat.gameObject.SetActive(true);
     }
 
-    public void OnReturnItemFromPool(BeatUI beat)
+    private void OnReturnItemFromPool(BeatUI beat)
     {
         beat.gameObject.SetActive(false);
     }
 
-    public void OnDestroyItemFromPool(BeatUI beat)
+    private void OnDestroyItemFromPool(BeatUI beat)
     {
         Destroy(beat.gameObject);
     }
