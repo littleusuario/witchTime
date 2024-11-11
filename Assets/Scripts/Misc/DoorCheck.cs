@@ -19,7 +19,7 @@ public class DoorCheck : MonoBehaviour
     private float minPitch = 0.8f;
     private float maxPitch = 1.3f;
     private float maxDistance;
-    private int tryNumberTimes = 2;
+    private int tryNumberTimes = 3;
     private Animator animator;
     private bool noEnemies = false;
     private BeatManager beatManager;
