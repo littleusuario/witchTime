@@ -1,28 +1,34 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public bool IsGamePaused;
+    public bool IsExitTransitionActive;
 
     [Header("Player Health")]
     public int playerMaxHealth = 4;
     public int playerCurrentHealth;
 
+    [Header("Level Generation")]
     [SerializeField] private FacadeManager facade;
     public SpawnEnemies spawnEnemies;
     public int iterations = 0;
     public Room_Normal ActualRoom;
     public bool BeatUIHelpActive = true;
     public bool SoundHelpActive = false;
+    public int DifficultyLevel = 1;
+
+    [Header("Metrics")]
+    public int LevelsCleared = 0;
+
+    public float CurrentLevelTime;
+    public float TotalTime;
 
     [Header("Virtual Camera")]
     public CinemachineVirtualCamera virtualCamera;
@@ -53,6 +59,7 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += GetLevelReferences;
     }
 
+
     private void GetLevelReferences(Scene scene, LoadSceneMode loadSceneMode)
     {
         GameObject FacadeObject = GameObject.FindGameObjectWithTag("Facade");
@@ -81,7 +88,6 @@ public class GameManager : MonoBehaviour
         SetupCinemachine();
 
     }
-
     private void SetupCinemachine()
     {
         GameObject cinemachineObject = GameObject.FindGameObjectWithTag("Cinemachine");
@@ -102,16 +108,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SetupCamera() 
-    {
-        mainCamera = Camera.main;
-
-        if (mainCamera != null) 
-        {
-            cameraVolume = mainCamera.GetComponent<Volume>();
-        }
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F5))
@@ -123,25 +119,27 @@ public class GameManager : MonoBehaviour
             PauseGame();
     }
 
+
     public void RestartGame()
     {
         playerCurrentHealth = playerMaxHealth;
         iterations = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     private void PauseGame()
     {
         playerCurrentHealth = playerMaxHealth;
         iterations = 0;
+        DifficultyLevel = 1;
         SceneManager.LoadScene("MainMenu");
     }
-
-    public int GetPlayerCurrentHealth()
+    public void LoadNextLevel()
     {
-        return playerCurrentHealth;
+        iterations++;
+        LevelsCleared++;
+        IsExitTransitionActive = false;
+        SceneManager.LoadScene("LevelTransition");
     }
-
     public void SetCurrentRoom(RoomObject roomObject)
     {
         if (Instance.ActualRoom != null)
@@ -153,28 +151,28 @@ public class GameManager : MonoBehaviour
         Instance.ActualRoom.IsCurrentRoom(true);
     }
 
+
+
+
+    public int GetPlayerCurrentHealth()
+    {
+        return playerCurrentHealth;
+    }
     public int GetPlayerMaxHealth()
     {
         return playerMaxHealth;
     }
-
+    public void ResetPlayerHealth()
+    {
+        iterations = 0;
+        playerCurrentHealth = playerMaxHealth;
+    }
     public void TakePlayerDamage(int damage)
     {
         playerCurrentHealth -= damage;
         playerCurrentHealth = Mathf.Max(playerCurrentHealth, 0);
     }
 
-    public void ResetPlayerHealth()
-    {
-        iterations = 0;
-        playerCurrentHealth = playerMaxHealth;
-    }
-
-    public void LoadNextLevel()
-    {
-        iterations++;
-        SceneManager.LoadScene("LevelTransition");
-    }
 
     public void PauseGameForSeconds(float seconds)
     {
@@ -183,8 +181,6 @@ public class GameManager : MonoBehaviour
             StartCoroutine(PauseCoroutine(seconds));
         }
     }
-
-
     public void TriggerCameraShake(float amplitude, float frequency, float duration)
     {
         if (perlin != null)
@@ -196,7 +192,6 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(DeathCoroutine(0.5f));
     }
-
     IEnumerator DeathCoroutine(float seconds) 
     {
         SceneManager.LoadScene("GameOverScreen");
@@ -213,7 +208,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         IsGamePaused = false;
     }
-
     private IEnumerator CameraShakeCoroutine(float targetAmplitude, float targetFrequency, float duration)
     {
         int steps = 30;
@@ -230,5 +224,4 @@ public class GameManager : MonoBehaviour
         perlin.m_AmplitudeGain = Mathf.Max(0f, perlin.m_AmplitudeGain - targetAmplitude);
         perlin.m_FrequencyGain = Mathf.Max(0f, perlin.m_FrequencyGain - targetFrequency);
     }
-
 }

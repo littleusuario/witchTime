@@ -47,6 +47,7 @@ public class ExitDoorLevel : MonoBehaviour
     {
         animator.SetBool("Closing", true);
         player.SetActive(false);
+        GameManager.Instance.IsExitTransitionActive = true;
         doTransitionOnce = true;
         elapsedTime += Time.deltaTime;
 

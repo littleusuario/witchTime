@@ -56,6 +56,17 @@ public class TransitionManager : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        SceneManager.LoadScene("SampleScene");
+        if (currentIteration < 3) 
+        {
+            SceneManager.LoadScene("EasyGeneration");
+        } 
+        else if (currentIteration < 6) 
+        {
+            SceneManager.LoadScene("MediumGeneration");
+        }
+        else if (currentIteration < 999)
+        {
+            SceneManager.LoadScene("HardGeneration");
+        }
     }
 }

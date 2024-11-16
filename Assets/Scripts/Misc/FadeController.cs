@@ -8,7 +8,7 @@ public class FadeController : MonoBehaviour
     public float fadeDuration = 2f;
     public bool minimapOn = false;
     public Animator minimapAnimator;
-
+    public Animator timerAnimator;
     private void Start()
     {
         StartCoroutine(FadeOut());
@@ -61,6 +61,11 @@ public class FadeController : MonoBehaviour
         if (minimapAnimator != null)
         {
             minimapAnimator.SetBool("On", false);
+        }
+
+        if (timerAnimator != null)
+        {
+            timerAnimator.SetBool("Off", true);
         }
     }
 }

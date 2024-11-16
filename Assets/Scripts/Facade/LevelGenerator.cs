@@ -188,13 +188,8 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            room = roomFactory.RoomCreator("Normal");
+            room = roomFactory.RoomCreator("Start");
             GameManager.Instance.SetCurrentRoom(room);
-        }
-
-        if (room == null) 
-        {
-            Debug.Log("aaaa");
         }
         room.gameObject.transform.position = desiredPosition;
 

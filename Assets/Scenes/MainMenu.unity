@@ -1736,7 +1736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1652b277d37068941b5dbd76ce4ef31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfLoadLevel: SampleScene
+  nameOfLoadLevel: EasyGeneration
 --- !u!114 &799741972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3356,6 +3356,10 @@ MonoBehaviour:
   ActualRoom: {fileID: 0}
   BeatUIHelpActive: 1
   SoundHelpActive: 0
+  DifficultyLevel: 1
+  LevelsCleared: 0
+  CurrentLevelTime: 0
+  TotalTime: 0
   virtualCamera: {fileID: 0}
   mainCamera: {fileID: 0}
   HighScore: 0
