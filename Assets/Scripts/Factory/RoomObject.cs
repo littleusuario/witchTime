@@ -38,7 +38,7 @@ public abstract class RoomObject : MonoBehaviour
             trap.OriginRoom = this;
         }
     }
-    public virtual void CheckDoors() { }
+    public virtual void CheckConnectedDoors() { }
     public virtual void MoveCameraFollow() { }
 
     public virtual void StartCheckDoors() { }

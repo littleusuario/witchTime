@@ -6,14 +6,14 @@ public class Room_Normal : RoomObject
     [Header("Detection")]
     [SerializeField] private int rayLengthMultiplier = 8;
     [SerializeField] GameObject cameraObjectFollow;
+    [SerializeField] private List<SpriteRenderer> roomSprites = new List<SpriteRenderer>();
+    [SerializeField] private SpriteRenderer minimap;
 
     private bool checkForRooms;
 
+
+    public List<GameObject> PossibleLayouts = new List<GameObject>();
     public RoomScriptable RoomScriptable;
-
-    [SerializeField] private List<SpriteRenderer> roomSprites = new List<SpriteRenderer>();
-
-    [SerializeField] private SpriteRenderer minimap;
 
     void Awake()
     {
@@ -67,8 +67,44 @@ public class Room_Normal : RoomObject
         if (!checkForRooms)
         {
             checkForRooms = true;
-            CheckDoors();
+            CheckConnectedDoors();
+
+            if (PossibleLayouts.Count < 1) return;
+
+            if ((doors[0].activeSelf && doors[2].activeSelf) && (!doors[1].activeSelf && !doors[3].activeSelf))
+            {
+                PossibleLayouts[0].SetActive(true);
+                return;
+            }
+            if ((doors[0].activeSelf && doors[3].activeSelf) && (!doors[1].activeSelf && !doors[2].activeSelf))
+            {
+                PossibleLayouts[1].SetActive(true);
+                return;
+
+            }
+            if ((doors[1].activeSelf && doors[2].activeSelf) && (!doors[0].activeSelf && !doors[3].activeSelf))
+            {
+                PossibleLayouts[3].SetActive(true);
+                return;
+            }
+            if ((doors[1].activeSelf && doors[3].activeSelf) && (!doors[0].activeSelf && !doors[2].activeSelf))
+            {
+                PossibleLayouts[2].SetActive(true);
+                return;
+            }
+
+
+            PossibleLayouts[4].SetActive(true);
         }
+
+        //for (int i = 0; i < doors.Count; i++)
+        //{
+        //    if (!doors[i].activeSelf) 
+        //    {
+        //        doors.RemoveAt(i);
+        //    }
+        //}
+
     }
 
     GameObject FindDoorOnObject(GameObject parent)
@@ -110,7 +146,7 @@ public class Room_Normal : RoomObject
         cameraPosition = transform.localPosition;
     }
 
-    public override void CheckDoors()
+    public override void CheckConnectedDoors()
     {
         foreach (GameObject door in doors)
         {

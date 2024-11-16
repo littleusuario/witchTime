@@ -48,7 +48,7 @@ public class LevelGenerator : MonoBehaviour
 
         foreach (RoomObject roomObject in roomList) 
         {
-            roomObject.CheckDoors();
+            roomObject.CheckConnectedDoors();
         }
 
         foreach (RoomObject roomObject in roomList)
@@ -218,7 +218,6 @@ public class LevelGenerator : MonoBehaviour
     private void CheckRoomDepth(RoomObject room, int depth)
     {
         if (room == null || room.RoomChecked) return;
-
             depth++;
         if (depth > room.depth)
         {
