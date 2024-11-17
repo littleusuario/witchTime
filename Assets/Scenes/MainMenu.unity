@@ -3348,6 +3348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsGamePaused: 0
+  IsExitTransitionActive: 0
   playerMaxHealth: 3
   playerCurrentHealth: 0
   facade: {fileID: 0}
@@ -3357,6 +3358,7 @@ MonoBehaviour:
   BeatUIHelpActive: 1
   SoundHelpActive: 0
   DifficultyLevel: 1
+  GenerationCompleted: 0
   LevelsCleared: 0
   CurrentLevelTime: 0
   TotalTime: 0

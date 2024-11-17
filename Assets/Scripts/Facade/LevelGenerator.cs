@@ -73,9 +73,17 @@ public class LevelGenerator : MonoBehaviour
  
     private void Update()
     {
-        foreach (RoomObject roomObject in roomList)
+        if (tryNumberTimes > 0) 
         {
-            roomObject.EraseUncheckDoors();
+            foreach (RoomObject roomObject in roomList)
+            {
+                roomObject.EraseUncheckDoors();
+            }
+            tryNumberTimes--;
+        }
+        else 
+        {
+            GameManager.Instance.GenerationCompleted = true;
         }
     }
 

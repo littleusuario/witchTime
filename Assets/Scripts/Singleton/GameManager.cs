@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public bool BeatUIHelpActive = true;
     public bool SoundHelpActive = false;
     public int DifficultyLevel = 1;
+    public bool GenerationCompleted = false;
 
     [Header("Metrics")]
     public int LevelsCleared = 0;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
 
     private void GetLevelReferences(Scene scene, LoadSceneMode loadSceneMode)
     {
+        GenerationCompleted = false;
         GameObject FacadeObject = GameObject.FindGameObjectWithTag("Facade");
 
         if (FacadeObject != null)

@@ -88,7 +88,6 @@ public class DoorCheck : MonoBehaviour
                     }
                 }
             }
-
             tryNumberTimes--;
         }
     }

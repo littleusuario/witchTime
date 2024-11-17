@@ -10,11 +10,14 @@ public class Room_Normal : RoomObject
     [SerializeField] private SpriteRenderer minimap;
 
     private bool checkForRooms;
+    private bool once;
 
+    public bool[] bools = new bool[4];
 
     public List<GameObject> PossibleLayouts = new List<GameObject>();
     public RoomScriptable RoomScriptable;
 
+    private int cooldownTry = 3;
     void Awake()
     {
         foreach (GameObject wall in walls)
@@ -64,48 +67,52 @@ public class Room_Normal : RoomObject
 
     public void Update()
     {
-        if (!checkForRooms)
+        if (GameManager.Instance.GenerationCompleted && !once) 
         {
-            checkForRooms = true;
-            CheckConnectedDoors();
+            cooldownTry--;
 
+            if (cooldownTry != 0) return;
+            once = true;
             if (PossibleLayouts.Count < 1) return;
 
+            bool ableToSpawn = false;
             if ((doors[0].activeSelf && doors[2].activeSelf) && (!doors[1].activeSelf && !doors[3].activeSelf))
             {
                 PossibleLayouts[0].SetActive(true);
+                ableToSpawn = true;
                 return;
             }
             if ((doors[0].activeSelf && doors[3].activeSelf) && (!doors[1].activeSelf && !doors[2].activeSelf))
             {
                 PossibleLayouts[1].SetActive(true);
+                ableToSpawn = true;
                 return;
-
             }
             if ((doors[1].activeSelf && doors[2].activeSelf) && (!doors[0].activeSelf && !doors[3].activeSelf))
             {
                 PossibleLayouts[3].SetActive(true);
+                ableToSpawn = true;
                 return;
+
             }
             if ((doors[1].activeSelf && doors[3].activeSelf) && (!doors[0].activeSelf && !doors[2].activeSelf))
             {
                 PossibleLayouts[2].SetActive(true);
+                ableToSpawn = true;
                 return;
             }
-
-
-            PossibleLayouts[4].SetActive(true);
+            if (!ableToSpawn)
+                PossibleLayouts[4].SetActive(true);
         }
 
-        //for (int i = 0; i < doors.Count; i++)
-        //{
-        //    if (!doors[i].activeSelf) 
-        //    {
-        //        doors.RemoveAt(i);
-        //    }
-        //}
-
+        if (!checkForRooms)
+        {
+            checkForRooms = true;
+            CheckConnectedDoors();
+        }
     }
+
+    
 
     GameObject FindDoorOnObject(GameObject parent)
     {
