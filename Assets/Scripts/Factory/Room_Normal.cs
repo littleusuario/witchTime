@@ -10,7 +10,7 @@ public class Room_Normal : RoomObject
     [SerializeField] private SpriteRenderer minimap;
 
     private bool checkForRooms;
-    private bool once;
+    private bool checkEnemiesAndLayouts;
 
     public bool[] bools = new bool[4];
 
@@ -67,30 +67,33 @@ public class Room_Normal : RoomObject
 
     public void Update()
     {
-        if (GameManager.Instance.GenerationCompleted && !once) 
+        if (GameManager.Instance.GenerationCompleted && !checkEnemiesAndLayouts)
         {
             cooldownTry--;
 
             if (cooldownTry != 0) return;
-            once = true;
+            checkEnemiesAndLayouts = true;
             if (PossibleLayouts.Count < 1) return;
 
             bool ableToSpawn = false;
             if ((doors[0].activeSelf && doors[2].activeSelf) && (!doors[1].activeSelf && !doors[3].activeSelf))
             {
                 PossibleLayouts[0].SetActive(true);
+                CheckEnemiesLayout();
                 ableToSpawn = true;
                 return;
             }
             if ((doors[0].activeSelf && doors[3].activeSelf) && (!doors[1].activeSelf && !doors[2].activeSelf))
             {
                 PossibleLayouts[1].SetActive(true);
+                CheckEnemiesLayout();
                 ableToSpawn = true;
                 return;
             }
             if ((doors[1].activeSelf && doors[2].activeSelf) && (!doors[0].activeSelf && !doors[3].activeSelf))
             {
                 PossibleLayouts[3].SetActive(true);
+                CheckEnemiesLayout();
                 ableToSpawn = true;
                 return;
 
@@ -98,11 +101,15 @@ public class Room_Normal : RoomObject
             if ((doors[1].activeSelf && doors[3].activeSelf) && (!doors[0].activeSelf && !doors[2].activeSelf))
             {
                 PossibleLayouts[2].SetActive(true);
+                CheckEnemiesLayout();
                 ableToSpawn = true;
                 return;
             }
-            if (!ableToSpawn)
+            if (!ableToSpawn) 
+            {
                 PossibleLayouts[4].SetActive(true);
+                CheckEnemiesLayout();
+            }
         }
 
         if (!checkForRooms)
@@ -112,7 +119,24 @@ public class Room_Normal : RoomObject
         }
     }
 
-    
+    private void CheckEnemiesLayout()
+    {
+        bool noChange = true;
+
+        while (noChange) 
+        {
+            noChange = false;
+            for (int i = 0; i < EnemiestoSpawn.Count; i++)
+            {
+                if (!EnemiestoSpawn[i].gameObject.transform.parent.gameObject.activeSelf)
+                {
+                    EnemiestoSpawn.RemoveAt(i);
+                    noChange = true;
+                }
+            }
+        }
+    }
+
 
     GameObject FindDoorOnObject(GameObject parent)
     {
