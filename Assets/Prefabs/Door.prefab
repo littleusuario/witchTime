@@ -131,7 +131,7 @@ MonoBehaviour:
   distance: 0
   doorPassTroughSound: {fileID: 8300000, guid: 44d22e70045c14443822eecd62a84de5, type: 3}
   doorOpenSound: {fileID: 8300000, guid: 31a1baad0dd6c474494553c05a8479e6, type: 3}
-  newPositionMultiplier: 0.5
+  newPositionMultiplier: 0.55
 --- !u!82 &1390894614979525321
 AudioSource:
   m_ObjectHideFlags: 0
