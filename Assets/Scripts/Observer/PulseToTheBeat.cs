@@ -23,6 +23,7 @@ public class PulseToTheBeat : MonoBehaviour
     public bool _isPulsing;
     public event Action beatPulse;
     public bool PulseInput => pulseInput;
+    public float PulseSize { get => _pulseSize; set => _pulseSize = value; }
     private BeatManager BeatManager;
 
     private void Start()
