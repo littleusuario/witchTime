@@ -710,7 +710,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6fafa06f264baea41acb3c0662a1565a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 169d81899d513454db28f55ed513c86c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1770,7 +1770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075049259fc70b241a49ab643e0fc85c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 90
+  bpm: 96
   beatUIPrefab: {fileID: 869840265968439044, guid: b4b2c8d609abfb74a9373104dc9cb833, type: 3}
   checkCollection: 0
   defaultCapacity: 1
@@ -3770,7 +3770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075049259fc70b241a49ab643e0fc85c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 90
+  bpm: 96
   beatUIPrefab: {fileID: 869840265968439044, guid: b4b2c8d609abfb74a9373104dc9cb833, type: 3}
   checkCollection: 1
   defaultCapacity: 1
@@ -4161,7 +4161,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 764f64f2b26d8f44f8739f26b72174fd, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 056818296f57e954b98dcf87f90c13f6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.75
   m_Pitch: 1
@@ -4266,7 +4266,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   _beatDetected: 0
-  _bpm: 90
+  _bpm: 96
 --- !u!4 &1422560911
 Transform:
   m_ObjectHideFlags: 0
@@ -4440,6 +4440,7 @@ MonoBehaviour:
   BeatUIHelpActive: 1
   SoundHelpActive: 0
   DifficultyLevel: 1
+  GenerationCompleted: 0
   LevelsCleared: 0
   CurrentLevelTime: 0
   TotalTime: 0
