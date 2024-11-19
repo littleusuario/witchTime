@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class SlashAttack : MonoBehaviour
 {
-    [SerializeField] Vector3 hitboxHalfSize;
-    [SerializeField] Vector3 offset;
-    [SerializeField] Vector3 rotation;
+    [SerializeField] float sphereSize = 1.75f;
     [SerializeField] int weaponDamage = 1;
     GameObject player;
 
@@ -14,15 +12,14 @@ public class SlashAttack : MonoBehaviour
     }
     void Update()
     {
-        rotation = transform.rotation.eulerAngles;
-        RaycastHit[] hits;
-        hits = Physics.BoxCastAll(transform.position + offset, hitboxHalfSize, Vector3.forward, transform.rotation);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, sphereSize);
 
-        foreach (RaycastHit hit in hits)
+        if (hitColliders == null) return;
+        foreach (Collider collider in hitColliders)
         {
-            IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
+            IDamageable damageable = collider.gameObject.GetComponent<IDamageable>();
 
-            if (damageable != null && hit.collider.gameObject != player)
+            if (damageable != null && collider.gameObject != player)
             {
                 damageable.TakeDamage(weaponDamage);
             }
@@ -30,6 +27,7 @@ public class SlashAttack : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawCube(transform.position + offset, hitboxHalfSize * 2);
+        Gizmos.DrawSphere(transform.position, sphereSize);
     }
 }
+
