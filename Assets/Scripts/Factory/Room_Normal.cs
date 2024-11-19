@@ -39,6 +39,15 @@ public class Room_Normal : RoomObject
             }
         }
 
+        foreach (GameObject layout in PossibleLayouts) 
+        {
+            foreach(Transform child in layout.gameObject.transform)
+            {
+                if (child.gameObject.TryGetComponent(out SpriteRenderer spriteRenderer))
+                    roomSprites.Add(spriteRenderer);
+            }
+        }
+
         rayLengthMultiplier = RoomScriptable.RayLengthMultiplier;
         ground.sprite = RoomScriptable.S_ground;
 
