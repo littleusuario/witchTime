@@ -2890,10 +2890,13 @@ MonoBehaviour:
   Traps: []
   rayLengthMultiplier: 10
   cameraObjectFollow: {fileID: 0}
-  RoomScriptable: {fileID: 11400000, guid: b8601a93eadf2494fac3fa5c30a0c369, type: 2}
   roomSprites:
   - {fileID: 7197008007786759049}
   minimap: {fileID: 3572778604416460628}
+  DecorationPrefab: {fileID: 3577796000424938724, guid: d3650790ba62c484c930cb02e6f98f75, type: 3}
+  bools: 00000000
+  PossibleLayouts: []
+  RoomScriptable: {fileID: 11400000, guid: b8601a93eadf2494fac3fa5c30a0c369, type: 2}
 --- !u!1 &5000866868321088178
 GameObject:
   m_ObjectHideFlags: 0
