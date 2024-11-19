@@ -12638,6 +12638,8 @@ MonoBehaviour:
   - {fileID: 2630380290701051737}
   - {fileID: 4432050035629458595}
   minimap: {fileID: 5019567447988181212}
+  DecorationPrefab: {fileID: 3577796000424938724, guid: d3650790ba62c484c930cb02e6f98f75, type: 3}
+  bools: 00000000
   PossibleLayouts:
   - {fileID: 1164152959744223774}
   - {fileID: 2601506884789477597}

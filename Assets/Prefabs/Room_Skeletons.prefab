@@ -2901,6 +2901,7 @@ MonoBehaviour:
   roomSprites:
   - {fileID: 7197008007786759049}
   minimap: {fileID: 3572778604416460628}
+  DecorationPrefab: {fileID: 3577796000424938724, guid: d3650790ba62c484c930cb02e6f98f75, type: 3}
   bools: 00000000
   PossibleLayouts:
   - {fileID: 7414461068149247098}

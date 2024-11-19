@@ -74,10 +74,6 @@ public class State_Walking : IState
         inputVertical = Input.GetKey(KeyCode.W) ? 1 : Input.GetKey(KeyCode.S) ? -1 : 0;
         moving = inputHorizontal != 0 || inputVertical != 0;
 
-        if (Input.GetKey(KeyCode.Space) || stateManager.state_Jumping.Jumping)
-        {
-            stateManager.ChangeState(stateManager.state_Jumping);
-        }
         if (Input.GetMouseButtonDown(0))
         {
             stateManager.ChangeState(stateManager.state_Attacking);

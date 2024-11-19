@@ -2887,6 +2887,8 @@ MonoBehaviour:
   roomSprites:
   - {fileID: 4622012242756331218}
   minimap: {fileID: 4781194560533076680}
+  DecorationPrefab: {fileID: 3577796000424938724, guid: d3650790ba62c484c930cb02e6f98f75, type: 3}
+  bools: 00000000
   PossibleLayouts: []
   RoomScriptable: {fileID: 11400000, guid: b8601a93eadf2494fac3fa5c30a0c369, type: 2}
 --- !u!1 &5000866868321088178

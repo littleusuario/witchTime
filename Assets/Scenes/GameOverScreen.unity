@@ -446,6 +446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tickGameObject: {fileID: 318138155}
+  on: {fileID: 0}
+  off: {fileID: 0}
 --- !u!1 &72967411
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,6 +667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfLoadLevel: MainMenu
+  StartGame: {fileID: 0}
 --- !u!114 &132355538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1333,6 +1336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tickGameObject: {fileID: 1796267295}
+  on: {fileID: 0}
+  off: {fileID: 0}
 --- !u!1 &559022907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,6 +1647,7 @@ GameObject:
   - component: {fileID: 638258728}
   - component: {fileID: 638258727}
   - component: {fileID: 638258726}
+  - component: {fileID: 638258731}
   m_Layer: 1
   m_Name: PlayButton
   m_TagString: Untagged
@@ -1695,6 +1701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfLoadLevel: EasyGeneration
+  StartGame: {fileID: 638258731}
 --- !u!114 &638258728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,6 +1784,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638258724}
   m_CullTransparentMesh: 1
+--- !u!82 &638258731
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638258724}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 040c3887adc5177409863ed0835a01d8, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &673360971
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,6 +2473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfLoadLevel: SampleScene
+  StartGame: {fileID: 0}
 --- !u!114 &799741972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9558,6 +9662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsGamePaused: 0
+  IsExitTransitionActive: 0
   playerMaxHealth: 3
   playerCurrentHealth: 0
   facade: {fileID: 0}
@@ -9567,6 +9672,7 @@ MonoBehaviour:
   BeatUIHelpActive: 1
   SoundHelpActive: 0
   DifficultyLevel: 1
+  GenerationCompleted: 0
   LevelsCleared: 0
   CurrentLevelTime: 0
   TotalTime: 0
@@ -9996,6 +10102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfLoadLevel: MainMenu
+  StartGame: {fileID: 0}
 --- !u!1 &1853188568
 GameObject:
   m_ObjectHideFlags: 0

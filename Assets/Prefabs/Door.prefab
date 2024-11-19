@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ae12855ac249efc4c9ffb8fcf6cd840d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b43b754fe3e75bf439a7232755083e59, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   distance: 0
   doorPassTroughSound: {fileID: 8300000, guid: 44d22e70045c14443822eecd62a84de5, type: 3}
   doorOpenSound: {fileID: 8300000, guid: 31a1baad0dd6c474494553c05a8479e6, type: 3}
-  newPositionMultiplier: 0.5
+  newPositionMultiplier: 0.55
 --- !u!82 &1390894614979525321
 AudioSource:
   m_ObjectHideFlags: 0

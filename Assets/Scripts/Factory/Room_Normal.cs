@@ -8,7 +8,9 @@ public class Room_Normal : RoomObject
     [SerializeField] GameObject cameraObjectFollow;
     [SerializeField] private List<SpriteRenderer> roomSprites = new List<SpriteRenderer>();
     [SerializeField] private SpriteRenderer minimap;
+    [SerializeField] GameObject DecorationPrefab;
 
+    private GameObject decorationObject;
     private bool checkForRooms;
     private bool checkEnemiesAndLayouts;
 
@@ -170,6 +172,12 @@ public class Room_Normal : RoomObject
             DoorCheck doorCheck = door.GetComponent<DoorCheck>();
             if (doorCheck.ConnectedDoor == null && doorCheck.TryNumberTimes <= 0)
             {
+                if (decorationObject == null && door.transform.parent.name != "DownWall") 
+                {
+                    decorationObject = Instantiate(DecorationPrefab, door.transform.position, door.transform.rotation, door.transform.parent);
+                    roomSprites.Add(decorationObject.GetComponent<SpriteRenderer>());
+                    ChangeFloorColor();
+                }
                 door.SetActive(false);
             }
         }

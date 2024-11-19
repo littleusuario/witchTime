@@ -97,11 +97,11 @@ public class DoorCheck : MonoBehaviour
         distance = Vector3.Distance(transform.position, Player.transform.position);
         if  (distance <= threshold && noEnemies)
         {
+            Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * newPositionMultiplier;
+            newPosition.y = 0f;
             elapsedTime = 0f;
             GameManager.Instance.SetCurrentRoom(connectedRoom);
             connectedRoom.MoveCameraFollow();
-            Vector3 newPosition = connectedDoor.transform.position + -connectedDoor.direction.normalized * newPositionMultiplier;
-            newPosition.y = 0f;
             Player.transform.position = newPosition;
             if (audioSource != null && doorPassTroughSound != null)
             {

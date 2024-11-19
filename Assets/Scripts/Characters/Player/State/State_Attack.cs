@@ -124,14 +124,7 @@ public class State_Attack : IState
     {
         if (!Input.GetMouseButton(0) && !randomMovement.PulseOfTheBeat.PulseInput)
         {
-            if (!stateManager.state_Jumping.Jumping)
-            {
-                stateManager.ChangeState(stateManager.state_Walking);
-            }
-            else
-            {
-                stateManager.ChangeState(stateManager.state_Jumping);
-            }
+            stateManager.ChangeState(stateManager.state_Walking);
         }
     }
 
