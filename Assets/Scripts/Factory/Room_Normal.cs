@@ -13,6 +13,7 @@ public class Room_Normal : RoomObject
     private GameObject decorationObject;
     private bool checkForRooms;
     private bool checkEnemiesAndLayouts;
+    private bool decoration;
 
     public bool[] bools = new bool[4];
 
@@ -181,11 +182,17 @@ public class Room_Normal : RoomObject
             DoorCheck doorCheck = door.GetComponent<DoorCheck>();
             if (doorCheck.ConnectedDoor == null && doorCheck.TryNumberTimes <= 0)
             {
-                if (decorationObject == null && door.transform.parent.name != "DownWall") 
+                if (decorationObject == null && door.transform.parent.name != "DownWall")
                 {
-                    decorationObject = Instantiate(DecorationPrefab, door.transform.position, door.transform.rotation, door.transform.parent);
-                    roomSprites.Add(decorationObject.GetComponent<SpriteRenderer>());
-                    ChangeFloorColor();
+                    if (Random.value <= 0.25f && !decoration)
+                    {
+                        decorationObject = Instantiate(DecorationPrefab, door.transform.position, door.transform.rotation, door.transform.parent);
+                        decorationObject.transform.position += new Vector3(0, Random.Range(0.25f, 0.35f), 0);
+                        roomSprites.Add(decorationObject.GetComponent<SpriteRenderer>());
+                        ChangeFloorColor();
+                    }
+
+                    decoration = true;
                 }
                 door.SetActive(false);
             }
@@ -193,6 +200,7 @@ public class Room_Normal : RoomObject
 
         cameraPosition = transform.localPosition;
     }
+
 
     public override void CheckConnectedDoors()
     {
