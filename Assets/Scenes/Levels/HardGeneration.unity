@@ -608,7 +608,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 169d81899d513454db28f55ed513c86c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: bac708a0202581e4e952e48229db356e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2654,7 +2654,6 @@ MonoBehaviour:
   roomFactory: {fileID: 1031520119}
   possibleRooms:
   - {fileID: 6388770457163974164, guid: 233ac68fca5d3d44e8f5c3d854f0f0e4, type: 3}
-  - {fileID: 6388770457163974164, guid: 4b0811a34c09c354989ed5475e09e74c, type: 3}
   - {fileID: 6388770457163974164, guid: 1bb99866f002dee4da60b0af92fddfcc, type: 3}
   - {fileID: 6388770457163974164, guid: 576284148c9c50840b24c621cd7fbc47, type: 3}
   - {fileID: 6388770457163974164, guid: b73d978c8e36bd74a8c997a5bfc89470, type: 3}
@@ -2698,7 +2697,6 @@ MonoBehaviour:
   roomList:
   - {fileID: 6388770457163974164, guid: 3d58b58a78f8a4f4595126cf94e2aba4, type: 3}
   - {fileID: 6388770457163974164, guid: 233ac68fca5d3d44e8f5c3d854f0f0e4, type: 3}
-  - {fileID: 6388770457163974164, guid: 4b0811a34c09c354989ed5475e09e74c, type: 3}
   - {fileID: 6388770457163974164, guid: 1bb99866f002dee4da60b0af92fddfcc, type: 3}
   - {fileID: 6388770457163974164, guid: 576284148c9c50840b24c621cd7fbc47, type: 3}
   - {fileID: 6388770457163974164, guid: b73d978c8e36bd74a8c997a5bfc89470, type: 3}
@@ -3993,9 +3991,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 914fd41573131384b972166e89c56b44, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 79ad3497835cac94990d070951ab28c8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.35
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
